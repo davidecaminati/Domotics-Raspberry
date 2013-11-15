@@ -22,3 +22,5 @@ I use:
 3 RGB led  (3w power)
 3 Bulb RGB led 9 W with remote (hacked)
 
+
+For each Raspberry Probe need to be publish here electric schema and software (using Fritzing for electric connection)

@@ -24,3 +24,8 @@ I use:
 
 
 For each Raspberry Probe need to be publish here electric schema and software (using Fritzing for electric connection)
+
+
+HOW TO START
+first downloadthe sdcard image named 2013-05-25-wheezy-raspbian-2013-07-07-fbtft.img 
+from http://tronnes.org/fbtft/download.html (this image support Framebuffer module for TFT display)

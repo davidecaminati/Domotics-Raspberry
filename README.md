@@ -1,4 +1,4 @@
-Domotica
+Domotics
 ========
 The goal is to create an AI (Artificial Intelligence) with personality with which to interact in Natural Interface (such as speek, gesture...) to improve the confort of my home without spend much money.
 

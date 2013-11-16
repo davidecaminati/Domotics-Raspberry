@@ -1,4 +1,4 @@
-Domotica
+Domotics
 ========
 
 The goal is to create an AI (Artificial Intelligence) with a personality to 

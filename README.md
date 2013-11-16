@@ -33,5 +33,6 @@ Download the sdcard image named 2013-05-25-wheezy-raspbian-2013-07-07-fbtft.img
 from http://tronnes.org/fbtft/download.html (this image support Framebuffer module for TFT display) and 
 flash the SD Card, (find guide on http://elinux.org/RPi_Easy_SD_Card_Setup i suggest to use Win32DiskImager)
 
-For first step of configuration look on Software/README.txt
+For the first step of configuration look
+[here](Software/README.txt)
 

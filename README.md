@@ -4,8 +4,7 @@ This system is composed by 5 Raspberry Pi (rev 2) and some other...
 each with a different probe or functionality (ex. thermal probe, display TFT...)
 
 
-The goal is to create a personality with which to interact in Natural Interface (such as language, gesture) to improve the 
-confort of my home without spend much money.
+The goal is to create an AI (Artificial Intelligence) with personality with which to interact in Natural Interface (such as language, gesture) to improve the confort of my home without spend much money.
 
 I use:
 5 (or more) Raspberry PI
@@ -27,5 +26,8 @@ For each Raspberry Probe need to be publish here electric schema and software (u
 
 
 HOW TO START
-first downloadthe sdcard image named 2013-05-25-wheezy-raspbian-2013-07-07-fbtft.img 
+
+First download the sdcard image named 2013-05-25-wheezy-raspbian-2013-07-07-fbtft.img 
 from http://tronnes.org/fbtft/download.html (this image support Framebuffer module for TFT display)
+
+Second Flashing the SD Card , find guide on http://elinux.org/RPi_Easy_SD_Card_Setup.

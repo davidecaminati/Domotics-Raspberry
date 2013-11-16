@@ -7,6 +7,7 @@ each with a different probe or functionality (ex. thermal probe, display TFT...)
 
 
 Full system is composed by:
+
 5 (or more) Raspberry PI
 
 1 TFT display 2,8" touch

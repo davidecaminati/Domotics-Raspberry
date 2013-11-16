@@ -1,0 +1,6 @@
+IP			funzione
+205 		server web + redis + sonda temperatura digitale
+208			monitor touch screen
+86			Computer Windows con SVN server
+202			RELE + RPI riformattato  + tutti gli aggiornamenti 
+211(ex10)	RPI riformattato diventerà (Sonda temperatura analogica)

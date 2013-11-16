@@ -48,12 +48,35 @@ Now, if you run the lsmod command, you should see something like:
 	spi_bcm2708             4421  0
 	
 #SPIDEV#
-for other detail http://scruss.com/blog/2013/01/19/the-quite-rubbish-clock/#spi
-
 	sudo apt-get install python-pip  
 	sudo pip install spidev
 	sudo pip install python-dev
-	sudo pip install wiringpi
-	cd py-spidev/
+	sudo apt-get install python-imaging python-imaging-tk python-pip python-dev git
+	mkdir python-spi
+	cd python-spi
+	wget https://raw.github.com/doceme/py-spidev/master/setup.py
+	wget https://raw.github.com/doceme/py-spidev/master/spidev_module.c
 	sudo python setup.py install
+	cd ..
+	sudo pip install wiringpi
 	
+#MODULE I2C#
+	sudo apt-get install python-smbus
+	sudo apt-get install i2c-tools (usefull but not essential)
+	sudo modprobe i2c-dev
+	sudo modprobe i2c-bcm2708
+
+	sudo nano /etc/modules
+	add i2c-dev
+	# /etc/modules: kernel modules to load at boot time.
+	#
+	# This file contains the names of kernel modules that should be loaded
+	# at boot time, one per line. Lines beginning with "#" are ignored.
+	# Parameters can be specified after the module name.
+
+	snd-bcm2835
+	i2c-dev
+	
+now reboot
+	sudo reboot
+

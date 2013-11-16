@@ -76,7 +76,13 @@ Now, if you run the lsmod command, you should see something like:
 
 	snd-bcm2835
 	i2c-dev
+
+#enable 1wire#
+	sudo modprobe w1-gpio
+	sudo modprobe w1-therm
 	
-now reboot
+#now is time to reboot#
 	sudo reboot
+	
+#if you want to test now the capability of your  powerful Raspberry go to 
 

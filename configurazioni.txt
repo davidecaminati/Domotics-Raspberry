@@ -1,0 +1,6 @@
+#sonda analogica camerina#
+avvio ogni minuto dello script per invio dati della "camera" al server redis
+da root 
+	crontab -e
+aggiungere in fondo al file
+	* * * * * python /home/pi/domotica/termostato_analogico_3008_con_sonda_LM35/mcp3008_lm35.py

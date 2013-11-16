@@ -1,6 +1,6 @@
 Domotica
 ========
-The goal is to create an AI (Artificial Intelligence) with personality with which to interact in Natural Interface (such as language, gesture) to improve the confort of my home without spend much money.
+The goal is to create an AI (Artificial Intelligence) with personality with which to interact in Natural Interface (such as speek, gesture...) to improve the confort of my home without spend much money.
 
 This system is composed by 5 Raspberry Pi (rev 2) and some other...
 each with a different probe or functionality (ex. thermal probe, display TFT...)
@@ -35,9 +35,6 @@ Full system is composed by:
 
 
 HOW TO START
-First: download the sdcard image named 2013-05-25-wheezy-raspbian-2013-07-07-fbtft.img 
+Download the sdcard image named 2013-05-25-wheezy-raspbian-2013-07-07-fbtft.img 
 from http://tronnes.org/fbtft/download.html (this image support Framebuffer module for TFT display) and 
 flash the SD Card, (find guide on http://elinux.org/RPi_Easy_SD_Card_Setup i suggest to use Win32DiskImager)
-
-Note:
-For each Raspberry Probe need to be publish here electric schema and software (using Fritzing for electric connection)

@@ -8,11 +8,16 @@ import spidev
 import time
 import redis
 
+#variable
+server_redis = '192.168.0.205'
+room_name = 'my room'
+debug = False
+
 spi = spidev.SpiDev()
 spi.open(0, 0)
- 
+
 def readadc(adcnum):
-# read SPI data from MCP3008 chip, 8 possible adc's (0 thru 7)
+	# read SPI data from MCP3008 chip, 8 possible adc's (0 thru 7)
     if adcnum > 7 or adcnum < 0:
         return -1
     r = spi.xfer2([1, 8 + adcnum << 4, 0])
@@ -20,26 +25,26 @@ def readadc(adcnum):
     return adcout
  
 i = 0
-temperature = 0.0
+temp = 0.0
 value = 0
 vero = True
 while vero:
-    
     if i % 10 == 0 and i != 0:
         i = 0
-        temperature = temperature / 10.0
-        print "media %5.2f" % temperature
-        pool = redis.ConnectionPool(host='192.168.0.205', port=6379, db=0)
+		# transform to average value
+        temp = temp / 10.0 
+		# send to redis
+        pool = redis.ConnectionPool(host=server_redis, port=6379, db=0)
         r = redis.Redis(connection_pool=pool)
-        r.rpush('camera',str(temperature))
-        #print r.get('camera')
-        temperature = 0
+        r.rpush(room_name,str(temp))
+        temp = 0
         vero = False
-# scrivere qui la procedura di invio dato al redis
+	# read data from probe
     value = readadc(0)
+	
     i +=1
-    volts = (value * 3.3) / 1024
-    temperature += volts / (10.0 / 1000)
-    print ("%4d/1023 => %5.3f V => %4.1f °C" % (value, volts,
-            temperature))
+	if debug:
+		volts = (value * 3.3) / 1024
+		temp += volts / (10.0 / 1000)
+		print ("%4d/1023 => %5.3f V => %4.1f °C" % (value, volts,temp))
     time.sleep(0.2)

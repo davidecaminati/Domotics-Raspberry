@@ -43,7 +43,7 @@ while vero:
     value = readadc(0)
 	
     i +=1
-	if debug:
+    if debug:
         volts = (value * 3.3) / 1024
         temp += volts / (10.0 / 1000)
         print ("%4d/1023 => %5.3f V => %4.1f °C" % (value, volts,temp))

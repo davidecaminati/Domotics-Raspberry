@@ -44,7 +44,7 @@ while vero:
 	
     i +=1
 	if debug:
-		volts = (value * 3.3) / 1024
-		temp += volts / (10.0 / 1000)
-		print ("%4d/1023 => %5.3f V => %4.1f °C" % (value, volts,temp))
+        volts = (value * 3.3) / 1024
+        temp += volts / (10.0 / 1000)
+        print ("%4d/1023 => %5.3f V => %4.1f °C" % (value, volts,temp))
     time.sleep(0.2)

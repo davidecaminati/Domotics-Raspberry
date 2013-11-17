@@ -81,6 +81,35 @@ Now, if you run the lsmod command, you should see something like:
 	sudo modprobe w1-gpio
 	sudo modprobe w1-therm
 	
+#enable TFT display# 
+	#guide http://www.raspberrypi.org/phpBB3/viewtopic.php?f=64&t=48967#
+	#model http://www.raspberrypi.org/phpBB3/viewtopic.php?f=59&t=48956#
+	
+	sudo wget https://raw.github.com/Hexxeh/rpi-update/master/rpi-update -O /usr/bin/rpi-update && sudo chmod +x /usr/bin/rpi-update
+	
+	sudo mv /lib/modules/$(uname -r) /lib/modules/$(uname -r).bak
+	
+	sudo shutdown -r now
+	
+	sudo modprobe fbtft dma
+	sudo modprobe fbtft_device name=hy28a rotate=270 speed=48000000 fps=50
+	#Then to configure the touch panel#
+		sudo modprobe ads7846_device pressure_max=255 y_min=190 y_max=3850 gpio_pendown=17 x_max=3850 x_min=230 x_plate_ohms=100 swap_xy=1 verbose=3
+		
+		sudo nano /etc/modules
+	#and add#
+		fbtft dma
+		fbtft_device name=hy28a rotate=270 speed=48000000 fps=50
+		ads7846_device pressure_max=255 y_min=190 y_max=3850 gpio_pendown=17 x_max=3850 x_min=230 x_plate_ohms=100 swap_xy=1 verbose=3
+
+		sudo reboot
+	#In order to use the touch panel with python, X, and to calibrate it, a few packages need loading :#
+		sudo apt-get update
+		sudo apt-get install libts-bin evtest xinput
+		sudo pip install evdev
+	#To calibrate the touch panel#
+		sudo TSLIB_FBDEVICE=/dev/fb1 TSLIB_TSDEVICE=/dev/input/event0 ts_calibrate
+		
 #now is time to reboot#
 	sudo reboot
 	

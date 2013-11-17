@@ -3,7 +3,7 @@ import glob
 import time 
 
 #variable
-temp_um = "c"   # set "c" for celsius or "f" for fahrenheit
+temp_um = "f"   # set "c" for celsius or "f" for fahrenheit
 
 os.system('modprobe w1-gpio') 
 os.system('modprobe w1-therm') 

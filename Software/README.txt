@@ -143,6 +143,8 @@ Now, if you run the lsmod command, you should see something like:
 	sudo nano /sys/class/backlight/fb_ili9320/bl_power
 	#toggle 1 = (on) or 0 = (off)#
 
+#configure web server#
+	
 
 #if you want to test now the capability of your  powerful Raspberry go to 
 

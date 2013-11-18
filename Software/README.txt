@@ -144,7 +144,10 @@ Now, if you run the lsmod command, you should see something like:
 	#toggle 1 = (on) or 0 = (off)#
 
 #configure web server#
-	
+	sudo apt-get install apache2 php5 libapache2-mod-php5
+	sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
+
+
 
 #if you want to test now the capability of your  powerful Raspberry go to 
 

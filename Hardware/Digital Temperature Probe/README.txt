@@ -1,34 +1,17 @@
-progetto prartito prendendo spunto da :
-http://www.raspibo.org/wiki/index.php?title=Termostato
-
-per installare PhpRedis
-1) Preparation
-1
+#set file as executable#
+	chmod +x 01_read_temp.sh
+	chmod +x 05_memorizza_temp.sh 
+	chmod +x 06_display_letture.sh
 	
-sudo apt-get install php5-dev
 
-php5-dev provides the dev library as well as the phpize command which is required for the compiling step
-2) Get phpredis source code, should be pretty easy by running
-git clone git://github.com/nicolasff/phpredis.git
-
-3) Compile and install
-cd phpredis
-phpize
-./configure
-make
-sudo -s make install
-
-4) Enable the phpredis extension
-sudo -s
-echo "extension=redis.so">/etc/php5/conf.d/redis.ini
-exit
-
-5) Write a simple php script to test (running on cli would be fine if php5-cli is installed)
-<?php
-        // phpredis_set.php
-        $redis=new Redis() or die("Can'f load redis module.");
-        $redis->connect('127.0.0.1');
-        $redis->set('set_testkey', 1);
-
-6) to test
-php -r"var_dump(get_class_methods(Redis));"
+#get address of the probes#
+	 ls -l /sys/bus/w1/devices/
+	 #return a list of device , you need file that start like 28-xxxxxxxxx#
+	 #there are 1 file for each probe in the bus#
+	 copy the name of the file like 28-xxxxxxxxxxx and paste in the variable in 01_read_temp.sh (es 28-0000047b16f9)
+	
+#set variable#
+	nano 01_read_temp.sh
+	sensors[0]='28-0000047b16f9'    <--- set your probe ID
+	sensors[1]='28-0000047b16f9'    <--- set your second probe ID if exist else remark the line with #
+	

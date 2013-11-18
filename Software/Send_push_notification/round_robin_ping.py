@@ -1,3 +1,5 @@
+#to use this push notification, you need to buy Pushover on Android Play or Apple Store
+
 import httplib, urllib
 import subprocess
 
@@ -28,8 +30,3 @@ for ping in list_ip_to_check:
 		"message": "ping to ", address, "fail ",
 		}), { "Content-type": "application/x-www-form-urlencoded" })
 		conn.getresponse()
-
-
-
-
-

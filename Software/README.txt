@@ -67,7 +67,8 @@ Now, if you run the lsmod command, you should see something like:
 	sudo modprobe i2c-bcm2708
 
 	sudo nano /etc/modules
-	add i2c-dev
+	#add this line#
+		i2c-dev
 	# /etc/modules: kernel modules to load at boot time.
 	#
 	# This file contains the names of kernel modules that should be loaded
@@ -88,30 +89,60 @@ Now, if you run the lsmod command, you should see something like:
 	sudo wget https://raw.github.com/Hexxeh/rpi-update/master/rpi-update -O /usr/bin/rpi-update && sudo chmod +x /usr/bin/rpi-update
 	
 	sudo mv /lib/modules/$(uname -r) /lib/modules/$(uname -r).bak
-	
+	sudo REPO_URI=https://github.com/notro/rpi-firmware rpi-update
 	sudo shutdown -r now
 	
 	sudo modprobe fbtft dma
 	sudo modprobe fbtft_device name=hy28a rotate=270 speed=48000000 fps=50
 	#Then to configure the touch panel#
 		sudo modprobe ads7846_device pressure_max=255 y_min=190 y_max=3850 gpio_pendown=17 x_max=3850 x_min=230 x_plate_ohms=100 swap_xy=1 verbose=3
-		
-		sudo nano /etc/modules
-	#and add#
-		fbtft dma
-		fbtft_device name=hy28a rotate=270 speed=48000000 fps=50
-		ads7846_device pressure_max=255 y_min=190 y_max=3850 gpio_pendown=17 x_max=3850 x_min=230 x_plate_ohms=100 swap_xy=1 verbose=3
 
-		sudo reboot
+		sudo nano /etc/modules
+		#and add#
+			fbtft dma
+			fbtft_device name=hy28a rotate=270 speed=48000000 fps=50
+			ads7846_device pressure_max=255 y_min=190 y_max=3850 gpio_pendown=17 x_max=3850 x_min=230 x_plate_ohms=100 swap_xy=1 verbose=3
+		#now reboot#
+			sudo reboot
+		
 	#In order to use the touch panel with python, X, and to calibrate it, a few packages need loading :#
-		sudo apt-get update
+
+		sudo apt-get update	
 		sudo apt-get install libts-bin evtest xinput
 		sudo pip install evdev
+
 	#To calibrate the touch panel#
 		sudo TSLIB_FBDEVICE=/dev/fb1 TSLIB_TSDEVICE=/dev/input/event0 ts_calibrate
 		
-#now is time to reboot#
-	sudo reboot
+#enable midori on TFT#
+	sudo nano /boot/cmdline.txt
+	#at the end of line add this#
+		fbcon=map:10 fbcon=font:VGA8x8
+	#set autostart#
+		sudo nano /etc/xdg/lxsession/LXDE/autostart
+		#write at the end of the file#		
+			@xset s off
+			@xset -dpms
+			@xset s noblank
+			@midori -e Fullscreen -a http://IP-OF-YOUR_SERVER/mobile
+	#Auto startx: modify this file #
+		sudo nano /etc/rc.local
+		#after fi and before exit 0#
+		#add this line#
+			su -l pi -c "env FRAMEBUFFER=/dev/fb1 startx &"
+		#fix error calibration#
+			sudo nano /usr/share/X11/xorg.conf.d/10-evdev.conf
+		#find Input Class of touchscreen and before that EndSection insert a new line:
+			Option "InvertY" "true"
+		#remove the mouse pointer#
+			sudo apt-get install unclutter
+		#reboot#
+			sudo reboot
 	
+#toggle light on the TFT#
+	sudo nano /sys/class/backlight/fb_ili9320/bl_power
+	#toggle 1 = (on) or 0 = (off)#
+
+
 #if you want to test now the capability of your  powerful Raspberry go to 
 

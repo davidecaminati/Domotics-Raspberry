@@ -1,9 +1,9 @@
 import httplib, urllib
 import subprocess
 
-lista_ip_dispositivi = ["211","202","111"]
+list_ip_to_check = ["211","202","111"]
 
-for ping in lista_ip_dispositivi:
+for ping in list_ip_to_check:
     address = "192.168.0." + str(ping)
     res = subprocess.call(['ping', '-c', '1', address])
     if res == 0:
@@ -13,9 +13,9 @@ for ping in lista_ip_dispositivi:
         conn = httplib.HTTPSConnection("api.pushover.net:443")
 		conn.request("POST", "/1/messages.json",
 		urllib.urlencode({
-		"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb",
-		"user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN",
-		"message": "hello world",
+		"token": "INSERT-TOKEN-HERE",
+		"user": "INSERT-USER-HERE",
+		"message": "ping to ", address, "fail ",
 		}), { "Content-type": "application/x-www-form-urlencoded" })
 		conn.getresponse()
     else:
@@ -23,9 +23,9 @@ for ping in lista_ip_dispositivi:
         conn = httplib.HTTPSConnection("api.pushover.net:443")
 		conn.request("POST", "/1/messages.json",
 		urllib.urlencode({
-		"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb",
-		"user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN",
-		"message": "hello world",
+		"token": "INSERT-TOKEN-HERE",
+		"user": "INSERT-USER-HERE",
+		"message": "ping to ", address, "fail ",
 		}), { "Content-type": "application/x-www-form-urlencoded" })
 		conn.getresponse()
 

@@ -11,7 +11,7 @@
 					$start=-1;
 					$end=-1;
 					$redis = new Redis();
-					$redis->connect('192.168.0.205', 6379);
+					$redis->connect('127.0.0.1', 6379);
 					$redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE);
 
 					$lettura      = $redis->lRange('lettura', $start, $end);

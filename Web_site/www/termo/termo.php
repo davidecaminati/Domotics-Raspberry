@@ -68,8 +68,8 @@ for ($x=0;$x<=(abs($start)-1);$x++) {
 	} else {
 		echo "d7.push([" . $timestamp[$x] . "," . ($rele[$x]+18) ."]);\n";
 	}
-	
-	echo "d8.push([" . $timestamp[$x] . "," . $doors_windows_switch[$x] . "]);\n";
+	/* add 19 to make it visible in the in the graphic */
+	echo "d8.push([" . $timestamp[$x] . "," . ($doors_windows_switch[$x] +19) . "]);\n";
 }
 
 ?>

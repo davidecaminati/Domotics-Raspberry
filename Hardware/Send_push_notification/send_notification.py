@@ -1,7 +1,7 @@
 import httplib, urllib
 import subprocess
 
-device_ip_list = ["211","202","111"]
+device_ip_list = ["211","202"]
 
 for ping in device_ip_list:
     address = "192.168.0." + str(ping)

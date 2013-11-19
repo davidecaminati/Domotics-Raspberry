@@ -24,18 +24,18 @@
 					$temp_3       = $redis->lRange('cucina', $start, $end);
 					$min	      	= $redis->lRange('min', $start, $end);
 					$max	      	= $redis->lRange('max', $start, $end);
-					$doors_windows_switch	= $redis->lRange('doors_windows_switch', $start, $end);
+					$windows_doors_switch	= $redis->lRange('windows_doors_switch', $start, $end);
 
 					echo "camera='$temp_1[0]';\t";
 					echo "cucina='$temp_3[0]';\t";
-					echo "doors_windows_switch='$doors_windows_switch[0]';\t";
+					echo "windows_doors_switch='$windows_doors_switch[0]';\t";
 					echo "temp_esterna='$temp_esterna[0]';\t";
 				?>
 				document.write ("Camera " + camera);
 				document.write ("<br />");
 				document.write ("Cucina " + cucina);
 				document.write ("<br />");
-				document.write ("doors_windows_switch " + doors_windows_switch);
+				document.write ("windows_doors_switch " + windows_doors_switch);
 				document.write ("<br />");
 				document.write ("Temp. esterna " + temp_esterna);
 			</script>

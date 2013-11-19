@@ -127,11 +127,11 @@ Now, if you run the lsmod command, you should see something like:
 		fbcon=map:10 fbcon=font:VGA8x8
 	#set autostart#
 		sudo nano /etc/xdg/lxsession/LXDE/autostart
-		#write at the end of the file#		
+		#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
 			@xset s off
 			@xset -dpms
 			@xset s noblank
-			@midori -e Fullscreen -a http://IP-OF-YOUR_SERVER/mobile
+			@midori -e Fullscreen -a http://127.0.0.1/mobile
 	#Auto startx: modify this file #
 		sudo nano /etc/rc.local
 		#after fi and before exit 0#

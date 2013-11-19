@@ -41,7 +41,7 @@ $temp_2       = $redis->lRange('temp_2', $start, $end);
 $temp_3       = $redis->lRange('temp_3', $start, $end);
 $min	      = $redis->lRange('min', $start, $end);
 $max	      = $redis->lRange('max', $start, $end);
-$doors_windows_switch	      = $redis->lRange('doors_windows_switch', $start, $end);
+$windows_doors_switch	      = $redis->lRange('windows_doors_switch', $start, $end);
 
 for ($x=0;$x<=(abs($start)-1);$x++) {
 	echo "d0='$lettura[$x]';\t";
@@ -69,11 +69,11 @@ for ($x=0;$x<=(abs($start)-1);$x++) {
 		echo "d7.push([" . $timestamp[$x] . "," . ($rele[$x]+18) ."]);\n";
 	}
 	/* add 19 to make it visible in the in the graphic */
-	echo "d8.push([" . $timestamp[$x] . "," . ($doors_windows_switch[$x] +19) . "]);\n";
+	echo "d8.push([" . $timestamp[$x] . "," . ($windows_doors_switch[$x] +19) . "]);\n";
 }
 
 ?>
-data = [{data:d1, label: "Temp. esterna"}, {data:d2,label:"Riscaldamento"},{data:d3,label:"Temperatura camera"},{data:d4, label: "Temperatura camerina"},{data:d5, label: "Temperatura cucina"},{data:d6, label: "Temperatura impostata"},{data:d7, label: "Simulazione termostato"},{data:d8, label: "doors_windows_switch"}];
+data = [{data:d1, label: "Temp. esterna"}, {data:d2,label:"Riscaldamento"},{data:d3,label:"Temperatura camera"},{data:d4, label: "Temperatura camerina"},{data:d5, label: "Temperatura cucina"},{data:d6, label: "Temperatura impostata"},{data:d7, label: "Simulazione termostato"},{data:d8, label: "windows_doors_switch"}];
 //data = [{data:d1, label: "Temp. esterna"}, {data:d2,label:"Riscaldamento"},{data:d3,label:"Temperatura primo piano"},{data:d4, label: "Temperatura 2"},{data:d5, label: "Temperatura 3"},{data:d6, label: "Temperatura impostata"}];
 graph = Flotr.draw(
 		container,  // Container element

@@ -41,7 +41,7 @@ $temp_2       = $redis->lRange('camerina', $start, $end);
 $temp_3       = $redis->lRange('cucina', $start, $end);
 $min	      	= $redis->lRange('min', $start, $end);
 $max	      	= $redis->lRange('max', $start, $end);
-$doors_windows_switch	= $redis->lRange('doors_windows_switch', $start, $end);
+$windows_doors_switch	= $redis->lRange('windows_doors_switch', $start, $end);
 
 for ($x=0;$x<=(abs($start)-1);$x++) {
 	echo "d0='$lettura[$x]';\t";
@@ -51,7 +51,7 @@ for ($x=0;$x<=(abs($start)-1);$x++) {
 	}  else {
 		echo "d1.push([" . $timestamp[$x] . "," . $temp_esterna_precedente . "]);\t";
 	}
-	echo "d2.push([" . $timestamp[$x] . "," . ($termo[$x]+10) . "]);\t";
+	echo "d2.push([" . $timestamp[$x] . "," . $termo[$x] . "]);\t";
 	echo "d3.push([" . $timestamp[$x] . "," . $temp_1[$x] . "]);\n";
 	echo "d4.push([" . $timestamp[$x] . "," . $temp_2[$x] . "]);\n";
 	echo "d5.push([" . $timestamp[$x] . "," . $temp_3[$x] . "]);\n";
@@ -69,14 +69,14 @@ for ($x=0;$x<=(abs($start)-1);$x++) {
 		echo "d7.push([" . $timestamp[$x] . "," . ($rele[$x]+18) ."]);\n";
 	}
 	/* add 19 to make it visible in the in the graphic */
-	echo "d8.push([" . $timestamp[$x] . "," . ($doors_windows_switch[$x] +19) . "]);\n";
+	echo "d8.push([" . $timestamp[$x] . "," . ($windows_doors_switch[$x] +19) . "]);\n";
 }
 
 ?>
 
 
 //data = [{data:d1, label: "Temp. esterna"}, {data:d2,label:"Riscaldamento"},{data:d3,label:"Temperatura camera"},{data:d4, label: "Temperatura camerina"},{data:d5, label: "Temperatura cucina"},{data:d6, label: "Temperatura impostata"}];
-data = [{data:d1, label: "Temp. esterna"}, {data:d2,label:"Riscaldamento"},{data:d3,label:"Temperatura camera"},{data:d4, label: "Temperatura camerina"},{data:d5, label: "Temperatura cucina"},{data:d6, label: "Temperatura impostata"},{data:d7, label: "Simulazione termostato"},{data:d8, label: "doors_windows_switch"}];
+data = [{data:d1, label: "Temp. esterna"}, {data:d2,label:"Riscaldamento"},{data:d3,label:"Temperatura camera"},{data:d4, label: "Temperatura camerina"},{data:d5, label: "Temperatura cucina"},{data:d6, label: "Temperatura impostata"},{data:d7, label: "Simulazione termostato"},{data:d8, label: "windows_doors_switch"}];
 
 graph = Flotr.draw(
 		container,  // Container element

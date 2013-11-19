@@ -10,15 +10,15 @@ d_sensore[0]='digital'
 #d_sensore[1]='camera'
 #d_sensore[2]='camerina'
 #y=0
-#for i in "${sensore[@]}"
-#do
+for i in "${sensore[@]}"
+do
 set_execute=`chmod +x  ./02_read_temp_from_probe.sh`
 temp=`./02_read_temp_from_probe.sh $i`
 
 /usr/bin/redis-cli -h 192.168.0.208 rpush ${d_sensore[${y}]} $temp
 #     /usr/bin/redis-cli rpush ${d_sensore[${y}]} 27 
-# y=`expr $y + 1` 
-#done
+ y=`expr $y + 1` 
+done
 #/usr/bin/redis-cli rpush temp_esterna $esterna
 #/usr/bin/redis-cli -h 192.168.0.208 rpush digital_probe "`date "+%Y-%m-%d %H:%M:%S"`"
 /usr/bin/redis-cli -h 192.168.0.208 rpush timestamp "`date "+%s"`"

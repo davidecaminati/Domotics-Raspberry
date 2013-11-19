@@ -12,6 +12,7 @@ d_sensore[0]='digital'
 #y=0
 #for i in "${sensore[@]}"
 #do
+set_execute=`chmod +x  ./02_read_temp_from_probe.sh`
 temp=`./02_read_temp_from_probe.sh $i`
 
 /usr/bin/redis-cli -h 192.168.0.208 rpush ${d_sensore[${y}]} $temp

@@ -11,6 +11,11 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 #to use REDIS on Python#
 	sudo apt-get install python-setuptools
 	sudo easy_install redis
+	#configure binding#
+		sudo nano /etc/redis/redis.conf
+		#remark bind 127.0.0.1 putting a # infront of the line#
+		#bind 127.0.0.1
+	
 	
 #to use REDIS on PHP#
 1) Preparation
@@ -147,12 +152,20 @@ Now, if you run the lsmod command, you should see something like:
 
 #configure web server#
 	sudo apt-get install apache2 php5 libapache2-mod-php5
+	sudo rm /var/www/index.html
 	sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
+	#set the redis server#
+	
 
 #configure analog probe#
 	crontab -e
 	#add at the end of the file#
 	* * * * * sudo python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
+
+#configure Door Windows probe
+	crontab -e
+	#add at the end of the file#
+	* * * * * sudo python /home/pi/Domotics-Raspberry/Hardware/Windows\ Switch\ MCP23017/windows_doors_probe.py
 
 #if you want to test now the capability of your  powerful Raspberry go to 
 

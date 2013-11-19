@@ -3,7 +3,7 @@ import time
 import redis
 #variable
 server_redis = '192.168.0.208' # IP of server redis (suggest to use the display TFT ip)
-probe_name = 'windows_doors' # name in redis for this value
+probe_name = 'windows_doors_switch' # name in redis for this value
 DEVICE = 0x24 # Device address (A0-A2)
 
 

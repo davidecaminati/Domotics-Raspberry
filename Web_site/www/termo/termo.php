@@ -11,7 +11,7 @@
 
 <div id=grafico>
 <h2>Raspberry Pi - Temperature Monitoring</h2>
-<p>Last Update <?=date("h:i:s")?> del <?=date("d/m/Y")?></p>
+<p>Last Update <?=date("h:i:s")?> of  <?=date("d/m/Y")?></p>
 <div id='chart' style='height: 400px ; width: 90%'/>
 
 <script type='text/javascript' src='termo.js'></script>
@@ -51,7 +51,6 @@ for ($x=0;$x<=(abs($start)-1);$x++) {
 	}  else {
 		echo "d1.push([" . $timestamp[$x] . "," . $temp_esterna_precedente . "]);\t";
 	}
-	echo "d2.push([" . $timestamp[$x] . "," . ($termo[$x]+10) . "]);\t";
 	echo "d3.push([" . $timestamp[$x] . "," . $temp_1[$x] . "]);\n";
 	echo "d4.push([" . $timestamp[$x] . "," . $temp_2[$x] . "]);\n";
 	echo "d5.push([" . $timestamp[$x] . "," . $temp_3[$x] . "]);\n";
@@ -73,7 +72,7 @@ for ($x=0;$x<=(abs($start)-1);$x++) {
 }
 
 ?>
-data = [{data:d1, label: "Temp. esterna"}, {data:d2,label:"Riscaldamento"},{data:d3,label:"Temperatura camera"},{data:d4, label: "Temperatura camerina"},{data:d5, label: "Temperatura cucina"},{data:d6, label: "Temperatura impostata"},{data:d7, label: "Simulazione termostato"},{data:d8, label: "windows_doors_switch"}];
+data = [{data:d1, label: "Temp. esterna"}, {data:d3,label:"Temperatura camera"},{data:d4, label: "Temperatura camerina"},{data:d5, label: "Temperatura cucina"},{data:d6, label: "Temperatura impostata"},{data:d7, label: "Simulazione termostato"},{data:d8, label: "windows_doors_switch"}];
 //data = [{data:d1, label: "Temp. esterna"}, {data:d2,label:"Riscaldamento"},{data:d3,label:"Temperatura primo piano"},{data:d4, label: "Temperatura 2"},{data:d5, label: "Temperatura 3"},{data:d6, label: "Temperatura impostata"}];
 graph = Flotr.draw(
 		container,  // Container element

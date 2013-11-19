@@ -6,19 +6,19 @@
 		<div id="page">
 			<div id="content">
 				<div>
-					<h2>Domotica</h2><h3>progetto autonomo di Davide Caminati</h3>
+					<h2>Domotics</h2><h3>Artificial Intelligent applied to home</h3>
 					<br>
-					<p>Monitoraggio temperatura ambientale eseguito con sensori DS18B20 </p>
-					<p>Lettura sensori porte e finestre </p>
-					<p>Invio notifiche e report al cellulare</p>
-					<p class="button-style"><a href="../termo/termo.php">Visualizza dati in tempo reale</a></p>
+					<p>Monitoring temp. </p>
+					<p>Windows and door opened survay </p>
+					<p>Push notification on your phone</p>
+					<p class="button-style"><a href="../termo/termo.php">Real time monitoring</a></p>
 				</div>
 			</div>
 			<div id="sidebar">
-				<h2>Impostazioni</h2>
+				<h2>Settings</h2>
 				<ul class="style2">
-					<li class="first"><a href="../termo/temperature.php">Imposta Temperatura</a></li>
-					<li><a href="../termo/prog_settimana.php">Programma settimanale</a></li>
+					<li class="first"><a href="../termo/temperature.php">Set Temperature</a></li>
+					<li><a href="../termo/prog_settimana.php">Weekly scheduler</a></li>
 				</ul>
 			</div>
 		</div>

@@ -162,7 +162,7 @@ Now, if you run the lsmod command, you should see something like:
 	#add at the end of the file#
 	* * * * * sudo python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
 
-#configure read external temp from internet#
+#configuration to read external temp from internet#
 #suggest to add this script in Display raspberry#
 	crontab -e
 	#add at the end of the file#
@@ -171,6 +171,7 @@ Now, if you run the lsmod command, you should see something like:
 #configure digital probe#
 	#make executable the script#
 	chmod +x /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/05_send_temp_to_redis.sh
+	#add the script to crontab#
 	crontab -e
 	#add at the end of the file#
 	* * * * * /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/05_send_temp_to_redis.sh

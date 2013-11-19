@@ -1,5 +1,5 @@
 #!/bin/bash
-sensori[0]='28-0000047b16f9'
+#sensori[0]='28-0000047b16f9'
 #sensori[1]='28-0000047b16f9'
 #controllo che lo script venga lanciato con 1 parametro
 if [ $# != 1 ]

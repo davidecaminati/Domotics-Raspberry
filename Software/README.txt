@@ -162,10 +162,19 @@ Now, if you run the lsmod command, you should see something like:
 	#add at the end of the file#
 	* * * * * sudo python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
 
-#configure Door Windows probe
+#configure read external temp from internet#
+#suggest to add this script in Display raspberry#
 	crontab -e
 	#add at the end of the file#
-	* * * * * sudo python /home/pi/Domotics-Raspberry/Hardware/Windows\ Switch\ MCP23017/windows_doors_probe.py
+	* * * * * sh /home/pi/Domotics-Raspberry/Hardware/Display\ TFT/02_update_external_temp.sh
+	
+#configure digital probe#
+	#make executable the script#
+	chmod +x /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/05_send_temp_to_redis.sh
+	crontab -e
+	#add at the end of the file#
+	* * * * * /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/05_send_temp_to_redis.sh
+	
 
 #if you want to test now the capability of your  powerful Raspberry go to 
 

@@ -25,6 +25,7 @@ container = document.getElementById("chart"),
 	  d5 = [],
 	  d6 = [],
 	  d7 = [],
+	  d8 = [],
 	  options = {
 grid: {
 minorVerticalLines: true
@@ -41,7 +42,7 @@ track: true,
        }
        },
 xaxis: {
-title: "Ora",
+title: "Time",
        mode: 'time',
        timeFormat: "%H:%M",
        timeUnit: 'second',
@@ -50,7 +51,7 @@ title: "Ora",
        showLabels: true,  
        showMinorLabels: true
        },
-yaxis: {min: 8, max:42,title: "Temperatura",},
+yaxis: {min: 8, max:42,title: "Temperature",},
        spreadsheet: {
 show:true},
        HtmlText: false,

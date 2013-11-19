@@ -31,16 +31,16 @@ $redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE);
 
 //$count = $redis->dbSize();
 
-$lettura      = $redis->lRange('lettura', $start, $end);
+//$lettura      = $redis->lRange('lettura', $start, $end);
 $timestamp    = $redis->lRange('timestamp', $start, $end);
 $temp_esterna = $redis->lRange('temp_esterna', $start, $end);
-$termo        = $redis->lRange('termo', $start, $end);
-$rele         = $redis->lRange('rele', $start, $end);
+//$termo        = $redis->lRange('termo', $start, $end);
+//$rele         = $redis->lRange('rele', $start, $end);
 $temp_1       = $redis->lRange('temp_1', $start, $end);
 $temp_2       = $redis->lRange('temp_2', $start, $end);
-$temp_3       = $redis->lRange('temp_3', $start, $end);
-$min	      = $redis->lRange('min', $start, $end);
-$max	      = $redis->lRange('max', $start, $end);
+//$temp_3       = $redis->lRange('temp_3', $start, $end);
+//$min	      = $redis->lRange('min', $start, $end);
+//$max	      = $redis->lRange('max', $start, $end);
 $windows_doors_switch	      = $redis->lRange('windows_doors_switch', $start, $end);
 
 for ($x=0;$x<=(abs($start)-1);$x++) {
@@ -53,8 +53,8 @@ for ($x=0;$x<=(abs($start)-1);$x++) {
 	}
 	echo "d3.push([" . $timestamp[$x] . "," . $temp_1[$x] . "]);\n";
 	echo "d4.push([" . $timestamp[$x] . "," . $temp_2[$x] . "]);\n";
-	echo "d5.push([" . $timestamp[$x] . "," . $temp_3[$x] . "]);\n";
-	echo "d6.push([" . $timestamp[$x] . "," . (($min[$x]+$max[$x])/2) . "]);\n";
+	//echo "d5.push([" . $timestamp[$x] . "," . $temp_3[$x] . "]);\n";
+	//echo "d6.push([" . $timestamp[$x] . "," . (($min[$x]+$max[$x])/2) . "]);\n";
 	
 /*	if (date("H", $timestamp[$x]) > 6 &&  (date("H", $timestamp[$x]) <=23 )) { 
 		echo "d6.push([" . $timestamp[$x] . ",21.25]);\n";
@@ -62,17 +62,18 @@ for ($x=0;$x<=(abs($start)-1);$x++) {
 		echo "d6.push([" . $timestamp[$x] . ",19.75]);\n";
 	}
 */
-	if (date("H", $timestamp[$x]) > 6 &&  (date("H", $timestamp[$x]) <=23 )) { 
-		echo "d7.push([" . $timestamp[$x] . "," . ($rele[$x]+18) .  "]);\n";
-	} else {
-		echo "d7.push([" . $timestamp[$x] . "," . ($rele[$x]+18) ."]);\n";
-	}
+	//if (date("H", $timestamp[$x]) > 6 &&  (date("H", $timestamp[$x]) <=23 )) { 
+	//	echo "d7.push([" . $timestamp[$x] . "," . ($rele[$x]+18) .  "]);\n";
+	//} else {
+	//	echo "d7.push([" . $timestamp[$x] . "," . ($rele[$x]+18) ."]);\n";
+	//}
+	
 	/* add 19 to make it visible in the in the graphic */
 	echo "d8.push([" . $timestamp[$x] . "," . ($windows_doors_switch[$x] +19) . "]);\n";
 }
 
 ?>
-data = [{data:d1, label: "Temp. esterna"}, {data:d3,label:"Temperatura camera"},{data:d4, label: "Temperatura camerina"},{data:d5, label: "Temperatura cucina"},{data:d6, label: "Temperatura impostata"},{data:d7, label: "Simulazione termostato"},{data:d8, label: "windows_doors_switch"}];
+data = [{data:d1, label: "Temp. esterna"}, {data:d3,label:"Temperatura camera"},{data:d4, label: "Temperatura camerina"},{data:d8, label: "windows_doors_switch"}];
 //data = [{data:d1, label: "Temp. esterna"}, {data:d2,label:"Riscaldamento"},{data:d3,label:"Temperatura primo piano"},{data:d4, label: "Temperatura 2"},{data:d5, label: "Temperatura 3"},{data:d6, label: "Temperatura impostata"}];
 graph = Flotr.draw(
 		container,  // Container element

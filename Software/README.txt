@@ -1,6 +1,8 @@
 Expand your partition, set password, set you timezone and keyboard, overclock to 800Mhz, i suggest to no start desktop mode (you need only the console mode) for fast boot then select finish for save and reboot.
+#copy the repository#
+	git clone https://github.com/davidecaminati/Domotics-Raspberry
 
-start with an update.
+#start with an update#
 	sudo apt-get update  
 
 #install REDIS (redis is a database)
@@ -147,7 +149,10 @@ Now, if you run the lsmod command, you should see something like:
 	sudo apt-get install apache2 php5 libapache2-mod-php5
 	sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
 
-
+#configure analog probe#
+	crontab -e
+	#add at the end of the file#
+	* * * * * sudo python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
 
 #if you want to test now the capability of your  powerful Raspberry go to 
 

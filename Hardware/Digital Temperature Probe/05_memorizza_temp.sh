@@ -9,20 +9,15 @@ sensore[0]='28-0000047b16f9'
 d_sensore[0]='cucina'
 #d_sensore[1]='camera'
 #d_sensore[2]='camerina'
-y=0
-for i in "${sensore[@]}"
-do
- temp=`/root/termostato/04_leggi_temperatura.sh $i`
- if [ "$temp" != "-0.062" ]
-  then
-  if [ "$temp" != "85" ]
-   then
-    /usr/bin/redis-cli rpush ${d_sensore[${y}]} $temp
-#     /usr/bin/redis-cli rpush ${d_sensore[${y}]} 27
-  fi
- fi
-y=`expr $y + 1` 
-done
+#y=0
+#for i in "${sensore[@]}"
+#do
+temp=`/root/termostato/04_leggi_temperatura.sh $i`
+
+/usr/bin/redis-cli -h 192.168.0.208 rpush ${d_sensore[${y}]} $temp
+#     /usr/bin/redis-cli rpush ${d_sensore[${y}]} 27 
+# y=`expr $y + 1` 
+#done
 #/usr/bin/redis-cli rpush temp_esterna $esterna
-/usr/bin/redis-cli rpush lettura "`date "+%Y-%m-%d %H:%M:%S"`"
-/usr/bin/redis-cli rpush timestamp "`date "+%s"`"
+#/usr/bin/redis-cli -h 192.168.0.208 rpush digital_probe "`date "+%Y-%m-%d %H:%M:%S"`"
+/usr/bin/redis-cli -h 192.168.0.208 rpush timestamp "`date "+%s"`"

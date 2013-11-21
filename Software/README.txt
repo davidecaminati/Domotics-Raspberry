@@ -18,38 +18,38 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	
 	
 #to use REDIS on PHP#
-1) Preparation
-	sudo apt-get install php5-dev
-note (php5-dev provides the dev library as well as the phpize command which is required for the compiling step)
-2) Get phpredis source code, should be pretty easy by running
-	git clone git://github.com/nicolasff/phpredis.git
-3) Compile and install
-		cd phpredis
-		phpize
-		./configure
-		make
-		sudo -s make install
-4) Enable the phpredis extension
-		sudo -s
-		echo "extension=redis.so">/etc/php5/conf.d/redis.ini
-		exit
-		cd .. (go to home)
+	#Preparation#
+		sudo apt-get install php5-dev
+	#note (php5-dev provides the dev library as well as the phpize command which is required for the compiling step)#
+	#Get phpredis source code, should be pretty easy by running#
+		git clone git://github.com/nicolasff/phpredis.git
+	#Compile and install#
+			cd phpredis
+			phpize
+			./configure
+			make
+			sudo -s make install
+	#Enable the phpredis extension#
+			sudo -s
+			echo "extension=redis.so">/etc/php5/conf.d/redis.ini
+			exit
+			cd .. (go to home)
 		
 #SPI#
-#Enabling the SPI kernel module#
-#As root, edit the kernel module blacklist file:#
-	sudo nano /etc/modprobe.d/raspi-blacklist.conf
+	#Enabling the SPI kernel module#
+	#As root, edit the kernel module blacklist file:#
+		sudo nano /etc/modprobe.d/raspi-blacklist.conf
 
-#Comment out the spi-bcm2708 line so it looks like this:#
-	#blacklist spi-bcm2708
+	#Comment out the spi-bcm2708 line so it looks like this:#
+		#blacklist spi-bcm2708
 
-#Save the file so that the module will load on future reboots. To enable the module now, enter:#
-		sudo modprobe spi-bcm2708
+	#Save the file so that the module will load on future reboots. To enable the module now, enter:#
+			sudo modprobe spi-bcm2708
 
-Now, if you run the lsmod command, you should see something like:
-	lsmod
-	Module                  Size  Used by
-	spi_bcm2708             4421  0
+	Now, if you run the lsmod command, you should see something like:
+		lsmod
+		Module                  Size  Used by
+		spi_bcm2708             4421  0
 	
 #SPIDEV#
 	sudo apt-get install python-pip  
@@ -175,6 +175,8 @@ Now, if you run the lsmod command, you should see something like:
 	#add at the end of the file#
 	* * * * * /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/05_send_temp_to_redis.sh
 	
-
+#Update a device#
+	#in Update directory, you will find usefull script to automate this#
+	
 #if you want to test now the capability of your  powerful Raspberry go to 
 

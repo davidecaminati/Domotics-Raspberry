@@ -29,7 +29,7 @@
 					echo "camera='$temp_1[0]';\t";
 					echo "cucina='$temp_3[0]';\t";
 					echo "windows_doors_switch='$windows_doors_switch[0]';\t";
-					echo "temp_ext='$temp_ext[0]';\t";
+					#echo "temp_ext='$temp_ext[0]';\t";
 				?>
 				document.write ("Camera " + camera);
 				document.write ("<br />");

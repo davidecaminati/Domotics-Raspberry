@@ -37,7 +37,7 @@
 				document.write ("<br />");
 				document.write ("windows_doors_switch " + windows_doors_switch);
 				document.write ("<br />");
-				document.write ("Temp. ext " + temp_ext);
+				<!-- document.write ("Temp. ext " + temp_ext); -->
 			</script>
 		</div>
 	</body>

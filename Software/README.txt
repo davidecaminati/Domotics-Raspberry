@@ -35,18 +35,15 @@ note (php5-dev provides the dev library as well as the phpize command which is r
 		exit
 		cd .. (go to home)
 		
-#GIT (optiona)#
-	git clone https://github.com/davidecaminati/Domotica-Raspberry.git
-	
 #SPI#
-Enabling the SPI kernel module
-As root, edit the kernel module blacklist file:
+#Enabling the SPI kernel module#
+#As root, edit the kernel module blacklist file:#
 	sudo nano /etc/modprobe.d/raspi-blacklist.conf
 
-Comment out the spi-bcm2708 line so it looks like this:
+#Comment out the spi-bcm2708 line so it looks like this:#
 	#blacklist spi-bcm2708
 
-Save the file so that the module will load on future reboots. To enable the module now, enter:
+#Save the file so that the module will load on future reboots. To enable the module now, enter:#
 		sudo modprobe spi-bcm2708
 
 Now, if you run the lsmod command, you should see something like:
@@ -170,7 +167,9 @@ Now, if you run the lsmod command, you should see something like:
 	
 #configure digital probe#
 	#make executable the script#
+	chmod +x /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/02_read_temp_from_probe.sh
 	chmod +x /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/05_send_temp_to_redis.sh
+	
 	#add the script to crontab#
 	crontab -e
 	#add at the end of the file#

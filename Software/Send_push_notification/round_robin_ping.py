@@ -7,7 +7,7 @@ import subprocess
 TOKEN = "abdf67yAvRcQufveo2nGkwKNi6xTHb"
 USER_KEY = "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN"
 
-list_ip_to_check = ["211","205"]
+list_ip_to_check = ["211","205","191"]
 
 for ping in list_ip_to_check:
     address = "192.168.0." + str(ping)

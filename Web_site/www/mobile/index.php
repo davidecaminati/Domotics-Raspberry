@@ -32,13 +32,13 @@
 					echo "windows_doors_switch='$windows_doors_switch[0]';\t";
 					echo "temp_ext='$temp_ext[0]';\t";
 				?>
-				document.write ("my_room_1 <h2>" + my_room_1 + "</h2>");
+				document.write ("my_room_1 <h3>" + my_room_1 + "</h3>");
 				document.write ("<br />");
-				document.write ("my_room_2 <h2>" + my_room_2 + "</h2>");
+				document.write ("my_room_2 <h3>" + my_room_2 + "</h3>");
 				document.write ("<br />");
-				document.write ("windows_doors_switch <h2>" + windows_doors_switch + "</h2>");
+				document.write ("windows_doors_switch <h3>" + windows_doors_switch + "</h3>");
 				document.write ("<br />");
-				document.write ("Temp. ext <h2>" + temp_ext + "</h2>");
+				document.write ("Temp. ext <h3>" + temp_ext + "</h3>");
 			</script>
 		</div>
 	</body>

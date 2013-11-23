@@ -3,7 +3,11 @@
 import httplib, urllib
 import subprocess
 
-list_ip_to_check = ["211","202","111"]
+#variable 
+TOKEN = "abdf67yAvRcQufveo2nGkwKNi6xTHb"
+USER_KEY = "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN"
+
+list_ip_to_check = ["211","205"]
 
 for ping in list_ip_to_check:
     address = "192.168.0." + str(ping)
@@ -15,8 +19,8 @@ for ping in list_ip_to_check:
         conn = httplib.HTTPSConnection("api.pushover.net:443")
 		conn.request("POST", "/1/messages.json",
 		urllib.urlencode({
-		"token": "INSERT-TOKEN-HERE",
-		"user": "INSERT-USER-HERE",
+		"token": TOKEN,
+		"user": USER_KEY,
 		"message": "ping to ", address, "fail ",
 		}), { "Content-type": "application/x-www-form-urlencoded" })
 		conn.getresponse()
@@ -25,8 +29,8 @@ for ping in list_ip_to_check:
         conn = httplib.HTTPSConnection("api.pushover.net:443")
 		conn.request("POST", "/1/messages.json",
 		urllib.urlencode({
-		"token": "INSERT-TOKEN-HERE",
-		"user": "INSERT-USER-HERE",
+		"token": TOKEN,
+		"user": USER_KEY,
 		"message": "ping to ", address, "fail ",
 		}), { "Content-type": "application/x-www-form-urlencoded" })
 		conn.getresponse()

@@ -174,7 +174,17 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	crontab -e
 	#add at the end of the file#
 	* * * * * /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/05_send_temp_to_redis.sh
+
+#configure analogic probe#
+	#switch to root#
+	su
+	#type password to being root#
 	
+	#add the script to crontab#
+		crontab -e
+		#add at the end of the file#
+		* * * * * /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/05_send_temp_to_redis.sh
+
 #Update a device#
 	#in Update directory, you will find usefull script to automate this#
 	

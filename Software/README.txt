@@ -178,5 +178,12 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 #Update a device#
 	#in Update directory, you will find usefull script to automate this#
 	
+#error in editing file from windows#
+	#if you need to create a  new bash script from windows , pay attention to new line characters , in Win are different than unix#
+	#so if you want to sure your file are compatible , you coud install an utility to convert file in unix style#
+		sudo apt-get install dos2unix
+		#how to use this utility#
+		dos2unix <file to convert>
+	
 #if you want to test now the capability of your  powerful Raspberry go to 
 

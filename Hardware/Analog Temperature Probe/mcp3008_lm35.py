@@ -9,8 +9,8 @@ import time
 import redis
 
 #variable
-server_redis = '192.168.0.205'
-room_name = 'my room'
+server_redis = '192.168.0.208'
+room_name = 'my_room_1'
 debug = False
 
 spi = spidev.SpiDev()
@@ -46,5 +46,5 @@ while vero:
     if debug:
         volts = (value * 3.3) / 1024
         temp += volts / (10.0 / 1000)
-        print ("%4d/1023 => %5.3f V => %4.1f °C" % (value, volts,temp))
+        print ("%4d/1023 => %5.3f V => %4.1f C" % (value, volts,temp))
     time.sleep(0.2)

@@ -191,6 +191,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 
 #Update a device#
 	#in Update directory, you will find usefull script to automate this#
+	cd /home/pi/Domotics-Raspberry/Update
 	
 #error in editing file from windows#
 	#if you need to create a  new bash script from windows , pay attention to new line characters , in Win are different than unix#
@@ -212,9 +213,9 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
         wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 
 #configure ping test for probe#
-	crontab -e
-	#add this line#
-	* * * * * python /home/pi/Domotics-Raspberry/Software/Send_push_notification/round_robin_ping.py
-
+	sudo nano /etc/rc.local
+	#add this line before exit 0#
+	/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/round_robin_ping.py
+	
 #if you want to test now the capability of your  powerful Raspberry go to 
 

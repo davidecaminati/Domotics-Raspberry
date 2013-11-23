@@ -1,7 +1,7 @@
 #!/bin/bash
 sensore[0]='28-0000047b16f9'
-d_sensore[0]='digital'
-ts_sensore[0]='digital_ts'
+d_sensore[0]='my_room_1'
+ts_sensore[0]='my_room_1_ts'
 
 
 y=0

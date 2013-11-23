@@ -83,8 +83,10 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	i2c-dev
 
 #enable 1wire#
-	sudo modprobe w1-gpio
-	sudo modprobe w1-therm
+	sudo nano /etc/modules
+	#add this lines#
+	w1-gpio
+	w1-therm
 	
 #enable TFT display# 
 	#guide http://www.raspberrypi.org/phpBB3/viewtopic.php?f=64&t=48967#
@@ -174,6 +176,8 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	crontab -e
 	#add at the end of the file#
 	* * * * * /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/05_send_temp_to_redis.sh
+	#NOTE#
+	#be sure to have activate 1 wire module otherwise look #enable 1wire# #
 
 #configure analogic probe#
 	#switch to root#

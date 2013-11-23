@@ -167,7 +167,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#add at the end of the file#
 	* * * * * sh /home/pi/Domotics-Raspberry/Hardware/Display\ TFT/02_update_external_temp.sh
 	
-#configure digital probe#
+#configure digital probe (my_room_1)#
 	#make executable the script#
 	chmod +x /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/02_read_temp_from_probe.sh
 	chmod +x /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/05_send_temp_to_redis.sh
@@ -179,7 +179,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#NOTE#
 	#be sure to have activate 1 wire module otherwise look #enable 1wire# #
 
-#configure analogic probe#
+#configure analogic probe(my_room_2)#
 	#switch to root#
 	su
 	#type password to being root#

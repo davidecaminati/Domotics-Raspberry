@@ -10,7 +10,7 @@ import redis
 
 #variable
 server_redis = '192.168.0.208'
-room_name = 'my_room_1'
+room_name = 'my_room_2'
 debug = False
 
 spi = spidev.SpiDev()

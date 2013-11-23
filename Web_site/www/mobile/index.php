@@ -16,14 +16,14 @@
 
 					$lettura      = $redis->lRange('lettura', $start, $end);
 					$timestamp    = $redis->lRange('timestamp', $start, $end);
-					$temp_ext = $redis->lRange('temp_ext', $start, $end);
+					$temp_ext     = $redis->lRange('temp_ext', $start, $end);
 					$termo        = $redis->lRange('termo', $start, $end);
 					$rele         = $redis->lRange('rele', $start, $end);
 					$temp_1       = $redis->lRange('my_room_1', $start, $end);
 					$temp_2       = $redis->lRange('my_room_2', $start, $end);
 					$temp_3       = $redis->lRange('my_room_3', $start, $end);
-					$min	      	= $redis->lRange('min', $start, $end);
-					$max	      	= $redis->lRange('max', $start, $end);
+					$min	      = $redis->lRange('min', $start, $end);
+					$max	      = $redis->lRange('max', $start, $end);
 					$windows_doors_switch	= $redis->lRange('windows_doors_switch', $start, $end);
 
 					echo "my_room_1='$temp_1[0]';\t";

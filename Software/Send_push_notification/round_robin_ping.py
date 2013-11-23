@@ -17,20 +17,20 @@ for ping in list_ip_to_check:
     elif res == 2:
         print "no response from", address
         conn = httplib.HTTPSConnection("api.pushover.net:443")
-		conn.request("POST", "/1/messages.json",
-		urllib.urlencode({
-		"token": TOKEN,
-		"user": USER_KEY,
-		"message": "ping to ", address, "fail ",
-		}), { "Content-type": "application/x-www-form-urlencoded" })
-		conn.getresponse()
+        conn.request("POST", "/1/messages.json",
+        urllib.urlencode({
+        "token": TOKEN,
+        "user": USER_KEY,
+        "message": "ping to ", address, "fail ",
+        }), { "Content-type": "application/x-www-form-urlencoded" })
+        conn.getresponse()
     else:
         print "ping to", address, "failed!"
         conn = httplib.HTTPSConnection("api.pushover.net:443")
-		conn.request("POST", "/1/messages.json",
-		urllib.urlencode({
-		"token": TOKEN,
-		"user": USER_KEY,
-		"message": "ping to ", address, "fail ",
-		}), { "Content-type": "application/x-www-form-urlencoded" })
-		conn.getresponse()
+        conn.request("POST", "/1/messages.json",
+        urllib.urlencode({
+        "token": TOKEN,
+        "user": USER_KEY,
+        "message": "ping to ", address, "fail ",
+        }), { "Content-type": "application/x-www-form-urlencoded" })
+        conn.getresponse()

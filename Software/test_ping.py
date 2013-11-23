@@ -1,19 +1,19 @@
 import httplib, urllib 
 import subprocess 
 import time
-#205 server web
-#208 monitor
+#205 digital probe
+#208 monitor TFT  server web
 #86 PC windows
 #202 rele
-#211 sonda analogica
-lista_ip_dispositivi_OK = [208,211] 
-lista_ip_dispositivi_ERR = []
+#211 analog Probe
+ip_device_list = [9,211,208] 
+ip_device_list_Error = []
 while True:
-	for ping in lista_ip_dispositivi_OK:
-		print lista_ip_dispositivi_OK
-		print lista_ip_dispositivi_ERR
+	for ping in ip_device_list:
+		print ip_device_list
+		print ip_device_list_Error
 		
-		if (ping in lista_ip_dispositivi_ERR) == False:
+		if (ping in ip_device_list_Error) == False:
 			address = "192.168.0." + str(ping)
 			res = subprocess.call(['ping', '-c', '1', address])
 			if res == 0:
@@ -24,33 +24,33 @@ while True:
 			elif res == 2:
 				print "no response from", address
 				conn = httplib.HTTPSConnection("api.pushover.net:443")
-				conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "errore da %s" % address,"title": "Sonda non raggiungibile"}), { "Content-type": "application/x-www-form-urlencoded" })
+				conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "error from  %s" % address,"title": "Probe not avaible"}), { "Content-type": "application/x-www-form-urlencoded" })
 				conn.getresponse()
-				lista_ip_dispositivi_ERR.append(ping)
+				ip_device_list_Error.append(ping)
 			else:
 				print "ping to", address, "failed!"
 				conn = httplib.HTTPSConnection("api.pushover.net:443")
-				conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "errore da %s" % address,"title": "Sonda non raggiungibile"}), { "Content-type": "application/x-www-form-urlencoded" })
+				conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "error from  %s" % address,"title": "Probe not avaible"}), { "Content-type": "application/x-www-form-urlencoded" })
 				conn.getresponse()
-				lista_ip_dispositivi_ERR.append(ping)
+				ip_device_list_Error.append(ping)
 		else:
 			address = "192.168.0." + str(ping)
 			res = subprocess.call(['ping', '-c', '1', address])
 			if res == 0:
 				print "ping to", address, "OK "
 				conn = httplib.HTTPSConnection("api.pushover.net:443")
-				conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "sonda %s ora risulta raggiungibile" % address,"title": "Sonda ripristinata"}), { "Content-type": "application/x-www-form-urlencoded" })
+				conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "Probe %s is now working yet" % address,"title": "Probe Finded"}), { "Content-type": "application/x-www-form-urlencoded" })
 				conn.getresponse()
-				lista_ip_dispositivi_ERR.remove(ping)
+				ip_device_list_Error.remove(ping)
 			elif res == 2:
 				print "no response from", address
 				#conn = httplib.HTTPSConnection("api.pushover.net:443")
-				#conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "errore da %s" % address,"title": "Sonda non raggiungibile"}), { "Content-ty$
+				#conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "error from  %s" % address,"title": "Probe not avaible"}), { "Content-ty$
 				#conn.getresponse()
 			else:
 				print "ping to", address, "failed!"
 				#conn = httplib.HTTPSConnection("api.pushover.net:443")
-				#conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "errore da %s" % address,"title": "Sonda non raggiungibile"}), { "Content-ty$
+				#conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "error from  %s" % address,"title": "Probe not avaible"}), { "Content-ty$
 				#conn.getresponse()
 
-	time.sleep(60)
+	#time.sleep(60)

@@ -211,6 +211,10 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
         wireless-essid XXXXXXX  <--- your SSID
         wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 
+#configure ping test for probe#
+	crontab -e
+	#add this line#
+	* * * * * python /home/pi/Domotics-Raspberry/Software/Send_push_notification/round_robin_ping.py
 
 #if you want to test now the capability of your  powerful Raspberry go to 
 

@@ -198,6 +198,19 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		sudo apt-get install dos2unix
 		#how to use this utility#
 		dos2unix <file to convert>
-	
+		
+#configure wireless#
+# for help http://www.linux.com/learn/tutorials/374514-control-wireless-on-the-linux-desktop-with-these-tools #
+	sudo nano /etc/network/interfaces
+	#put this line for enable wireless#
+	auto wlan0
+	iface wlan0 inet static
+        address 192.168.0.XXX   <--- your ip
+        netmask 255.255.255.0   
+        gateway 192.168.0.XXX     <--- your gateway
+        wireless-essid XXXXXXX  <--- your SSID
+        wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+
+
 #if you want to test now the capability of your  powerful Raspberry go to 
 

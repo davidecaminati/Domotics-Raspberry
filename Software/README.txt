@@ -224,6 +224,10 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	cd /home/pi/Domotics-Raspberry/domo.rb/
 	bundle
 	rackup
+	#write test from client#
+		 curl --data temp=2 192.168.0.202:9393/temperature/cucina
+	#read test from client#
+		curl 192.168.0.202:9292/temperature/cucina
 
 #if you want to test now the capability of your  powerful Raspberry go to 
 

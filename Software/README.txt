@@ -221,7 +221,10 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	curl -L https://get.rvm.io | bash -s stable
 	source /home/pi/.rvm/scripts/rvm
     rvm install ruby-2
+	sudo chmod 777 /dev/i2c-0
+	sudo chmod 777 /dev/i2c-1
 	cd /home/pi/Domotics-Raspberry/domo.rb/
+	gem 'wiringpi'
 	bundle
 	rackup
 	#write test from client#

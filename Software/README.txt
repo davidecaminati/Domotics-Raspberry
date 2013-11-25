@@ -217,5 +217,13 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#add this line before exit 0#
 	/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/round_robin_ping.py
 	
+#install RUBY#
+	curl -L https://get.rvm.io | bash -s stable
+	source /home/pi/.rvm/scripts/rvm
+    rvm install ruby-2
+	cd /home/pi/Domotics-Raspberry/domo.rb/
+	bundle
+	rackup
+
 #if you want to test now the capability of your  powerful Raspberry go to 
 

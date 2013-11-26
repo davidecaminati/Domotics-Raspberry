@@ -33,27 +33,26 @@ $redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE);
 
 //$lettura      = $redis->lRange('lettura', $start, $end);
 $timestamp    = $redis->lRange('timestamp', $start, $end);
-$temp_esterna = $redis->lRange('temp_esterna', $start, $end);
+$temp_ext = $redis->lRange('temp_ext', $start, $end);
 //$termo        = $redis->lRange('termo', $start, $end);
 //$rele         = $redis->lRange('rele', $start, $end);
-$temp_1       = $redis->lRange('temp_1', $start, $end);
-$temp_2       = $redis->lRange('temp_2', $start, $end);
-//$temp_3       = $redis->lRange('temp_3', $start, $end);
+$my_room_1       = $redis->lRange('my_room_1', $start, $end);
+$my_room_2       = $redis->lRange('my_room_2', $start, $end);
 //$min	      = $redis->lRange('min', $start, $end);
 //$max	      = $redis->lRange('max', $start, $end);
 $windows_doors_switch	      = $redis->lRange('windows_doors_switch', $start, $end);
 
 for ($x=0;$x<=(abs($start)-1);$x++) {
 	echo "d0='$lettura[$x]';\t";
-	if (is_numeric($temp_esterna[$x])) {
-		echo "d1.push([" . $timestamp[$x] . "," . $temp_esterna[$x] . "]);\t";
-		$temp_esterna_precedente=$temp_esterna[$x];
+	if (is_numeric($temp_ext[$x])) {
+		echo "d1.push([" . $timestamp[$x] . "," . $temp_ext[$x] . "]);\t";
+		$temp_ext_precedente=$temp_ext[$x];
 	}  else {
-		echo "d1.push([" . $timestamp[$x] . "," . $temp_esterna_precedente . "]);\t";
+		echo "d1.push([" . $timestamp[$x] . "," . $temp_ext_precedente . "]);\t";
 	}
-	echo "d3.push([" . $timestamp[$x] . "," . $temp_1[$x] . "]);\n";
-	echo "d4.push([" . $timestamp[$x] . "," . $temp_2[$x] . "]);\n";
-	//echo "d5.push([" . $timestamp[$x] . "," . $temp_3[$x] . "]);\n";
+	echo "d3.push([" . $timestamp[$x] . "," . $my_room_1[$x] . "]);\n";
+	echo "d4.push([" . $timestamp[$x] . "," . $my_room_2[$x] . "]);\n";
+	//echo "d5.push([" . $timestamp[$x] . "," . $windows_doors_switch[$x] . "]);\n";
 	//echo "d6.push([" . $timestamp[$x] . "," . (($min[$x]+$max[$x])/2) . "]);\n";
 	
 /*	if (date("H", $timestamp[$x]) > 6 &&  (date("H", $timestamp[$x]) <=23 )) { 

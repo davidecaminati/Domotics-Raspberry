@@ -2,7 +2,8 @@
 	<head>
 		<META HTTP-EQUIV="refresh" CONTENT="1">
 	</head>
-	<body>
+	<body style="background-color:;">>
+	
 		<div id=grafico>
 			<h3>Temperature Monitoring</h3>
 			<p>Last update at <?=date("h:i:s")?> of  <?=date("d/m/Y")?></p>

@@ -16,14 +16,14 @@ def api_root():
     return 'Welcome'
 
 @app.route('/releon/<int:number>')
-def api_articles(number):
+def api_releon(number):
     if number > 8 or number < 1:
         print 'this rele not exist \n'
         return 'error'
     NeedChange = False
     OldState = bus.read_byte_data(DEVICE,GPIOB)
     BinReleNumber = 2** (number - 1)
-    if OldState == '0b0':
+    if OldState == 0:
         NeedChange = True
         bus.write_byte_data(DEVICE,OLATA,BinReleNumber)
     else:
@@ -52,14 +52,15 @@ def api_articles(number):
             return 'malfunction'
 
 @app.route('/releoff/<int:number>')
-def api_articles(number):
+def api_releoff(number):
     if number > 8 or number < 1:
         print 'this rele not exist \n'
         return 'error'
     NeedChange = False
     OldState = bus.read_byte_data(DEVICE,GPIOB)
     BinReleNumber = 2** (number - 1)
-    if OldState == '0b11111111':
+    if OldState == 255:
+        #print 'OldState == 255'
         NeedChange = True
         bus.write_byte_data(DEVICE,OLATA,BinReleNumber)
     else:
@@ -67,11 +68,15 @@ def api_articles(number):
         print 'number ' + str(number) + '\n'
         print 'OldState ' + str(OldState) + '\n'
         print 'BinReleNumber ' + str(BinReleNumber) + '\n'
-        if (255 - BinReleNumber) & OldState == 255 - BinReleNumber:
+        #print '(255 - BinReleNumber) ' + str(255 - BinReleNumber) + '\n'
+        # print 'OldState == 255 - BinReleNumber ' + OldState == 255 - BinReleNumber + '\n'
+        
+        if BinReleNumber & OldState != BinReleNumber:
             NeedChange = False
             print 'already done \n'
             return 'already done'
         else:
+            print 'NeedChange'
             NeedChange = True
             bus.write_byte_data(DEVICE,OLATA,BinReleNumber)
     time.sleep(0.3)

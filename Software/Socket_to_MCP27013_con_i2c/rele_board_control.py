@@ -17,33 +17,41 @@ def api_root():
 
 @app.route('/releon/<int:number>')
 def api_articles(number):
+    if number > 8 or number < 1:
+        print 'this rele not exist \n'
+        return 'error'
+    NeedChange = False
     OldState = bus.read_byte_data(DEVICE,GPIOB)
-    #BinOldState = bin(OldState)
-    NeedChangeState = False
-    StateChanged = False
     BinReleNumber = 2** (number - 1)
-    #x = bin(BinReleNumber) -  bin(BinOldState)
-    #print x
     if OldState == '0b0':
-        print 'old state is all off'
-        NeedChangeState = True
+        NeedChange = True
         bus.write_byte_data(DEVICE,OLATA,BinReleNumber)
     else:
         #is already on ?
-        print 'number ' + str(number)
-        print 'OldState ' + str(OldState)
-        print 'BinReleNumber ' + str(BinReleNumber)
+        print 'number ' + str(number) + '\n'
+        print 'OldState ' + str(OldState) + '\n'
+        print 'BinReleNumber ' + str(BinReleNumber) + '\n'
         if BinReleNumber & OldState == BinReleNumber:
-            print 'already done'
+            NeedChange = False
+            print 'already done \n'
+            return 'already done'
         else:
-#            NewConfiguration = BinReleNumber | OldState
-#            print 'NewConfiguration ' + str(NewConfiguration)
+            NeedChange = True
             bus.write_byte_data(DEVICE,OLATA,BinReleNumber)
     time.sleep(0.3)
     bus.write_byte_data(DEVICE,OLATA,0)
-    time.sleep(0.5)
+    time.sleep(0.3)
+    #test if rele has changed
     NewState = bus.read_byte_data(DEVICE,GPIOB)
-    return 'ok'
+    print NewState
+    print OldState
+    if NeedChange:
+        if NewState != OldState:
+            return 'ok'
+        else:
+            return 'malfunction'
+
+			
 
 @app.route('/articles/<articleid>')
 def api_article(articleid):
@@ -51,3 +59,4 @@ def api_article(articleid):
 
 if __name__ == '__main__':
     app.run()
+

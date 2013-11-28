@@ -28,7 +28,7 @@ while True:
                 # conn = httplib.HTTPSConnection("api.pushover.net:443")
                 # conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "error from  %s" % address,"title": "Probe not avaible"}), { "Content-type": "application/x-www-form-urlencoded" })
                 # conn.getresponse()
-                message = "error from  %s" % address
+                message = "error from  %s" % str(ping)
                 title = "Probe not avaible"
                 msgToSend = urlForNotification + str(message) +  "/" + title
                 NewmsgToSend = urllib.quote_plus(msgToSend)
@@ -39,7 +39,7 @@ while True:
                 # conn = httplib.HTTPSConnection("api.pushover.net:443")
                 # conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "error from  %s" % address,"title": "Probe not avaible"}), { "Content-type": "application/x-www-form-urlencoded" })
                 # conn.getresponse()
-                message = "error from  %s" % address
+                message = "error from  %s" % str(ping)
                 title = "Probe not avaible"
                 msgToSend = urlForNotification + str(message) +  "/" + title
                 NewmsgToSend = urllib.quote_plus(msgToSend)
@@ -53,7 +53,7 @@ while True:
                 # conn = httplib.HTTPSConnection("api.pushover.net:443")
                 # conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": "Probe %s is now working yet" % address,"title": "Probe Finded"}), { "Content-type": "application/x-www-form-urlencoded" })
                 # conn.getresponse()
-                message = "Probe %s is now working yet" % address
+                message = "Probe %s is now working yet" % str(ping)
                 title = "Probe Finded"
                 msgToSend = urlForNotification + str(message) +  "/" + title
                 NewmsgToSend = urllib.quote_plus(msgToSend)

@@ -241,8 +241,18 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#check il you want push notification in the source code#
 	
 #enable server for push notification#
-	python /Domotics-Raspberry/Software/Send_push_notification/Send_push.py
+	#set autostart#
+		sudo nano /etc/xdg/lxsession/LXDE/autostart
+		#add this line at the end of the file#
+		@python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
+	python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
 	
+#enable roundrobin for notification probe disconnected#
+	#set autostart#
+		sudo nano /etc/xdg/lxsession/LXDE/autostart
+		#add this line at the end of the file#
+		@python /home/pi/Domotics-Raspberry/Software/Send_push_notification/round_robin_ping.py
+		
 #VISUAL STUDIO 2010#
 #Install redis client for c# #
 #see the documentation https://github.com/ServiceStack/ServiceStack.Redis#

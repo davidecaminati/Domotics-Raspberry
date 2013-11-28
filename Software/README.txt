@@ -240,6 +240,9 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	/usr/bin/python /home/pi/Domotics-Raspberry/Software/thermo/thermo.py
 	#check il you want push notification in the source code#
 	
+#enable server for push notification#
+	python /Domotics-Raspberry/Software/Send_push_notification/Send_push.py
+	
 #VISUAL STUDIO 2010#
 #Install redis client for c# #
 #see the documentation https://github.com/ServiceStack/ServiceStack.Redis#

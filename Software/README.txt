@@ -212,11 +212,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
         wireless-essid XXXXXXX  <--- your SSID
         wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 
-#configure ping test for probe#
-	sudo nano /etc/rc.local
-	#add this line before exit 0#
-	/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/round_robin_ping.py
-	
+
 #install RUBY#
 	curl -L https://get.rvm.io | bash -s stable
 	source /home/pi/.rvm/scripts/rvm
@@ -236,23 +232,22 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#http://blog.luisrei.com/articles/flaskrest.html#
 	sudo pip install flask
 	
-#enable thermo#
+#enable thermo control#
 	/usr/bin/python /home/pi/Domotics-Raspberry/Software/thermo/thermo.py
 	#check il you want push notification in the source code#
 	
 #enable server for push notification#
 	#set autostart#
-		sudo nano /etc/xdg/lxsession/LXDE/autostart
+		sudo nano /etc/rc.local
 		#add this line at the end of the file#
-		@python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
-	python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
-	
-#enable roundrobin for notification probe disconnected#
+			/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
+
+#configure ping test for probe#
 	#set autostart#
 		sudo nano /etc/xdg/lxsession/LXDE/autostart
-		#add this line at the end of the file#
-		@python /home/pi/Domotics-Raspberry/Software/Send_push_notification/round_robin_ping.py
-		
+		#add this line before exit 0#
+			@/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/round_robin_ping.py
+	
 #VISUAL STUDIO 2010#
 #Install redis client for c# #
 #see the documentation https://github.com/ServiceStack/ServiceStack.Redis#

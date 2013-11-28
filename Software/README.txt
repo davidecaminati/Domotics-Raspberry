@@ -236,10 +236,14 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#http://blog.luisrei.com/articles/flaskrest.html#
 	sudo pip install flask
 	
+#enable thermo#
+	/usr/bin/python /home/pi/Domotics-Raspberry/Software/thermo/thermo.py
+	#check il you want push notification in the source code#
+	
 #VISUAL STUDIO 2010#
 #Install redis client for c# #
 #see the documentation https://github.com/ServiceStack/ServiceStack.Redis#
 
 
-#if you want to test now the capability of your  powerful Raspberry go to 
+#if you want to test now the capability of your  powerful Raspberry go to
 

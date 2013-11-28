@@ -8,6 +8,8 @@ IODIRA = 0x00 # Pin direction register
 OLATA  = 0x14 # Register for outputs
 GPIOA  = 0x12 # Register for output
 GPIOB  = 0x13 # Register for inputs
+hostIP = '192.168.0.202'
+
 bus.write_byte_data(DEVICE,IODIRA,0x00)
 app = Flask(__name__)
 
@@ -92,10 +94,6 @@ def api_releoff(number):
         else:
             return 'malfunction'
 
-@app.route('/articles/<articleid>')
-def api_article(articleid):
-    return 'You are reading ' + articleid
-
 if __name__ == '__main__':
-    app.run()
+    app.run(host=hostIP)
 

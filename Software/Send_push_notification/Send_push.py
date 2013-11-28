@@ -16,5 +16,12 @@ def api_send_push(pushtext,title):
     conn.getresponse()
     return 'ok'
 
+@app.route('/send_push/<string:pushtext>')
+def api_send_push(pushtext):
+    conn = httplib.HTTPSConnection("api.pushover.net:443")
+    conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": pushtext ,"title": "notification"}), { "Content-type": "application/x-www-form-urlencoded" })
+    conn.getresponse()
+    return 'ok'
+
 if __name__ == '__main__':
     app.run(host=hostIP)

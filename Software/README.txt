@@ -232,5 +232,14 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#read test from client#
 		curl 192.168.0.202:9292/temperature/cucina
 
+#install webapi for python#
+	#http://blog.luisrei.com/articles/flaskrest.html#
+	sudo pip install flask
+	
+#VISUAL STUDIO 2010#
+#Install redis client for c# #
+#see the documentation https://github.com/ServiceStack/ServiceStack.Redis#
+
+
 #if you want to test now the capability of your  powerful Raspberry go to 
 

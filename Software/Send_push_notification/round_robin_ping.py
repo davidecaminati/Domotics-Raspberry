@@ -32,6 +32,7 @@ while True:
                 title = "Probe not avaible"
                 msgToSend = urlForNotification + str(message) +  "/" + title
                 NewmsgToSend = urllib.quote_plus(msgToSend)
+                res = urllib.urlopen(msgToSend)
                 print NewmsgToSend
                 ip_device_list_Error.append(ping)
             else:
@@ -43,6 +44,7 @@ while True:
                 title = "Probe not avaible"
                 msgToSend = urlForNotification + str(message) +  "/" + title
                 NewmsgToSend = urllib.quote_plus(msgToSend)
+                res = urllib.urlopen(msgToSend)
                 print NewmsgToSend
                 ip_device_list_Error.append(ping)
         else:
@@ -57,6 +59,7 @@ while True:
                 title = "Probe Finded"
                 msgToSend = urlForNotification + str(message) +  "/" + title
                 NewmsgToSend = urllib.quote_plus(msgToSend)
+                res = urllib.urlopen(msgToSend)
                 print NewmsgToSend
                 ip_device_list_Error.remove(ping)
             elif res == 2:

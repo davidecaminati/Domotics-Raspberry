@@ -51,7 +51,7 @@ title: "Time",
        showLabels: true,  
        showMinorLabels: true
        },
-yaxis: {min: 15, max:42,title: "Temp",},
+yaxis: {min: -15, max:42,title: "Temp",},
        spreadsheet: {
 show:true},
        HtmlText: false,

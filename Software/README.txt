@@ -239,13 +239,19 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 #enable server for push notification#
 	#set autostart#
 		sudo nano /etc/rc.local
-		#add this line at the end of the file#
+		#add this line before exit 0#
 			/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
+	
+#enable server for rele board control#
+	#set autostart#
+		sudo nano /etc/rc.local
+		#add this line before exit 0#
+			/usr/bin/python /home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/rele_board_control.py 
 
 #configure ping test for probe#
 	#set autostart#
 		sudo nano /etc/xdg/lxsession/LXDE/autostart
-		#add this line before exit 0#
+		#add this line at the end of the file#
 			@/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/round_robin_ping.py
 	
 #VISUAL STUDIO 2010#

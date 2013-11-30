@@ -1,5 +1,5 @@
-import httplib, urllib 
-import subprocess 
+import httplib, urllib
+import subprocess
 import time
 import urllib
 import urllib2
@@ -9,7 +9,7 @@ import urllib2
 #86 PC windows
 #202 rele
 #211 analog Probe
-ip_device_list = [202,211,208,205] 
+ip_device_list = [9,202,211,208,205]
 ip_device_list_Error = []
 urlForNotification = 'http://192.168.0.208:5000/send_push/'
 while True:
@@ -25,9 +25,10 @@ while True:
                 print "no response from", address
                 message = "error from  %s" % str(ping)
                 title = "Probe not avaible"
-                data = urllib.urlencode({'pushtext': str(message),'title': title})
+                data = urllib.urlencode({'pushtext': str(message),'title': str(title)})
                 req = urllib2.Request(urlForNotification,data)
-                urllib2.urlopen(req)
+                response = urllib2.urlopen(req)
+                html = response.read()
                 ip_device_list_Error.append(ping)
         else:
             address = "192.168.0." + str(ping)
@@ -36,9 +37,10 @@ while True:
                 print "ping to", address, "OK "
                 message = "Probe %s is now working yet" % str(ping)
                 title = "Probe Finded"
-                data = urllib.urlencode({'pushtext': str(message),'title': title})
+                data = urllib.urlencode({'pushtext': str(message),'title': str(title)})
                 req = urllib2.Request(urlForNotification,data)
-                urllib2.urlopen(req)
+                response = urllib2.urlopen(req)
+                html = response.read()
                 ip_device_list_Error.remove(ping)
             else:
                 print "ping to", address, "failed!"

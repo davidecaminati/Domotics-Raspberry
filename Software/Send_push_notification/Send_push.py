@@ -4,7 +4,7 @@ import httplib, urllib
 #variable
 hostIP = '192.168.0.208'
 app = Flask(__name__)
-app.debug = True
+#app.debug = True
 @app.route('/')
 def api_root():
     return 'Welcome on %s' % hostIP

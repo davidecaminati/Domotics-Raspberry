@@ -16,7 +16,7 @@ while True:
         if re.search(process, x):
             running = true
             print "run"
-    if running = False
+    if running == False
         print "not run"
 	time.sleep(1)
     #- See more at: http://www.bloggerpolis.com/2011/05/how-to-check-if-a-process-is-running-using-python/#sthash.6CQPQvf6.dpuf#

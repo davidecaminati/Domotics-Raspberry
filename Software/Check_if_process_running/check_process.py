@@ -9,7 +9,6 @@ my_script = ['/home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/re
 
 while True:
 
-    running = False
     
     s = subprocess.Popen(["ps", "axw"],stdout=subprocess.PIPE)
     for script in my_script:
@@ -19,6 +18,7 @@ while True:
                print "%s run" % script
         if running == False:
             print "%s not run" % script
+        running = False
         time.sleep(3)
     
 

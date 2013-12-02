@@ -22,11 +22,11 @@ while True:
         pass
     finally:
         if (NewState == 1 or NewState == 3) and OldState != NewState:
-                    #data = urllib.urlencode({'pushtext': str(message),'title': str(title)})
-                    #req = urllib2.Request(urlForNotification,data)
-                    response = urllib2.urlopen(urlForToggle)
-                    html = response.read()
-                    OldState = NewState
+            #data = urllib.urlencode({'pushtext': str(message),'title': str(title)})
+            #req = urllib2.Request(urlForNotification,data)
+            response = urllib2.urlopen(urlForToggle)
+            html = response.read()
+            OldState = NewState
         else:
             OldState = 0x00
             #print 'NewState != OldState %s' , NewState

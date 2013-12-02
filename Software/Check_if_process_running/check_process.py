@@ -3,9 +3,11 @@ import subprocess
 import time
 
 #def is_running(process):
+#variable
+process = "rele_board"
 
 while True
-#variable
+
     running = False
     
     s = subprocess.Popen(["ps", "axw"],stdout=subprocess.PIPE)

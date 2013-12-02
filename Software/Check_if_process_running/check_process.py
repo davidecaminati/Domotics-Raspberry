@@ -18,5 +18,5 @@ while True:
             print "run"
     if running == False:
         print "not run"
-	time.sleep(1)
+	time.sleep(10)
     #- See more at: http://www.bloggerpolis.com/2011/05/how-to-check-if-a-process-is-running-using-python/#sthash.6CQPQvf6.dpuf#

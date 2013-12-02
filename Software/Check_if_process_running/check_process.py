@@ -14,7 +14,7 @@ while True:
     for x in s.stdout:
     
         if re.search(process, x):
-            running = true
+            running = True
             print "run"
     if running == False:
         print "not run"

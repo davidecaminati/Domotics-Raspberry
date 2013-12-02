@@ -28,5 +28,5 @@ while True:
            OldState = 0x00
            #print 'NewState != OldState %s' , NewState
        #OldState = bus.read_byte_data(DEVICE,GPIOB)
-    except:
-       print "error"
+       except:
+           print "error"

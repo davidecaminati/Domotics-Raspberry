@@ -5,7 +5,7 @@ import time
 #def is_running(process):
 #variable
 #process = "rele_board_control.py"
-my_script = ['/home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/read_pulse.py ', '/home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/rele_board_control.py']
+my_script = ['/home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/read_pulse.py', '/home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/rele_board_control.py']
 
 while True:
 

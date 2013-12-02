@@ -8,7 +8,7 @@ process = "rele_board_control.py"
 
 while True:
 
-    running = False
+    running == False
     
     s = subprocess.Popen(["ps", "axw"],stdout=subprocess.PIPE)
     for x in s.stdout:

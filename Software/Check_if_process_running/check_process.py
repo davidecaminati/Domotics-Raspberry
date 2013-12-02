@@ -4,19 +4,30 @@ import time
 
 #def is_running(process):
 #variable
-process = "rele_board_control.py"
+#process = "rele_board_control.py"
+my_script = ['/home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/read_pulse.py ', '/home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/rele_board_control.py']
 
 while True:
 
     running = False
     
     s = subprocess.Popen(["ps", "axw"],stdout=subprocess.PIPE)
-    for x in s.stdout:
+    for script in my_script:
+        for x in s.stdout:
+           if re.search(script, x):
+               running = True
+               print "%s run" % script
+        if running == False:
+            print "%s not run" % script
+        time.sleep(3)
     
-        if re.search(process, x):
-            running = True
-            print "run"
-    if running == False:
-        print "not run"
-    time.sleep(10)
-    #- See more at: http://www.bloggerpolis.com/2011/05/how-to-check-if-a-process-is-running-using-python/#sthash.6CQPQvf6.dpuf#
+
+
+# launch async calls:
+#procs = [subprocess.Popen(['/usr/bin/python', my_script]) for my_script in scripts]
+# wait.
+#for proc in procs:
+#    proc.wait()
+## check for results:
+#if any(proc.returncode != 0 for proc in procs):
+#    print 'Something failed'

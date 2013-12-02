@@ -20,7 +20,7 @@ while True:
         if running == False:
             print "%s not run" % process
             procs = subprocess.Popen(['/usr/bin/python', '/home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/%s' % process])
-        time.sleep(5)
+            time.sleep(5)
         running = False
         time.sleep(3)
     

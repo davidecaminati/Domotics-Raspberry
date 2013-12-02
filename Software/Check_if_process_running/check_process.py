@@ -4,9 +4,9 @@ import time
 
 #def is_running(process):
 #variable
-process = "rele_board"
+process = "rele_board_control.py"
 
-while True
+while True:
 
     running = False
     

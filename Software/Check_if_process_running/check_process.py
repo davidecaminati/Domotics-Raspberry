@@ -6,23 +6,18 @@ import time
 #variable
 my_process = ["rele_board_control.py","read_pulse.py"]
 #my_script = ['/home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/read_pulse.py', '/home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/rele_board_control.py']
-running = False
 
-while True:
 
     
-    s = subprocess.Popen(["ps", "axw"],stdout=subprocess.PIPE)
-    for process in my_process:
-        for x in s.stdout:
-           if re.search(process, x):
-               running = True
-               print "%s run" % process
-        if running == False:
-            print "%s not run" % process
-            procs = subprocess.Popen(['/usr/bin/python', '/home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/%s' % process])
-            time.sleep(5)
-        running = False
-        time.sleep(3)
+s = subprocess.Popen(["ps", "axw"],stdout=subprocess.PIPE)
+for process in my_process:
+    for x in s.stdout:
+       if re.search(process, x):
+           running = True
+           print "%s run" % process
+    if running == False:
+        print "%s not run" % process
+        procs = subprocess.Popen(['/usr/bin/python', '/home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/%s' % process])
     
 
 

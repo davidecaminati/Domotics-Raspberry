@@ -17,8 +17,6 @@ urlForToggle = 'http://192.168.0.202:5000/reletoggle/2'
 
 while True:
    try: NewState = bus.read_byte_data(DEVICE,GPIOB)
-   except:
-       print "error"
    if (NewState == 1 or NewState == 3) and OldState != NewState:
                #data = urllib.urlencode({'pushtext': str(message),'title': str(title)})
                #req = urllib2.Request(urlForNotification,data)

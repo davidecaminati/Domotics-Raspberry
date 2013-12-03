@@ -247,7 +247,9 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		sudo nano /etc/rc.local
 		#add this line before exit 0#
 			/usr/bin/python /home/pi/Domotics-Raspberry/Software/Socket_to_MCP27013_con_i2c/rele_board_control.py 
-
+		# for schema look at #
+            http://fritzing.org/projects/rele-board-control-with-beedback-state-and-by-pass
+			
 #configure ping test for probe#
 	#set autostart#
 		sudo nano /etc/xdg/lxsession/LXDE/autostart

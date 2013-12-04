@@ -1,6 +1,6 @@
 <html>
         <head>
-                <META HTTP-EQUIV="refresh" CONTENT="20">
+                <META HTTP-EQUIV="refresh" CONTENT="15">
         </head>
         <body>
 <style type="text/css">
@@ -11,8 +11,8 @@ h3 {color:white}
 </style>
 
                 <div id=grafico>
-                        <h3>Temperature Monitoring</h3>
-                        <p><b>Time <?=date("h:i:s")?> of <?=date("d/m/Y")?></b></p>
+                        <!--<h3>Temperature Monitoring</h3>-->
+                        <p><b>Time <?=date("h:i")?> of <?=date("d/m/Y")?></b></p>
                         <script language=javascript>
                                 <?
                                         $start=-1;
@@ -46,10 +46,9 @@ h3 {color:white}
                                 ?>
                                 document.write ("<p><b>my_room_1 " + my_room_1 + "</b></p>");
                                 document.write ("<p><b>my_room_2 " + my_room_2 + "</b></p>");
-                                document.write ("<p><b>windows_doors_switch " + windows_doors_switch + "</b></p>");
-                                document.write ("<p><b>Temp. ext " + current_temp_ext + "</b></p>");
-                                document.write ("<img href=" + current_ico_ext + "/>");
-                                document.write ("<p><b>Condition. ext " + current_condition_ext + "</b></p>");
+                                document.write ("<p><b>Temp " + current_temp_ext + " <img src=" + current_ico_ext + " style=float:left;margin:0 5px 0 0; /></br></b>");
+                                document.write ("<b>Condition " + current_condition_ext + "</br></b>");
+                                document.write ("<b>Door/window" + windows_doors_switch + "</b></p>");
                         </script>
                 </div>
         </body>

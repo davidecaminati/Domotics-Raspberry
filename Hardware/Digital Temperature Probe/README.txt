@@ -15,3 +15,5 @@
 	sensors[0]='28-0000047b16f9'    <--- set your probe ID
 	sensors[1]='28-0000047b16f9'    <--- set your second probe ID if exist else remark the line with #
 	
+#install lib for perl#
+	sudo apt-get install libwww-perl

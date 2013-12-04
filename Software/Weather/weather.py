@@ -37,7 +37,6 @@ while True:
         msgToSend = urlForNotification + str(message) 
         NewmsgToSend = urllib.quote_plus(msgToSend)
         print NewmsgToSend
-        print lastwork
         res = urllib.urlopen(msgToSend)
         message= '' 
     time.sleep(30)

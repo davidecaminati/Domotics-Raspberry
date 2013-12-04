@@ -31,7 +31,7 @@ while True:
     
     #message
     message = "fat fred!"
-	title = "temperatura" +  temp + " cond "  + cond 
+    title = "temperatura" +  temp + " cond "  + cond 
     notification = True
     
     if notification :

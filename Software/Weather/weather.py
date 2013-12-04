@@ -32,7 +32,6 @@ while True:
     #message
     message = "fat fred!"
     title = "temperatura" +  temp + " cond "  + cond 
-    notification = True
     
     if notification :
         data = urllib.urlencode({'pushtext': str(message),'title': str(title)})

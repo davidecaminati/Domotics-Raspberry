@@ -23,7 +23,10 @@ h3 {color:white}
 
                                         $lettura      = $redis->lRange('lettura', $start, $end);
                                         $timestamp    = $redis->lRange('timestamp', $start, $end);
-                                        $temp_ext     = $redis->lRange('temp_ext', $start, $end);
+                                        $current_temp_ext     = $redis->lRange('current_temp_ext', $start, $end);
+                                        $current_ico_ext     = $redis->lRange('current_ico_ext', $start, $end);
+                                        $current_condition_ext     = $redis->lRange('current_condition_ext', $start, $end);
+                                        
                                         $termo        = $redis->lRange('termo', $start, $end);
                                         $rele         = $redis->lRange('rele', $start, $end);
                                         $temp_1       = $redis->lRange('my_room_1', $start, $end);
@@ -37,12 +40,16 @@ h3 {color:white}
                                         echo "my_room_2='$temp_2[0]';\t";
                                         echo "my_room_3='$temp_3[0]';\t";
                                         echo "windows_doors_switch='$windows_doors_switch[0]';\t";
-                                        echo "temp_ext='$temp_ext[0]';\t";
+                                        echo "current_temp_ext='$current_temp_ext[0]';\t";
+                                        echo "current_ico_ext='$current_ico_ext[0]';\t";
+                                        echo "current_condition_ext='$current_condition_ext[0]';\t";
                                 ?>
                                 document.write ("<p><b>my_room_1 " + my_room_1 + "</b></p>");
                                 document.write ("<p><b>my_room_2 " + my_room_2 + "</b></p>");
                                 document.write ("<p><b>windows_doors_switch " + windows_doors_switch + "</b></p>");
-                                document.write ("<p><b>Temp. ext " + temp_ext + "</b></p>");
+                                document.write ("<p><b>Temp. ext " + current_temp_ext + "</b></p>");
+                                document.write ("<img href=" + current_ico_ext + "/>");
+                                document.write ("<p><b>Condition. ext " + current_condition_ext + "</b></p>");
                         </script>
                 </div>
         </body>

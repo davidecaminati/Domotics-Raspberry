@@ -12,7 +12,7 @@ notification = True
 message = ''
 
 
-print "Weather.com says: It is " + string.lower(weather_com_result['current_conditions']['text']) + " and " + weather_com_result['current_conditions']['temperature'] + "C now in Cesena.\n\n" + "icon is http://s.imwx.com/v.20131006.214956/img/wxicon/120/" +weather_com_result['current_conditions']['icon'] + ".png"
+#print "Weather.com says: It is " + string.lower(weather_com_result['current_conditions']['text']) + " and " + weather_com_result['current_conditions']['temperature'] + "C now in Cesena.\n\n" + "icon is http://s.imwx.com/v.20131006.214956/img/wxicon/120/" +weather_com_result['current_conditions']['icon'] + ".png"
 
 while True:
     #get weather

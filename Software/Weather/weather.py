@@ -16,7 +16,7 @@ message = ''
 
 while True:
     #get weather
-    weather_com_result = pywapi.get_weather_from_weather_com('ITAB1723')
+    weather_com_result = pywapi.get_weather_from_weather_com('ITER1302')
     temp = string.lower(weather_com_result['current_conditions']['temperature'])
     cond = string.lower(weather_com_result['current_conditions']['text'])
     ico = "http://s.imwx.com/v.20131006.214956/img/wxicon/120/" + weather_com_result['current_conditions']['icon'] + ".png"

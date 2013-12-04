@@ -38,4 +38,4 @@ if notification :
     response = urllib2.urlopen(req)
     html = response.read()
     message= '' 
-time.sleep(600)
+#time.sleep(600)

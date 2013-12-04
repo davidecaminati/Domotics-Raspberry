@@ -39,4 +39,4 @@ while True:
         response = urllib2.urlopen(req)
         html = response.read()
         message= '' 
-    time.sleep(100)
+    time.sleep(600)

@@ -27,7 +27,7 @@ while True:
     
     
     #message
-    message = 'fat fred!"
+    message = "fat fred!"
     notification = True
     
     if notification :

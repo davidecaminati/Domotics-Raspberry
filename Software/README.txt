@@ -167,6 +167,17 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#add at the end of the file#
 	* * * * * sh /home/pi/Domotics-Raspberry/Hardware/Display\ TFT/02_update_external_temp.sh
 	
+#configuration for read external temp from python#
+#link http://code.google.com/p/python-weather-api/#
+#suggest to add this script in Display raspberry#
+	svn checkout http://python-weather-api.googlecode.com/svn/trunk/ python-weather-api-read-only
+	 cd python-weather-api-read-only/
+	 python setup.py build
+	 sudo python setup.py install
+	 crontab -e
+	#add at the end of the file#
+	* * * * * sh /home/pi/Domotics-Raspberry/Hardware/Display\ TFT/weather.py
+	 
 #configure digital probe (my_room_1)#
 	#make executable the script#
 	chmod +x /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/02_read_temp_from_probe.sh

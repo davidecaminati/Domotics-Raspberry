@@ -20,17 +20,17 @@ while True:
 
     pool = redis.ConnectionPool(host=server_redis, port=6379, db=0)
     r = redis.Redis(connection_pool=pool)
-	r.rpush("current_temp_ext",str(temp))
-	r.rpush("current_condition_ext",str(temp))
-	r.rpush("current_ico_ext",str(temp))
-	
-	
-	
-	#message
-	message = 'fat fred!"
-	notification = True
-	
-	if notification :
+    r.rpush("current_temp_ext",str(temp))
+    r.rpush("current_condition_ext",str(temp))
+    r.rpush("current_ico_ext",str(temp))
+    
+    
+    
+    #message
+    message = 'fat fred!"
+    notification = True
+    
+    if notification :
         msgToSend = urlForNotification + str(message) 
         NewmsgToSend = urllib.quote_plus(msgToSend)
         print NewmsgToSend

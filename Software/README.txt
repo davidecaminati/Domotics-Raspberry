@@ -161,7 +161,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#add at the end of the file#
 	* * * * * sudo python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
 
-#configuration to read external temp from internet#
+#OLD configuration to read external temp from internet#
 #suggest to add this script in Display raspberry#
 	crontab -e
 	#add at the end of the file#

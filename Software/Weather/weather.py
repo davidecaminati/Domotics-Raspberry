@@ -31,12 +31,13 @@ while True:
     
     #message
     message = "fat fred!"
+	title = "temperatura" +  temp + " cond "  + cond 
     notification = True
     
     if notification :
-        msgToSend = urlForNotification + str(message) 
-        NewmsgToSend = urllib.quote_plus(msgToSend)
-        print NewmsgToSend
-        res = urllib.urlopen(msgToSend)
+        data = urllib.urlencode({'pushtext': str(message),'title': str(title)})
+        req = urllib2.Request(urlForNotification,data)
+        response = urllib2.urlopen(req)
+        html = response.read()
         message= '' 
     time.sleep(30)

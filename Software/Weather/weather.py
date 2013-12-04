@@ -8,7 +8,7 @@ import time
 #variable
 server_redis = '192.168.0.208'
 urlForNotification = 'http://192.168.0.208:5000/send_push/'
-notification = True
+notification = False
 message = ''
 
 
@@ -40,4 +40,4 @@ while True:
         response = urllib2.urlopen(req)
         html = response.read()
         message= '' 
-    time.sleep(30)
+    time.sleep(100)

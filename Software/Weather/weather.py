@@ -17,8 +17,8 @@ message = ''
 while True:
     #get weather
     weather_com_result = pywapi.get_weather_from_weather_com('ITAB1723')
-    temp = string.lower(weather_com_result['current_conditions']['text'])
-    cond = string.lower(weather_com_result['current_conditions']['temperature'])
+    temp = string.lower(weather_com_result['current_conditions']['temperature'])
+    cond = string.lower(weather_com_result['current_conditions']['text'])
     ico = "http://s.imwx.com/v.20131006.214956/img/wxicon/120/" + weather_com_result['current_conditions']['icon'] 
     
     pool = redis.ConnectionPool(host=server_redis, port=6379, db=0)

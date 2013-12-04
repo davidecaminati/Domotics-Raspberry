@@ -33,7 +33,7 @@ $redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE);
 
 //$lettura      = $redis->lRange('lettura', $start, $end);
 $timestamp    = $redis->lRange('timestamp', $start, $end);
-$temp_ext = $redis->lRange('temp_ext', $start, $end);
+$current_temp_ext = $redis->lRange('current_temp_ext', $start, $end);
 //$termo        = $redis->lRange('termo', $start, $end);
 //$rele         = $redis->lRange('rele', $start, $end);
 $my_room_1       = $redis->lRange('my_room_1', $start, $end);
@@ -44,11 +44,11 @@ $windows_doors_switch	      = $redis->lRange('windows_doors_switch', $start, $en
 
 for ($x=0;$x<=(abs($start)-1);$x++) {
 	echo "d0='$lettura[$x]';\t";
-	if (is_numeric($temp_ext[$x])) {
-		echo "d1.push([" . $timestamp[$x] . "," . $temp_ext[$x] . "]);\t";
-		$temp_ext_precedente=$temp_ext[$x];
+	if (is_numeric($current_temp_ext[$x])) {
+		echo "d1.push([" . $timestamp[$x] . "," . $current_temp_ext[$x] . "]);\t";
+		$current_temp_ext_precedente=$current_temp_ext[$x];
 	}  else {
-		echo "d1.push([" . $timestamp[$x] . "," . $temp_ext_precedente . "]);\t";
+		echo "d1.push([" . $timestamp[$x] . "," . $current_temp_ext_precedente . "]);\t";
 	}
 	echo "d3.push([" . $timestamp[$x] . "," . $my_room_1[$x] . "]);\n";
 	echo "d4.push([" . $timestamp[$x] . "," . $my_room_2[$x] . "]);\n";

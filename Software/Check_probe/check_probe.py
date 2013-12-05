@@ -9,7 +9,11 @@ import urllib2
 #86 PC windows
 #202 rele
 #211 analog Probe
-ip_device_list = [202,211,208,205,212,206]
+#212 analog Probe wireless
+#206 door windows probe
+#207 door windows probe wireless
+
+ip_device_list = [205,208,86,202,212,207]
 ip_device_list_Error = []
 urlForNotification = 'http://192.168.0.208:5000/send_push/'
 while True:

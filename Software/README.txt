@@ -239,11 +239,12 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		#add this line before exit 0#
 			/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
 	
-#enable server for rele board control#
+#enable server and wall switch monitor for rele board control#
 	#set autostart#
 		sudo nano /etc/rc.local
 		#add this line before exit 0#
-			/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Socket_to_MCP27013_con_i2c/rele_board_control.py 
+			/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Socket_to_MCP27013_con_i2c/rele_board_control.py &
+			/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Socket_to_MCP27013_con_i2c/read_pulse.py &
 		# for schema look at #
             http://fritzing.org/projects/rele-board-control-with-beedback-state-and-by-pass
 			
@@ -254,10 +255,15 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 			@/usr/bin/python /home/pi/Domotics-Raspberry/Software/Check_probe/check_probe.py
 			
 #configure door/windows monitor#
-	#add the script to crontab#
-	crontab -e
-	#add at the end of the file#
-		* * * * * sudo python /home/pi/Domotics-Raspberry/Hardware/Windows\ Switch\ MCP23017/windows_doors_probe.py
+	#change permission permanent#
+		sudo nano /etc/rc.local
+		#add this two line before exit 0#
+			sudo chmod 666 /dev/i2c-0
+			sudo chmod 666 /dev/i2c-1
+		#add the script to crontab#
+		crontab -e
+		#add at the end of the file#
+			* * * * * sudo python /home/pi/Domotics-Raspberry/Hardware/Windows\ Switch\ MCP23017/windows_doors_probe.py
 
 	
 #VISUAL STUDIO 2010#
@@ -265,5 +271,5 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 #see the documentation https://github.com/ServiceStack/ServiceStack.Redis#
 
 
-#if you want to test now the capability of your  powerful Raspberry go to
+#if you want to test now the capability of your powerful Raspberry go to
 

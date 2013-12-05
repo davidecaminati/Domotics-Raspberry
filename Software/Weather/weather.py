@@ -19,12 +19,13 @@ weather_com_result = pywapi.get_weather_from_weather_com('ITER1302')
 temp = string.lower(weather_com_result['current_conditions']['temperature'])
 cond = string.lower(weather_com_result['current_conditions']['text'])
 ico = "http://s.imwx.com/v.20131006.214956/img/wxicon/120/" + weather_com_result['current_conditions']['icon'] + ".png"
-
+ts = time.time()
 pool = redis.ConnectionPool(host=server_redis, port=6379, db=0)
 r = redis.Redis(connection_pool=pool)
 r.rpush("current_temp_ext",str(temp))
 r.rpush("current_condition_ext",str(cond))
 r.rpush("current_ico_ext",str(ico))
+r.rpush("timestamp",str(ts))
 
 
 

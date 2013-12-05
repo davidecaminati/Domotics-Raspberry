@@ -46,11 +46,16 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#Save the file so that the module will load on future reboots. To enable the module now, enter:#
 			sudo modprobe spi-bcm2708
 
-	Now, if you run the lsmod command, you should see something like:
+	#Now, if you run the lsmod command, you should see something like:#
 		lsmod
 		Module                  Size  Used by
 		spi_bcm2708             4421  0
-	
+	#change permission permanent#
+		sudo nano /etc/rc.local
+		#add this two line before exit 0#
+			sudo chmod 666 /dev/spidev0.0
+			sudo chmod 666 /dev/spidev0.1
+		
 #SPIDEV#
 	sudo apt-get install python-pip  
 	sudo pip install spidev
@@ -156,17 +161,20 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#set the redis server#
 	
 
-#configure analog probe#
+#configure analog probe(my_room_2)#
+	#add the script to crontab#
 	crontab -e
 	#add at the end of the file#
-	* * * * * sudo python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
+	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
+		 
+#configure digital probe (my_room_1)#
+	#add the script to crontab#
+	crontab -e
+	#add at the end of the file#
+	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/thermometer.py
+	#NOTE#
+	#be sure to have activate 1 wire module otherwise look #enable 1wire# #
 
-#OLD configuration to read external temp from internet#
-#suggest to add this script in Display raspberry#
-	crontab -e
-	#add at the end of the file#
-	* * * * * sh /home/pi/Domotics-Raspberry/Hardware/Display\ TFT/02_update_external_temp.sh
-	
 #configuration for read external temp from python#
 #link http://code.google.com/p/python-weather-api/#
 #suggest to add this script in Display raspberry#
@@ -176,32 +184,10 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	 sudo python setup.py install
 	 crontab -e
 	#add at the end of the file#
-	* * * * * sh /home/pi/Domotics-Raspberry/Hardware/Display\ TFT/weather.py
-	 
-#configure digital probe (my_room_1)#
-	#make executable the script#
-	chmod +x /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/02_read_temp_from_probe.sh
-	chmod +x /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/05_send_temp_to_redis.sh
-	
-	#add the script to crontab#
-	crontab -e
-	#add at the end of the file#
-	* * * * * /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/05_send_temp_to_redis.sh
-	#NOTE#
-	#be sure to have activate 1 wire module otherwise look #enable 1wire# #
-
-#configure analogic probe(my_room_2)#
-	#switch to root#
-	su
-	#type password to being root#
-	
-	#add the script to crontab#
-		crontab -e
-		#add at the end of the file#
-		* * * * * python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
+	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Display\ TFT/weather.py
 
 #Update a device#
-	#in Update directory, you will find usefull script to automate this#
+	#in Update directory, you will find usefull script to automate this (website, ....)#
 	cd /home/pi/Domotics-Raspberry/Update
 	
 #error in editing file from windows#
@@ -266,6 +252,13 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		sudo nano /etc/xdg/lxsession/LXDE/autostart
 		#add this line at the end of the file#
 			@/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/round_robin_ping.py
+			
+#configure door/windows monitor#
+	#add the script to crontab#
+	crontab -e
+	#add at the end of the file#
+		* * * * * sudo python /home/pi/Domotics-Raspberry/Hardware/Windows\ Switch\ MCP23017/windows_doors_probe.py
+
 	
 #VISUAL STUDIO 2010#
 #Install redis client for c# #

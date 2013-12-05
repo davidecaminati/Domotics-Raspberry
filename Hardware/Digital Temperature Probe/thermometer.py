@@ -32,11 +32,9 @@ def read_temp():
             temp = "%.2f" % (float(temp_string) / 1000.0 * 9.0 / 5.0 + 32.0)
         return temp
 
-while True:
-    temp = read_temp()
-    pool = redis.ConnectionPool(host=server_redis, port=6379, db=0)
-    r = redis.Redis(connection_pool=pool)
-    r.rpush(room_name,str(temp))
-    if debug:
-        print(temp())
-    time.sleep(60)
+temp = read_temp()
+pool = redis.ConnectionPool(host=server_redis, port=6379, db=0)
+r = redis.Redis(connection_pool=pool)
+r.rpush(room_name,str(temp))
+if debug:
+    print(temp())

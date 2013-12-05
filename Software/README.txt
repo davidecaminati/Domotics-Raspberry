@@ -251,7 +251,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#set autostart#
 		sudo nano /etc/xdg/lxsession/LXDE/autostart
 		#add this line at the end of the file#
-			@/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/round_robin_ping.py
+			@/usr/bin/python /home/pi/Domotics-Raspberry/Software/Check_probe/check_probe.py
 			
 #configure door/windows monitor#
 	#add the script to crontab#

@@ -1,6 +1,0 @@
-https://github.com/nathanchantrell/Python-MCP230XX/blob/master/mcp23017.wsgi
-
-https://github.com/nathanchantrell/Python-MCP230XX/blob/master/mcp23017.wsgi
-
-
-wget http://www.raspberrypi-spy.co.uk/archive/python/i2c_inputs.py

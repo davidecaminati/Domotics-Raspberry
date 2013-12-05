@@ -1,17 +1,16 @@
 import os 
 import glob 
 import time 
+import redis
 
 #variable
 temp_um = "c"   # set "c" for celsius or "f" for fahrenheit
 base_dir = '/sys/bus/w1/devices/' 
 device_folder = glob.glob(base_dir + '28*')[0] 
 device_file = device_folder + '/w1_slave' 
-#load the module for 1wire comunication
-os.system('modprobe w1-gpio') 
-os.system('modprobe w1-therm') 
-
-
+server_redis = '192.168.0.208'
+room_name = 'my_room_1'
+debug = False
 
 def read_temp_raw():
     f = open(device_file, 'r')
@@ -28,11 +27,16 @@ def read_temp():
     if equals_pos != -1:
         temp_string = lines[1][equals_pos+2:]
         if temp_um == "c":
-            temp = float(temp_string) / 1000.0
+            temp = "%.2f" % (float(temp_string) / 1000.0)
         else: # "f"
-            temp = float(temp_string) / 1000.0 * 9.0 / 5.0 + 32.0
+            temp = "%.2f" % (float(temp_string) / 1000.0 * 9.0 / 5.0 + 32.0)
         return temp
-	
+
 while True:
-	print(read_temp())
-	time.sleep(1)
+    temp = read_temp()
+    pool = redis.ConnectionPool(host=server_redis, port=6379, db=0)
+    r = redis.Redis(connection_pool=pool)
+    r.rpush(room_name,str(temp))
+    if debug:
+        print(temp())
+    time.sleep(60)

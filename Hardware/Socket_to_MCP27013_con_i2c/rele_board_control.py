@@ -140,7 +140,6 @@ def api_reletimer(number,unlock_after_millisec):
     bus.write_byte_data(DEVICE,OLATA,0)
     return 'ok'
 
-			
 @app.route('/articles/<articleid>')
 def api_article(articleid):
     return 'You are reading ' + articleid

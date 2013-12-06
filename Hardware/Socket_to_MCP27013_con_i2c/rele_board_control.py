@@ -126,12 +126,12 @@ def api_reletoggle(number):
             return 'ok'
         else:
             return 'malfunction'
-			
+
 @app.route('/reletimer/<int:number>/<int:unlock_after_millisec>')
 def api_reletimer(number,unlock_after_millisec):
     
-	milliseconds = unlock_after_millisec /1000
-	if number > 8 or number < 1:
+    milliseconds = unlock_after_millisec /1000
+    if number > 8 or number < 1:
         print 'this rele not exist \n'
         return 'error'
     BinReleNumber = 2** (number - 1)

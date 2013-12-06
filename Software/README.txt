@@ -1,14 +1,14 @@
 Expand your partition, set password, set you timezone and keyboard, overclock to 800Mhz, i suggest to no start desktop mode (you need only the console mode) for fast boot then select finish for save and reboot.
-#copy the repository#
+#copy the repository# X
 	git clone https://github.com/davidecaminati/Domotics-Raspberry
 
-#start with an update#
+#start with an update# X
 	sudo apt-get update  
 
-#install REDIS (redis is a database)
+#install REDIS (redis is a database)# X
 	sudo apt-get install redis-server
 
-#to use REDIS on Python#
+#to use REDIS on Python# X
 	sudo apt-get install python-setuptools
 	sudo easy_install redis
 	#configure binding#
@@ -35,7 +35,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 			exit
 			cd .. (go to home)
 		
-#SPI#
+#SPI# X
 	#Enabling the SPI kernel module#
 	#As root, edit the kernel module blacklist file:#
 		sudo nano /etc/modprobe.d/raspi-blacklist.conf
@@ -56,7 +56,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 			sudo chmod 666 /dev/spidev0.0
 			sudo chmod 666 /dev/spidev0.1
 		
-#SPIDEV#
+#SPIDEV# X
 	sudo apt-get install python-pip  
 	sudo pip install spidev
 	sudo pip install python-dev
@@ -69,7 +69,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	cd ..
 	sudo pip install wiringpi
 	
-#MODULE I2C#
+#MODULE I2C# X
 	sudo apt-get install python-smbus
 	sudo apt-get install i2c-tools (usefull but not essential)
 	sudo modprobe i2c-dev
@@ -87,7 +87,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	snd-bcm2835
 	i2c-dev
 
-#enable 1wire#
+#enable 1wire# X
 	sudo nano /etc/modules
 	#add this lines#
 	w1-gpio
@@ -225,7 +225,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#read test from client#
 		curl 192.168.0.202:9292/temperature/cucina
 
-#install webapi for python#
+#install webapi for python# X
 	#http://blog.luisrei.com/articles/flaskrest.html#
 	sudo pip install flask
 	
@@ -239,7 +239,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		#add this line before exit 0#
 			/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
 	
-#enable server and wall switch monitor for rele board control#
+#enable server and wall switch monitor for rele board control# X
 	#set autostart#
 		sudo nano /etc/rc.local
 		#add this line before exit 0#
@@ -263,7 +263,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		#add the script to crontab#
 		crontab -e
 		#add at the end of the file#
-			* * * * * sudo python /home/pi/Domotics-Raspberry/Hardware/Windows\ Switch\ MCP23017/windows_doors_probe.py
+			* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Windows\ Switch\ MCP23017/windows_doors_probe.py
 
 	
 #VISUAL STUDIO 2010#

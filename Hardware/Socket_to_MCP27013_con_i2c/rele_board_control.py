@@ -92,9 +92,6 @@ def api_releoff(number):
         else:
             return 'malfunction'
 
-
-
-
 @app.route('/reletoggle/<int:number>')
 def api_reletoggle(number):
     if number > 8 or number < 1:

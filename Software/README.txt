@@ -74,7 +74,11 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	sudo apt-get install i2c-tools (usefull but not essential)
 	sudo modprobe i2c-dev
 	sudo modprobe i2c-bcm2708
-
+	#change permission permanent#
+		sudo nano /etc/rc.local
+		#add this two line before exit 0#
+			sudo chmod 666 /dev/i2c-0
+			sudo chmod 666 /dev/i2c-1
 	sudo nano /etc/modules
 	#add this line#
 		i2c-dev

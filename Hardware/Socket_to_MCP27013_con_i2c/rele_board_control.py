@@ -130,7 +130,7 @@ def api_reletoggle(number):
 @app.route('/reletimer/<int:number>/<int:unlock_after_millisec>')
 def api_reletimer(number,unlock_after_millisec):
     milliseconds = 0.0
-    milliseconds = unlock_after_millisec /1000
+    milliseconds = float(unlock_after_millisec) / 1000.0
     if number > 8 or number < 1:
         print 'this rele not exist \n'
         return 'error'
@@ -138,7 +138,20 @@ def api_reletimer(number,unlock_after_millisec):
     bus.write_byte_data(DEVICE,OLATA,BinReleNumber)
     time.sleep(milliseconds)
     bus.write_byte_data(DEVICE,OLATA,0)
-    return 'ok'
+    return "ok" 
+
+@app.route('/relestate/<int:number>')
+def api_relestate(number):
+    if number > 8 or number < 1:
+        print 'this rele not exist \n'
+        return 'error'
+    OldState = bus.read_byte_data(DEVICE,GPIOB)
+    BinReleNumber = 2** (number - 1)
+    #is already on ?
+    if BinReleNumber & OldState == BinReleNumber:
+        return 'on'
+    else:
+        return 'off'
 
 @app.route('/articles/<articleid>')
 def api_article(articleid):

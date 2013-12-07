@@ -239,6 +239,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#check il you want push notification in the source code#
 	
 #enable COLOR LED control#
+    sudo nano /etc/rc.local
 	/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Color_LED/color_led.py
 	
 #enable server for push notification#

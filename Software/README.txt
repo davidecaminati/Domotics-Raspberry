@@ -241,7 +241,18 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 #enable COLOR LED control#
     sudo nano /etc/rc.local
 	/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Color_LED/color_led.py
-	
+
+#enabled fade color led#
+    #https://github.com/metachris/RPIO/blob/master/examples/example4_pwm_lowlevel.py#
+    #http://pythonhosted.org/RPIO/pwm_py.html##
+    #http://www.rpiblog.com/2012/11/pwm-on-raspberry-pi.html#
+    sudo apt-get install git-core
+    git clone git://git.drogon.net/wiringPi
+    cd wiringPi/
+    ./build
+    # from https://github.com/metachris/RPIO#
+    sudo easy_install -U RPIO
+
 #enable server for push notification#
 	#set autostart#
 		sudo nano /etc/rc.local

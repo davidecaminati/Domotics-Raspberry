@@ -19,6 +19,7 @@
 				<ul class="style2">
 					<li class="first"><a href="../termo/temperature.php">Set Temperature</a></li>
 					<li><a href="../termo/prog_settimana.php">Weekly scheduler</a></li>
+                    <li><a href="../light/color.php">light color</a></li>
 				</ul>
 			</div>
 		</div>

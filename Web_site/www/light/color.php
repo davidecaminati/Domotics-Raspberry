@@ -24,17 +24,17 @@ onload = function() {
 </script>
 <?include("../include/header.php")?>
 <?
-$redis = new Redis();
+/*$redis = new Redis();
 $redis->connect('127.0.0.1', 6379);
 $redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE);
 $t_min_notte=$redis->get('t_min_notte');
 $t_max_notte=$redis->get('t_max_notte');
 $t_min_giorno=$redis->get('t_min_giorno');
 $t_max_giorno=$redis->get('t_max_giorno');
-?>
+*/?>
 <body style="text-align: center">
 <div align=center style="width: 100%">
-<h2>Settings Temp</h2>
+<h2>Settings color</h2>
 <form name=primo action=imposta_temperature.php>
 <table style="width: 80%; border: 1px solid" >
 <tr>
@@ -43,10 +43,10 @@ $t_max_giorno=$redis->get('t_max_giorno');
 </td>
 <td>
 Actual settings:
-<h3>Night Temp</h3>
-<div>min: <?=$t_min_notte?>, max: <?=$t_max_notte?>, average: <?=(($t_min_notte+$t_max_notte)/2)?></div>
-<input id="one" type="range" min="18" max="23" step=".25" style="text-align:center; vertical-align: middle" name="t_notte" value="<?=(($t_min_notte+$t_max_notte)/2)?>" /> 
-<div id="uno" style="font-size: 36px; font-weight: bold; color: blue; ">Night temp</div>
+<h3>red</h3>
+<div>min: <?=$c_min_red?>, max: <?=$c_max_red?>, average: <?=(($c_min_red+$c_max_red)/2)?></div>
+<input id="one" type="range" min="1" max="399" step="1" style="text-align:center; vertical-align: middle" name="c_red" value="<?=(($c_min_red+$c_max_red)/2)?>" /> 
+<div id="uno" style="font-size: 36px; font-weight: bold; color: blue; ">Red Color</div>
 </td></tr>
 <tr><td>
 <h3>Day Temp</h3>

@@ -13,7 +13,9 @@ which arrive to appropriate methods for processing.
 from xbee.helpers.dispatch import Dispatch
 import serial
 
-PORT = '/dev/ttyUSB0'
+#PORT = '/dev/ttyUSB0'
+PORT = '/dev/ttyAMA0'
+
 BAUD_RATE = 9600
 
 # Open serial port

@@ -285,7 +285,30 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		#add at the end of the file#
 			* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Windows\ Switch\ MCP23017/windows_doors_probe.py
 
-	
+#Configure XBEE#
+#http://cae2100.wordpress.com/2012/12/23/raspberry-pi-and-the-serial-port/#
+    sudo nano /etc/inittab
+        #remark this line putting a # in front of the line#
+        #T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100 
+    sudo nano  /boot/cmdline.txt
+        #The contents of the file look like this#
+        dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait
+        #Remove all references to ttyAMA0 (which is the name of the serial port). The file will now look like this#
+        dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait
+        sudo reboot
+    #test serial port#
+        sudo apt-get install minicom
+        #Now run up minicom on the Raspberry Pi using#
+        minicom -b 9600 -o -D /dev/ttyAMA0 
+    #for python#
+    #https://pypi.python.org/pypi/XBee#
+        cd ~/Domotics-Raspberry/Hardware/XBEE/XBee-2.1.0
+        sudo python setup.py install
+        sudo pip install pyserial
+    #http://jeffskinnerbox.wordpress.com/2013/01/30/configuration-utilities-for-xbee-radios/#
+    #http://blog.james147.net/xbee-configuration/#
+    #http://tutorial.cytron.com.my/2012/03/08/xbee-series-2-point-to-point-communication/#
+        
 #VISUAL STUDIO 2010#
 #Install redis client for c# #
 #see the documentation https://github.com/ServiceStack/ServiceStack.Redis#

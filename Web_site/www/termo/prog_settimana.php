@@ -11,12 +11,12 @@ $redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE);
 </head>
 <?include("../include/header.php")?>
 <div align="center" style="width: 100%">
-<h2>Programmazione settimanale</h2>
+<h2>Weekly program</h2>
 <form name=uno action=salva_prog.php method=post>
 <table border=2 cellpadding=0 cellspacing=0 width=100%>
 <tr><td></td>
 <?
-$giorni=array("vuoto","lun","mar","mer","gio","ven","sab","dom");
+$giorni=array("void","mon","tue","wed","thu","fri","sat","sun");
 for ($ora=0 ; $ora<=23 ; $ora++) {
 ?>
 <th width="4%"><?=$ora?></th>
@@ -49,7 +49,7 @@ for ($ora=0 ; $ora<=23 ; $ora++) {
 <tr><td colspan=25>
 <input type=submit value="Salva programmazione">
 <br>
-<a href=../>Torna alla home page</a>
+<a href=../>Back to homepage</a>
 </td></tr>
 </table>
 </form>

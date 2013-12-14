@@ -27,10 +27,10 @@ onload = function() {
 $redis = new Redis();
 $redis->connect('127.0.0.1', 6379);
 $redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE);
-$t_min_notte=$redis->get('t_min_notte');
-$t_max_notte=$redis->get('t_max_notte');
-$t_min_giorno=$redis->get('t_min_giorno');
-$t_max_giorno=$redis->get('t_max_giorno');
+$temp_min_night=$redis->get('temp_min_night');
+$temp_max_night=$redis->get('temp_max_night');
+$temp_min_day=$redis->get('temp_min_day');
+$temp_max_day=$redis->get('temp_max_day');
 ?>
 <body style="text-align: center">
 <div align=center style="width: 100%">
@@ -44,14 +44,14 @@ $t_max_giorno=$redis->get('t_max_giorno');
 <td>
 Actual settings:
 <h3>Night Temp</h3>
-<div>min: <?=$t_min_notte?>, max: <?=$t_max_notte?>, average: <?=(($t_min_notte+$t_max_notte)/2)?></div>
-<input id="one" type="range" min="18" max="23" step=".25" style="text-align:center; vertical-align: middle" name="t_notte" value="<?=(($t_min_notte+$t_max_notte)/2)?>" /> 
+<div>min: <?=$temp_min_night?>, max: <?=$temp_max_night?>, average: <?=(($temp_min_night+$temp_max_night)/2)?></div>
+<input id="one" type="range" min="18" max="23" step=".25" style="text-align:center; vertical-align: middle" name="t_notte" value="<?=(($temp_min_night+$temp_max_night)/2)?>" /> 
 <div id="uno" style="font-size: 36px; font-weight: bold; color: blue; ">Night temp</div>
 </td></tr>
 <tr><td>
 <h3>Day Temp</h3>
-<div>min: <?=$t_min_giorno?>, max: <?=$t_max_giorno?>, average: <?=(($t_min_giorno+$t_max_giorno)/2)?></div>
-<input id="two" type="range" min="18" max="23" step=".25" style="text-align:center; vertical-align: middle" name="t_giorno" value="<?=(($t_min_giorno+$t_max_giorno)/2)?>" /> 
+<div>min: <?=$temp_min_day?>, max: <?=$temp_max_day?>, average: <?=(($temp_min_day+$temp_max_day)/2)?></div>
+<input id="two" type="range" min="18" max="23" step=".25" style="text-align:center; vertical-align: middle" name="t_giorno" value="<?=(($temp_min_day+$temp_max_day)/2)?>" /> 
 <div id="dos" style="font-size: 36px; font-weight: bold; color: red; ">Day temp</div>
 </td>
 </tr>

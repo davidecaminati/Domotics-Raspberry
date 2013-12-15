@@ -43,28 +43,29 @@ $t_max_giorno=$redis->get('t_max_giorno');
 <body style="text-align: center">
 <div align=center style="width: 100%">
 <h2>Settings color</h2>
-<form name=primo action=192.168.0.100/>
+<form name=primo action="http://192.168.0.100:5000/colorchange" method="POST">
+
 <table style="width: 80%; border: 1px solid" >
 <tr>
-<td rowspan=2 style="text-align:center; vertical-align: middle">
+<td rowspan=3 style="text-align:center; vertical-align: middle">
 <img src=termometro.png>
 </td>
 <td>
 Actual settings:
 <h3>RED</h3>
-<input id="one" type="range" min="1" max="399" step="1" style="text-align:center; vertical-align: middle" name="c_red" value="<?=(($c_min_red+$c_max_red)/2)?>" /> 
+<input id="one" type="range" min="1" max="399" step="1" style="text-align:center; vertical-align: middle" name="r" value="<?=(($c_min_red+$c_max_red)/2)?>" /> 
 <div id="uno" style="font-size: 36px; font-weight: bold; color: red; ">Red Color</div>
 </td></tr>
 
 <tr><td>
 <h3>GREEN</h3>
-<input id="two" type="range" min="1" max="399" step="1" style="text-align:center; vertical-align: middle" name="c_green" value="<?=(($t_min_giorno+$t_max_giorno)/2)?>" /> 
+<input id="two" type="range" min="1" max="399" step="1" style="text-align:center; vertical-align: middle" name="g" value="<?=(($t_min_giorno+$t_max_giorno)/2)?>" /> 
 <div id="dos" style="font-size: 36px; font-weight: bold; color: green; ">Green Color</div>
 </td>
 </tr>
 <tr><td>
 <h3>BLUE</h3>
-<input id="three" type="range" min="1" max="399" step="1" style="text-align:center; vertical-align: middle" name="c_blue" value="<?=(($t_min_giorno+$t_max_giorno)/2)?>" /> 
+<input id="three" type="range" min="1" max="399" step="1" style="text-align:center; vertical-align: middle" name="b" value="<?=(($t_min_giorno+$t_max_giorno)/2)?>" /> 
 <div id="tre" style="font-size: 36px; font-weight: bold; color: blue; ">Blue Color</div>
 </td>
 </tr>

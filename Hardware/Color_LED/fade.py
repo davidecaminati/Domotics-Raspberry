@@ -16,8 +16,11 @@ g = 0
 b = 0
 
 CHANNEL = 0
-print([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1])
+# get ip
+host_name = socket.gethostname()
+host_ip = socket.gethostbyname(host_name)
 
+print host_ip
 PWM.setup()
 PWM.init_channel(CHANNEL,4000)
 #app.debug = True

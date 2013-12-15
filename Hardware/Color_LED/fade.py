@@ -2,6 +2,7 @@ import RPIO.PWM as PWM
 import time
 from flask import Flask, url_for, request
 
+import socket
 #variable
 hostIP = '192.168.0.100'
 app = Flask(__name__)
@@ -15,6 +16,7 @@ g = 0
 b = 0
 
 CHANNEL = 0
+print([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1])
 
 PWM.setup()
 PWM.init_channel(CHANNEL,4000)

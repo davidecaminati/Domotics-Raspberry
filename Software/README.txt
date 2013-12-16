@@ -285,6 +285,10 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		#add at the end of the file#
 			* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Windows\ Switch\ MCP23017/windows_doors_probe.py
 
+#Configure Webcam#
+    sudo apt-get install python-imaging
+    sudo pip install v4l2
+            
 #Configure XBEE#
 #http://cae2100.wordpress.com/2012/12/23/raspberry-pi-and-the-serial-port/#
     sudo nano /etc/inittab

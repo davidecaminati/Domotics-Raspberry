@@ -9,9 +9,9 @@ app.config.from_object(__name__)
 GPIO_RED = 17
 GPIO_GREEN = 27
 GPIO_BLUE = 22
-Correction_RED = 0.6
+Correction_RED = 1.0
 Correction_GREEN = 1.0
-Correction_BLUE = 0.4
+Correction_BLUE = 1.0
 Correction_RED1 = 1.0
 Correction_GREEN1 = 1.0
 Correction_BLUE1 = 1.0
@@ -82,7 +82,7 @@ def api_colorchange2(red_raw,green_raw,blue_raw):
     blue = int(blue_raw) * Correction_BLUE
     print "blue %s" %blue
         
-    PWM.add_channel_pulse(CHANNEL, GPIO_RED, 10, int(red))
+    PWM.add_channel_pulse(CHANNEL, GPIO_RED, 0, int(red))
     PWM.add_channel_pulse(CHANNEL, GPIO_GREEN, 0, int(green))
     PWM.add_channel_pulse(CHANNEL, GPIO_BLUE, 0, int(blue))
     return 'ok'

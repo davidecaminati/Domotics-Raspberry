@@ -1,13 +1,22 @@
 from collections import namedtuple
 from math import sqrt
 import random
+import time
+import urllib
+import urllib2
 try:
     import Image
 except ImportError:
     from PIL import Image
 
+urlForColor = 'http://192.168.0.100:5000/colorchange2/'
+red = 0
+green = 0
+blue = 0
+
 Point = namedtuple('Point', ('coords', 'n', 'ct'))
 Cluster = namedtuple('Cluster', ('points', 'center', 'n'))
+
 
 def get_points(img):
     points = []
@@ -18,9 +27,9 @@ def get_points(img):
 
 rtoh = lambda rgb: '#%s' % ''.join(('%02x' % p for p in rgb))
 
-def colorz(filename, n=3):
+def colorz(filename, n=1):
     img = Image.open(filename)
-    img.thumbnail((200, 200))
+    img.thumbnail((10, 10))
     w, h = img.size
 
     points = get_points(img)
@@ -69,3 +78,26 @@ def kmeans(points, k, min_diff):
             break
 
     return clusters
+    
+i = 0
+while True:
+    i += 1
+    colore = colorz(str(i)+ "image.jpg")[0]
+    print colore
+    red_hex = "0x" + str(colore[1:3])
+    red = int((int(red_hex,0) / 255.0 )* 394.0)
+    
+    green_hex = "0x" + str(colore[3:5])
+    green = int((int(green_hex,0) / 255.0 ) * 394.0)
+    
+    blue_hex = "0x" + str(colore[5:7])
+    blue =  int((int(blue_hex,0) / 255.0) * 394.0)
+    
+    print red,green,blue
+    indirizzo = urlForColor+str(red+3)+"/"+str(green+3)+"/"+str(blue+3) 
+    print indirizzo
+    response = urllib2.urlopen(indirizzo)
+    #html = response.read()
+    time.sleep(3.1)
+    if i == 9:
+        i = 0

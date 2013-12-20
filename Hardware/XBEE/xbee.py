@@ -76,7 +76,7 @@ sendsched = Scheduler()
 sendsched.start()
 
 # every 30 seconds send a house query packet to the XBee network
-sendsched.add_interval_job(sendQueryPacket, seconds=30)
+sendsched.add_interval_job(sendQueryPacket, seconds=1)
 
 # Do other stuff in the main thread
 while True:

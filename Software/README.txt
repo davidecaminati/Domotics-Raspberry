@@ -289,6 +289,12 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
     sudo apt-get install python-imaging
     sudo pip install v4l2
             
+            
+#configure speek recognition on raspberry#
+    #http://www.aonsquared.co.uk/raspi_voice_control#
+
+
+
 #Configure XBEE#
 #http://cae2100.wordpress.com/2012/12/23/raspberry-pi-and-the-serial-port/#
     sudo nano /etc/inittab

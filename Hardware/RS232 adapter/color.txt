@@ -1,0 +1,17 @@
+blue = pin5 ground ***
+orange = pin4 dtr
+white green = pin3 txd ***
+green = pin2 rxd ***
+brown = pin8 cts
+white orange = pin7 rts
+white brown = pin6 dsr
+
+simply rs232 converter
+#http://picprojects.org.uk/projects/simpleSIO/ssio.htm#
+3 resistors = 10k
+3 resistors = 4k7
+1 transistor = pnp BC559
+1 transistor = npn BC548
+1 diod = 1n4148
+1 condensat = 100nF
+

@@ -48,4 +48,4 @@ while True:
                 ip_device_list_Error.remove(ping)
             else:
                 print "ping to", address, "failed!"
-    time.sleep(60)
+    time.sleep(300)

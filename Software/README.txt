@@ -265,7 +265,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		#add this line before exit 0#
 			/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Socket_to_MCP27013_con_i2c/rele_board_control.py &
 			###OLD###/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Socket_to_MCP27013_con_i2c/read_pulse.py &
-            /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Wall\ switch/wall_Switch.py &
+            ###/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Wall\ switch/wall_Switch.py &
 		# for schema look at #
             http://fritzing.org/projects/rele-board-control-with-beedback-state-and-by-pass
 			

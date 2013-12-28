@@ -4,19 +4,32 @@ import time
 
 bus = smbus.SMBus(1) # Rev 2 Pi uses 1
 DEVICE = 0x20 # Device address (A0-A2)
-IODIRA = 0x00 # Pin direction register
-OLATA  = 0x14 # Register for outputs
-GPIOA  = 0x12 # Register for output
-GPIOB  = 0x13 # Register for inputs
+IODIRA = 0x00 # Pin direction register for port A
+IODIRB = 0x01 # Pin direction register for port B
+OLATA  = 0x14 # Register for outputs for port A
+OLATB  = 0x15 # Register for outputs for port B
+GPIOA  = 0x12 # Register for inputs for port A
+GPIOB  = 0x13 # Register for inputs for port B
+GPPUA  = 0x0C # Pull-up resistor (0 = disabled, 1 = enabled)
+GPPUB  = 0x0D # Pull-up resistor (0 = disabled, 1 = enabled)
+
 bus.write_byte_data(DEVICE,IODIRA,0x00)
+
+# Set PullUp resistor for input register
+#bus.write_byte_data(DEVICE,GPPUA,0x00) #11111111
+bus.write_byte_data(DEVICE,GPPUB,0xff) #11111111
+
 app = Flask(__name__)
+#while True:
+#    print bus.read_byte_data(DEVICE,GPIOB)
 
 @app.route('/')
 def api_root():
     return 'Welcome'
 
-@app.route('/releon/<int:number>')
-def api_releon(number):
+
+@app.route('/releoff/<int:number>')
+def api_releoff(number):
     if number > 8 or number < 1:
         print 'this rele not exist \n'
         return 'error'
@@ -51,8 +64,8 @@ def api_releon(number):
         else:
             return 'malfunction'
 
-@app.route('/releoff/<int:number>')
-def api_releoff(number):
+@app.route('/releon/<int:number>')
+def api_releon(number):
     if number > 8 or number < 1:
         print 'this rele not exist \n'
         return 'error'
@@ -100,17 +113,11 @@ def api_reletoggle(number):
     NeedChange = False
     OldState = bus.read_byte_data(DEVICE,GPIOB)
     BinReleNumber = 2** (number - 1)
-    if OldState == 0:
-        NeedChange = True
-        bus.write_byte_data(DEVICE,OLATA,BinReleNumber)
-    else:
-        #is already on ?
-        print 'number ' + str(number) + '\n'
-        print 'OldState ' + str(OldState) + '\n'
-        print 'BinReleNumber ' + str(BinReleNumber) + '\n'
-        print 'toggle'
-        NeedChange = True
-        bus.write_byte_data(DEVICE,OLATA,BinReleNumber)
+    print 'number ' + str(number) + '\n'
+    print 'OldState ' + str(OldState) + '\n'
+    print 'BinReleNumber ' + str(BinReleNumber) + '\n'
+    print 'toggle'
+    bus.write_byte_data(DEVICE,OLATA,BinReleNumber)
     time.sleep(0.3)
     bus.write_byte_data(DEVICE,OLATA,0)
     time.sleep(0.3)
@@ -118,11 +125,10 @@ def api_reletoggle(number):
     NewState = bus.read_byte_data(DEVICE,GPIOB)
     print NewState
     print OldState
-    if NeedChange:
-        if NewState != OldState:
-            return 'ok'
-        else:
-            return 'malfunction'
+    if OldState != NewState:
+        return 'ok'
+    else:
+        return "malfunction"
 
 @app.route('/reletimer/<int:number>/<int:unlock_after_millisec>')
 def api_reletimer(number,unlock_after_millisec):
@@ -146,13 +152,19 @@ def api_relestate(number):
     BinReleNumber = 2** (number - 1)
     #is already on ?
     if BinReleNumber & OldState == BinReleNumber:
-        return 'on'
-    else:
         return 'off'
+    else:
+        return 'on'
 
-@app.route('/articles/<articleid>')
-def api_article(articleid):
-    return 'You are reading ' + articleid
+@app.route('/relestateall/')
+def api_relestateall():
+    State = bus.read_byte_data(DEVICE,GPIOB)
+    #BinReleNumber = bin(OldState)
+    print State
+    #print BinReleNumber
+    return str(State)
+    
+
 
 if __name__ == '__main__':
     app.run(host='192.168.0.202')

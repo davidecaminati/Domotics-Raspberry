@@ -2,8 +2,20 @@ import smbus
 import time
 import urllib
 import urllib2
- 
- 
+
+class LampType():
+    Halogen = 0
+    Cfl = 1
+    Mh = 2
+    Led = 3
+    Incandescent = 4
+    Unknow = 5
+    
+class LedColor():
+    Off = 0
+    Red = 1
+    Green = 2
+    
 # IODIRA   0x00   // IO direction  (0 = output, 1 = input (Default))
 # IODIRB   0x01
 # IOPOLA   0x02   // IO polarity   (0 = normal, 1 = inverse)
@@ -41,9 +53,8 @@ GPPUA  = 0x0C # Pull-up resistor (0 = disabled, 1 = enabled)
 GPPUB  = 0x0D # Pull-up resistor (0 = disabled, 1 = enabled)
 # Set all GPA pins as outputs by setting
 # all bits of IODIRA register to 0
-bus.write_byte_data(DEVICE,IODIRB,0x00)
-
-bus.write_byte_data(DEVICE,IODIRA,0x3f)
+bus.write_byte_data(DEVICE,IODIRA,0x3F) #00111111 A
+bus.write_byte_data(DEVICE,IODIRB,0x00) #00000000 B
 
 #Url for change state of reles
 urlForToggle = 'http://192.168.0.202:5000/reletoggle/'
@@ -51,12 +62,15 @@ urlForToggle = 'http://192.168.0.202:5000/reletoggle/'
 urlForState = 'http://192.168.0.202:5000/relestate/'
 #Url for read state of all reles
 urlForStateAll = 'http://192.168.0.202:5000/relestateall/'
+#Url for timer 
+urlForTimer = 'http://192.168.0.202:5000/reletimer/'
 
 # Set output all 7 output bits to 0
-bus.write_byte_data(DEVICE,OLATB,0x00)
+bus.write_byte_data(DEVICE,OLATA,0xC0) #11000000 A
+bus.write_byte_data(DEVICE,OLATB,0x00) #00000000 B
 # Set PullUp resistor for input register
-bus.write_byte_data(DEVICE,GPPUA,0xFF) #11111111
-bus.write_byte_data(DEVICE,GPPUB,0xFF) #11111111
+bus.write_byte_data(DEVICE,GPPUA,0xFF) #11111111 A
+bus.write_byte_data(DEVICE,GPPUB,0xC0) #11000000 B
 #for p in [1,2,4,8,16,32]:
 #    bus.write_byte_data(DEVICE,OLATB,32)
 #    time.sleep(3)
@@ -65,109 +79,246 @@ RELE_INGRESSO = 4
 RELE_CUCINA = 8
 RELE_SALA = 16
 
+BUTTON_SALA1 = 61       
+BUTTON_CUCINA = 62
+BUTTON_SALA2 = 59
+BUTTON_INGRESSO2 = 55
+BUTTON_INGRESSO1 = 47
+
+
 #color for led
-bus.write_byte_data(DEVICE,GPIOB,0b101010)
+bus.write_byte_data(DEVICE,GPIOB,0b10101010)
+bus.write_byte_data(DEVICE,GPIOA,0b10000000)
 
 #reset button state
 button1oldstate = False
 button2oldstate = False
 button3oldstate = False
+button4oldstate = False
+button5oldstate = False
 
-def LEDCucinaRed():
-    OldState = bus.read_byte_data(DEVICE,GPIOB)
-    BinLedNumberRED = 0b00000001
-    BinLedNumberGREEN = 0b00000010
-    NewBinLedNumber =  (OldState & ( ~ BinLedNumberGREEN )) | BinLedNumberRED
-    bus.write_byte_data(DEVICE,GPIOB,NewBinLedNumber)
-def LEDCucinaGreen():
-    OldState = bus.read_byte_data(DEVICE,GPIOB)
-    BinLedNumberRED = 0b00000001
-    BinLedNumberGREEN = 0b00000010
-    NewBinLedNumber =  (OldState & ( ~ BinLedNumberRED)) | BinLedNumberGREEN
-    bus.write_byte_data(DEVICE,GPIOB,NewBinLedNumber)
-def LEDIngressoRed():
-    OldState = bus.read_byte_data(DEVICE,GPIOB)
-    BinLedNumberRED = 0b00000100
-    BinLedNumberGREEN = 0b00001000
-    NewBinLedNumber =  (OldState & ( ~ BinLedNumberGREEN)) | BinLedNumberRED
-    bus.write_byte_data(DEVICE,GPIOB,NewBinLedNumber)
-def LEDIngressoGreen():
-    OldState = bus.read_byte_data(DEVICE,GPIOB)
-    BinLedNumberRED = 0b00000100
-    BinLedNumberGREEN = 0b00001000
-    NewBinLedNumber =  (OldState & ( ~ BinLedNumberRED)) | BinLedNumberGREEN
-    bus.write_byte_data(DEVICE,GPIOB,NewBinLedNumber)
-def LEDSalaRed():
-    OldState = bus.read_byte_data(DEVICE,GPIOB)
-    BinLedNumberRED = 0b00010000
-    BinLedNumberGREEN = 0b00100000
-    NewBinLedNumber =  (OldState & ( ~ BinLedNumberGREEN)) | BinLedNumberRED
-    bus.write_byte_data(DEVICE,GPIOB,NewBinLedNumber)
-def LEDSalaGreen():
-    OldState = bus.read_byte_data(DEVICE,GPIOB)
-    BinLedNumberRED = 0b00010000
-    BinLedNumberGREEN = 0b00100000
-    NewBinLedNumber =  (OldState & ( ~ BinLedNumberRED)) | BinLedNumberGREEN
-    bus.write_byte_data(DEVICE,GPIOB,NewBinLedNumber)
+class Home:
+    def __init__(self, name, roomlist = []):
+        self.name = name
+        self.roomlist = roomlist
+    
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return "<Home: %s>" % self
+   
+   
+#start classes
+class Room:
+    def __init__(self, name, lamplist = [], buttonlist = [],sensorlist = [],actuatorlist = []):
+        self.name = name
+        self.lamplist = lamplist
+        self.buttonlist = buttonlist
+        self.sensorlist = sensorlist
+        self.actuatorlist = actuatorlist
+        
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return "<Room: %s>" % self
+   
+    def LightsOff(self):
+        for l in self.lamplist:
+            l.off()
+            
+    def LightsOn(self):
+        for l in self.lamplist:
+            l.on()
+        
+class Lamp:
+    def __init__(self, name, type, position, releOn, isdimmable, releDimm):
+        self.name = name
+        self.type = type
+        self.position = position
+        self.isdimmable = isdimmable
+        self.releOn = releOn
+        self.releDimm = releDimm
+        
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return "<lamp: %s>" % self
+   
+    def read_state(self):
+        response = urllib2.urlopen(urlForState + str(self.releOn))
+        html = response.read()
+        return html
+    
+    def off(self):
+        if self.read_state() == "on":
+            response = urllib2.urlopen(urlForToggle + str(self.releOn))
+            html = response.read()
+            return "ok"
+        else:
+            return "already off"
+        
+    def on(self):
+        if self.read_state() != "on":
+            response = urllib2.urlopen(urlForToggle + str(self.releOn))
+            html = response.read()
+            return "ok"
+        else:
+            return "already on"
+        
+    def dimm(self,value=3000):
+        if self.isdimmable:
+            print value
+            response = urllib2.urlopen(urlForTimer + str(self.releDimm) + "/" + str(value))
+            html = response.read()
+            return "ok"
+        else:
+            return "not dimmable"
+ 
+class Button:
+    def __init__(self, name, inputpin,BinLedNumberRED,BinLedNumberGREEN):
+        self.name = name
+        self.inputpin = inputpin
+        self.BinLedNumberRED = BinLedNumberRED
+        self.BinLedNumberGREEN = BinLedNumberGREEN
+        
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return "<Button: %s>" % self
+   
+    def SetLedColor(self, Color):
+        OldState = bus.read_byte_data(DEVICE,GPIOB)
+        NewBinLedNumber = 0b00000000
+        if Color == LedColor.Red:
+            #print ("red")
+            NewBinLedNumber =  (OldState & ( ~ self.BinLedNumberGREEN )) | self.BinLedNumberRED
+        elif Color == LedColor.Green:
+            #print ("green")
+            NewBinLedNumber =  (OldState & ( ~ self.BinLedNumberRED)) | self.BinLedNumberGREEN 
+        else:
+            #print ("off")
+            NewBinLedNumber =  OldState & ( ~ (self.BinLedNumberRED |  self.BinLedNumberGREEN))
+        bus.write_byte_data(DEVICE,GPIOB,NewBinLedNumber)
+    
+    def SetLedColorA(self, Color):
+        OldState = bus.read_byte_data(DEVICE,GPIOA)
+        NewBinLedNumber = 0b00000000
+        if Color == LedColor.Red:
+            #print ("red")
+            NewBinLedNumber =  (OldState & ( ~ self.BinLedNumberGREEN )) | self.BinLedNumberRED
+        elif Color == LedColor.Green:
+            #print ("green")
+            NewBinLedNumber =  (OldState & ( ~ self.BinLedNumberRED)) | self.BinLedNumberGREEN 
+        else:
+            #print ("off")
+            NewBinLedNumber =  OldState & ( ~ (self.BinLedNumberRED |  self.BinLedNumberGREEN))
+        bus.write_byte_data(DEVICE,GPIOA,NewBinLedNumber)
+   
+   
+# ---- lamp -----
+lampadario_sala_dimm = Lamp("lampadario",LampType.Led,"Sala dimm",1,True,6)
+lampadario_ingresso = Lamp("lampadario",LampType.Led,"Ingresso",3,False,0)
+lampadario_cucina = Lamp("lampadario",LampType.Led,"Cucina",4,False,0)
+lampadario_sala = Lamp("lampadario",LampType.Led,"Sala",5,False,0)
+
+#lampadario_sala_dimm.on()
+#lampadario_sala_dimm.dimm()
+#Lights = [lampadario_sala_dimm,lampadario_ingresso,lampadario_cucina,lampadario_sala]
+#for l in Lights:
+#    l.on()
+Sala = Room("Sala",[lampadario_sala_dimm,lampadario_sala])
+
+BottoneSala1 = Button("Sala 1",0,0b00010000,0b00100000)
+BottoneSala2 = Button("Sala 2",0,0b00000100,0b00001000)
+BottoneCucina = Button("Cucina",0,0b00000001,0b00000010)
+BottoneIngresso2 = Button("Ingresso 2",0,0b01000000,0b10000000)
+BottoneIngresso1 = Button("Ingresso 1",0,0b01000000,0b10000000) #A
+
+
 
 def CheckColorForLeds():
     #read state
     response = urllib2.urlopen(urlForStateAll)
     html = response.read()
     statevalue = int(html)
-    time.sleep(0.2)
+    time.sleep(0.1)
     
     if (statevalue & RELE_CUCINA) == RELE_CUCINA:
-        x = LEDCucinaGreen()
+        BottoneCucina.SetLedColor(LedColor.Green)
     else:
-        x = LEDCucinaRed()
+        BottoneCucina.SetLedColor(LedColor.Red)
         
     if (statevalue & RELE_INGRESSO) == RELE_INGRESSO:
-        x = LEDIngressoGreen()
+        BottoneSala2.SetLedColor(LedColor.Green)
+        BottoneIngresso2.SetLedColor(LedColor.Green)
+        BottoneIngresso1.SetLedColorA(LedColor.Green)
     else:
-        x = LEDIngressoRed()
+        BottoneSala2.SetLedColor(LedColor.Red)
+        BottoneIngresso2.SetLedColor(LedColor.Red)
+        BottoneIngresso1.SetLedColorA(LedColor.Red)
         
     if (statevalue & RELE_SALA) == RELE_SALA:
-        x = LEDSalaGreen()
+        BottoneSala1.SetLedColor(LedColor.Green)
     else:
-        x = LEDSalaRed()
-
+        BottoneSala1.SetLedColor(LedColor.Red)
+        
 i = 0
-x = CheckColorForLeds()
 
 # Loop until user presses CTRL-C
 while True:
  
     # Read state of GPIOA register
-    MySwitch = bus.read_byte_data(DEVICE,GPIOA)
-    #print "MySwitch %s" % MySwitch
-    if MySwitch == 62 :
+    MySwitchA = bus.read_byte_data(DEVICE,GPIOA) & 0b00111111
+    #print "MySwitchA %s" % MySwitchA
+    if MySwitchA == BUTTON_CUCINA :
         if button1oldstate == False:
             # send toggle
             response = urllib2.urlopen(urlForToggle + "4")
             html = response.read()
-            time.sleep(0.2)
+            time.sleep(0.1)
             CheckColorForLeds()
             button1oldstate = True
             #print "RELE_CUCINA"
-    if MySwitch == 61 :
+    if MySwitchA == BUTTON_SALA1 :
         if button2oldstate == False:
             # send toggle
             response = urllib2.urlopen(urlForToggle + "3")
             html = response.read()
-            time.sleep(0.2)
+            time.sleep(0.1)
             CheckColorForLeds()
             button2oldstate = True
             #print "RELE_INGRESSO"
-    if MySwitch == 59 :
+    if MySwitchA == BUTTON_SALA2 :
         if button3oldstate == False:
             # send toggle
             response = urllib2.urlopen(urlForToggle + "5")
             html = response.read()
-            time.sleep(0.2)
+            time.sleep(0.1)
             CheckColorForLeds()
             button3oldstate = True
             #print "RELE_SALA"
+    if MySwitchA == BUTTON_INGRESSO2 :
+        if button4oldstate == False:
+            # send toggle
+            response = urllib2.urlopen(urlForToggle + "3")
+            html = response.read()
+            time.sleep(0.1)
+            CheckColorForLeds()
+            button4oldstate = True
+            #print "RELE_INGRESSO2"
+    if MySwitchA == BUTTON_INGRESSO1 :
+        if button5oldstate == False:
+            # send toggle
+            response = urllib2.urlopen(urlForToggle + "3")
+            html = response.read()
+            time.sleep(0.1)
+            CheckColorForLeds()
+            button5oldstate = True
+            #print "RELE_INGRESSO2"
     else:
         if button1oldstate == True:
             button1oldstate = False
@@ -175,9 +326,16 @@ while True:
             button2oldstate = False
         if button3oldstate == True:
             button3oldstate = False
+        if button4oldstate == True:
+            button4oldstate = False
+        if button5oldstate == True:
+            button5oldstate = False
+        print MySwitchA
     time.sleep(0.1)
     # periodic update led state
     i +=1
     if i > 100:
         i = 0 
         CheckColorForLeds()
+
+        

@@ -2,10 +2,21 @@ import smbus
 import time
 import urllib
 import urllib2
-import looper
-import threading
 
 
+
+class LampType():
+    Halogen = 0
+    Cfl = 1
+    Mh = 2
+    Led = 3
+    Incandescent = 4
+    Unknow = 5
+    
+class LedColor():
+    Off = 0
+    Red = 1
+    Green = 2
     
 # IODIRA   0x00   // IO direction  (0 = output, 1 = input (Default))
 # IODIRB   0x01
@@ -54,10 +65,6 @@ urlForState = 'http://192.168.0.202:5000/relestate/'
 urlForStateAll = 'http://192.168.0.202:5000/relestateall/'
 #Url for timer 
 urlForTimer = 'http://192.168.0.202:5000/reletimer/'
-#Url for dimm on
-urlForDimmOn = 'http://192.168.0.202:5000/reledimmon/'
-#Url for dimm off
-urlForDimmOff = 'http://192.168.0.202:5000/reledimmoff/'
 
 # Set output all 7 output bits to 0
 bus.write_byte_data(DEVICE,OLATA,0xC0) #11000000 A
@@ -76,29 +83,102 @@ BUTTON_SALA_DX = 59
 BUTTON_INGRESSO_DX = 55
 BUTTON_INGRESSO_SX = 47
 
-#color for led green for all
-#bus.write_byte_data(DEVICE,GPIOB,0b10101010)
-#bus.write_byte_data(DEVICE,GPIOA,0b10000000)
+#color for led
+bus.write_byte_data(DEVICE,GPIOB,0b10101010)
+bus.write_byte_data(DEVICE,GPIOA,0b10000000)
 
-model = looper.ValueModel()
+#reset button state
+BottoneSala_SX_oldstate = False
+BottoneSala_DX_oldstate = False
+BottoneCucina_oldstate = False
+BottoneIngresso_SX_oldstate = False
+BottoneIngresso_DX_oldstate = False
+
+######################################################################
+## 
+## Events
+## 
+######################################################################
+
+class Events:
+   def __getattr__(self, name):
+      if hasattr(self.__class__, '__events__'):
+         assert name in self.__class__.__events__, \
+                "Event '%s' is not declared" % name
+      self.__dict__[name] = ev = _EventSlot(name)
+      return ev
+   def __repr__(self): return 'Events' + str(list(self))
+   __str__ = __repr__
+   def __len__(self): return NotImplemented
+   def __iter__(self):
+      def gen(dictitems=self.__dict__.items()):
+         for attr, val in dictitems:
+            if isinstance(val, _EventSlot):
+               yield val
+      return gen()
+
+class _EventSlot:
+   def __init__(self, name):
+      self.targets = []
+      self.__name__ = name
+   def __repr__(self):
+      return 'event ' + self.__name__
+   def __call__(self, *a, **kw):
+      for f in self.targets: f(*a, **kw)
+   def __iadd__(self, f):
+      self.targets.append(f)
+      return self
+   def __isub__(self, f):
+      while f in self.targets: self.targets.remove(f)
+      return self
+
+######################################################################
+## 
+## Demo
+## 
+######################################################################
+
+if __name__ == '__main__':
+
+   class MyEvents(Events):
+      __events__ = ('OnChange', )
+
+   class ValueModel(object):
+      def __init__(self):
+         self.events = MyEvents()
+         self.__value = None
+      def __set(self, value):
+         if (self.__value == value): return
+         self.__value = value
+         self.events.OnChange()
+         ##self.events.OnChange2() # would fail
+      def __get(self):
+         return self.__value
+      Value = property(__get, __set, None, 'The actual value')
+
+   class SillyView(object):
+      def __init__(self, model):
+         self.model = model
+         model.events.OnChange += self.DisplayValue
+         ##model.events.OnChange2 += self.DisplayValue # would raise exeception
+      def DisplayValue(self):
+         print self.model.Value
 
 
-#start classes
+   model = ValueModel()
+   view = SillyView(model)
 
-class LampType():
-    Halogen = 0
-    Cfl = 1
-    Mh = 2
-    Led = 3
-    Incandescent = 4
-    Unknow = 5
-    
-class LedColor():
-    Off = 0
-    Red = 1
-    Green = 2
-    
-class Home(object):
+   print '\n--- Events Demo ---'
+   # Events in action
+   for i in range(5):
+      model.Value = 2*i + 1
+   # Events introspection
+   print model.events
+   for event in model.events:
+      print event
+
+
+class Home:
     def __init__(self, name, roomlist = []):
         self.name = name
         self.roomlist = roomlist
@@ -124,7 +204,8 @@ class Home(object):
             for l in r.lamplist:
                 l.toggle()
    
-class Room(object):
+#start classes
+class Room:
     def __init__(self, name, lamplist = [], buttonlist = [],sensorlist = [],actuatorlist = []):
         self.name = name
         self.lamplist = lamplist
@@ -150,7 +231,7 @@ class Room(object):
         for l in self.lamplist:
             l.toggle()
         
-class Lamp(object):
+class Lamp:
     def __init__(self, name, type, position, releOn, isdimmable, releDimm):
         self.name = name
         self.type = type
@@ -196,95 +277,52 @@ class Lamp(object):
         else:
             return "malfunction"
         
-    def startDimm(self):
+    def dimm(self,value=3000):
         if self.isdimmable:
-            response = urllib2.urlopen(urlForDimmOn + str(self.releDimm) )
-            html = response.read()
-            return "ok"
-        else:
-            return "not dimmable"
-        
-    def stopDimm(self):
-        if self.isdimmable:
-            response = urllib2.urlopen(urlForDimmOff + str(self.releDimm) )
+            print value
+            response = urllib2.urlopen(urlForTimer + str(self.releDimm) + "/" + str(value))
             html = response.read()
             return "ok"
         else:
             return "not dimmable"
  
-class Button(object):
+ 
+ 
+ 
 
-    def __init__(self, name, inputpin,BinLedNumberRED,BinLedNumberGREEN,model,controlled):
+class MyEvents(Events):
+    __events__ = ('OnChange', )
+      
+class Button(object):
+    myaddress = 61
+    def __init__(self, name, inputpin,BinLedNumberRED,BinLedNumberGREEN,MYADDRESS):
         self.name = name
         self.inputpin = inputpin
         self.BinLedNumberRED = BinLedNumberRED
         self.BinLedNumberGREEN = BinLedNumberGREEN
-        self.model = model
-        model.events.Pressed += self.Pressed
-        model.events.StillPressed += self.StillPressed
-        model.events.Released += self.Released
-        self.controlled = controlled
+        self.__value = None
+        myaddress = MYADDRESS
+        self.events = MyEvents()
+        # Read state of GPIOA register
+        while True:
+            MySwitchA = bus.read_byte_data(DEVICE,GPIOA) & 0b00111111
+            print "MySwitchA %s" % MySwitchA
+            #print "myaddress %s" % myaddress
+            if MySwitchA == myaddress :
+                #print "oooooooooooooooooooooooo" 
+                self.events.OnChange()
         
-    def Pressed(self):
-        if self.model.get() == self.name :
-            print self.name + " Pressed"
-            if isinstance(self.controlled, Lamp):
-                print "Lamp Pressed"
-                lamp = self.controlled
-                #if not lamp.isdimmable:
-                lamp.toggle()
-            if isinstance(self.controlled, Room):
-                print "Room Pressed"
-                for lamp in self.controlled.lamplist:
-                    #if not lamp.isdimmable:
-                    lamp.toggle()
-            if isinstance(self.controlled, Home):
-                print "Home Pressed"
-                for room in self.controlled.roomlist:
-                    for lamp in room.lamplist:
-                            #if not lamp.isdimmable:
-                            lamp.toggle()
-            
-    def StillPressed(self):
-        if self.model.get() == self.name :
-            print self.name + " StillPressed"
-            if isinstance(self.controlled, Lamp):
-                print "Lamp StillPressed"
-                lamp = self.controlled
-                if lamp.isdimmable:
-                    lamp.startDimm()
-            if isinstance(self.controlled, Room):
-                print "Room StillPressed"
-                for lamp in self.controlled.lamplist:
-                    if lamp.isdimmable:
-                        lamp.startDimm()
-            if isinstance(self.controlled, Home):
-                print "Home StillPressed"
-                for room in self.controlled.roomlist:
-                    for lamp in room.lamplist:
-                            if  lamp.isdimmable:
-                                lamp.startDimm()
-            
-    def Released(self):
-        if self.model.get() == self.name :
-            print self.name + " Released"
-            if isinstance(self.controlled, Lamp):
-                print "Lamp Released"
-                lamp = self.controlled
-                if lamp.isdimmable:
-                    lamp.stopDimm()
-            if isinstance(self.controlled, Room):
-                print "Room Released"
-                for lamp in self.controlled.lamplist:
-                    if lamp.isdimmable:
-                        lamp.stopDimm()
-            if isinstance(self.controlled, Home):
-                print "Home Released"
-                for room in self.controlled.roomlist:
-                    for lamp in room.lamplist:
-                            if  lamp.isdimmable:
-                                lamp.stopDimm()
+    def __set(self, value):
+        if (self.__value == value): return
+        self.__value = value
+        self.events.OnChange()
+        ##self.events.OnChange2() # would fail
+    def __get(self):
+        return self.__value
+        Value = property(__get, __set, None, 'The actual value')
+      
 
+        
     def __str__(self):
         return self.name
 
@@ -311,7 +349,10 @@ class Button(object):
             NewBinLedNumber =  (OldState & ( ~ self.BinLedNumberRED)) | self.BinLedNumberGREEN 
         else:
             NewBinLedNumber =  OldState & ( ~ (self.BinLedNumberRED |  self.BinLedNumberGREEN))
-            
+        bus.write_byte_data(DEVICE,GPIOA,NewBinLedNumber)
+
+   
+   
 # ---- lamp -----
 lampadario_sala_dimm = Lamp("lampadario",LampType.Led,"Sala dimm",1,True,6)
 lampadario_ingresso = Lamp("lampadario",LampType.Led,"Ingresso",3,False,0)
@@ -330,13 +371,11 @@ Ingresso = Room("Ingresso",[lampadario_ingresso])
 #Create Home
 Casa = Home("Casa",[Sala,Cucina,Ingresso])
 
-BottoneSala_SX = Button("BUTTON_SALA_SX",0,0b00000100,0b00001000,model,Sala)
-BottoneSala_DX = Button("BUTTON_SALA_DX",0,0b00010000,0b00100000,model,Ingresso)
-BottoneCucina = Button("BUTTON_CUCINA",0,0b00000001,0b00000010,model,Cucina)
-BottoneIngresso_SX = Button("BUTTON_INGRESSO_SX",0,0b01000000,0b10000000,model,Casa)
-BottoneIngresso_DX = Button("BUTTON_INGRESSO_DX",0,0b01000000,0b10000000,model,Ingresso) #A
-
-model.start()
+#BottoneSala_SX = Button("Sala SX",0,0b00000100,0b00001000,BUTTON_SALA_SX)
+#BottoneSala_DX = Button("Sala DX",0,0b00010000,0b00100000)
+#BottoneCucina = Button("Cucina",0,0b00000001,0b00000010)
+#BottoneIngresso_SX = Button("Ingresso SX",0,0b01000000,0b10000000)
+#BottoneIngresso_DX = Button("Ingresso DX",0,0b01000000,0b10000000) #A
 
 
 def CheckColorForLeds():
@@ -363,14 +402,86 @@ def CheckColorForLeds():
     else:
         BottoneSala_SX.SetLedColor(LedColor.Red)
         
-    if ((statevalue & RELE_SALA) == RELE_SALA) &  ((statevalue & RELE_INGRESSO) == RELE_INGRESSO) & \
-    ((statevalue & RELE_CUCINA) == RELE_CUCINA):
+    if ((statevalue & RELE_SALA) == RELE_SALA) &  ((statevalue & RELE_INGRESSO) == RELE_INGRESSO) & ((statevalue & RELE_CUCINA) == RELE_CUCINA):
         BottoneIngresso_SX.SetLedColorA(LedColor.Green)
     else:
         BottoneIngresso_SX.SetLedColorA(LedColor.Red)
+    
+i = 0
 
+class SillyView(object):
+      def __init__(self, model):
+         self.model = model
+         model.events.OnChange += self.DisplayValue
+         ##model.events.OnChange2 += self.DisplayValue # would raise exeception
+      def DisplayValue(self):
+         print self.model.name
+   
+   
+model = Button("Sala SX",0,0b00000100,0b00001000,BUTTON_SALA_SX)
+view = SillyView(model)      
+"""
+# Loop until user presses CTRL-C
+while True:
+ 
+    # Read state of GPIOA register
+    MySwitchA = bus.read_byte_data(DEVICE,GPIOA) & 0b00111111
+    #print "MySwitchA %s" % MySwitchA
+    if MySwitchA == BUTTON_CUCINA :
+        if BottoneCucina_oldstate == False:
+            # send toggle
+            lampadario_cucina.toggle()
+            #time.sleep(0.1)
+            CheckColorForLeds()
+            BottoneCucina_oldstate = True
+    if MySwitchA == BUTTON_SALA_SX :
+        if BottoneSala_SX_oldstate == False:
+            # send toggle
+            lampadario_sala.toggle()
+            #time.sleep(0.1)
+            CheckColorForLeds()
+            BottoneSala_SX_oldstate = True
+    if MySwitchA == BUTTON_SALA_DX :
+        if BottoneSala_DX_oldstate == False:
+            # send toggle
+            lampadario_ingresso.toggle()
+            #time.sleep(0.1)
+            CheckColorForLeds()
+            BottoneSala_DX_oldstate = True
+    if MySwitchA == BUTTON_INGRESSO_DX :
+        if BottoneIngresso_DX_oldstate == False:
+            # send toggle
+            lampadario_ingresso.toggle()
+            #time.sleep(0.1)
+            CheckColorForLeds()
+            BottoneIngresso_DX_oldstate = True
+    if MySwitchA == BUTTON_INGRESSO_SX :
+        if BottoneIngresso_SX_oldstate == False:
+            # send aff all light in the home
+            Casa.LightsOff()
+            #time.sleep(0.1)
+            CheckColorForLeds()
+            BottoneIngresso_SX_oldstate = True
+    else:
+        if BottoneSala_SX_oldstate == True:
+            BottoneSala_SX_oldstate = False
+        if BottoneSala_DX_oldstate == True:
+            BottoneSala_DX_oldstate = False
+        if BottoneIngresso_SX_oldstate == True:
+            BottoneIngresso_SX_oldstate = False
+        if BottoneIngresso_DX_oldstate == True:
+            BottoneIngresso_DX_oldstate = False
+        if BottoneCucina_oldstate == True:
+            BottoneCucina_oldstate = False
+        #print MySwitchA
+    #time.sleep(0.1)
+    # periodic update led state
+    print MySwitchA
+    print i
+    i +=1
+    if i > 1000:
+        i = 0 
+        CheckColorForLeds()
 
-
-CheckColorForLeds()
-
-        
+"""
+   

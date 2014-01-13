@@ -66,9 +66,11 @@ bus.write_byte_data(DEVICE,OLATB,0x00) #00000000 B
 bus.write_byte_data(DEVICE,GPPUA,0xFF) #11111111 A
 bus.write_byte_data(DEVICE,GPPUB,0xC0) #11000000 B
 
-RELE_INGRESSO = 4
-RELE_CUCINA = 8
-RELE_SALA = 16
+RELE_ENTRANCE = 4
+RELE_KITCHEN = 8
+RELE_LOUNGE = 16
+RELE_LOUNGE_DIM = 1
+
 
 BUTTON_SALA_SX = 61       
 BUTTON_CUCINA = 62
@@ -97,6 +99,13 @@ class LedColor():
     Off = 0
     Red = 1
     Green = 2
+    
+class ButtonsState():
+    Released = 0
+    Pressed = 1
+    StillPressed = 2
+    LongPressed = 3
+    
     
 class Home(object):
     def __init__(self, name, roomlist = []):
@@ -222,48 +231,101 @@ class Button(object):
         self.model = model
         model.events.Pressed += self.Pressed
         model.events.StillPressed += self.StillPressed
+        model.events.LongPressed += self.LongPressed
         model.events.Released += self.Released
         self.controlled = controlled
+        self._old_state = ButtonsState.Released
         
     def Pressed(self):
         if self.model.get() == self.name :
             print self.name + " Pressed"
             if isinstance(self.controlled, Lamp):
                 print "Lamp Pressed"
-                lamp = self.controlled
-                #if not lamp.isdimmable:
-                lamp.toggle()
+                if self._old_state == ButtonsState.Released:
+                    lamp = self.controlled
+                    if lamp.isdimmable:
+                        pass # none
+                    else:
+                        lamp.toggle()
             if isinstance(self.controlled, Room):
                 print "Room Pressed"
-                for lamp in self.controlled.lamplist:
-                    #if not lamp.isdimmable:
-                    lamp.toggle()
+                if self._old_state == ButtonsState.Released:
+                    for lamp in self.controlled.lamplist:
+                        if lamp.isdimmable:
+                            pass # none
+                        else:
+                            lamp.toggle()
             if isinstance(self.controlled, Home):
                 print "Home Pressed"
-                for room in self.controlled.roomlist:
-                    for lamp in room.lamplist:
-                            #if not lamp.isdimmable:
-                            lamp.toggle()
+                if self._old_state == ButtonsState.Released:
+                    for room in self.controlled.roomlist:
+                        for lamp in room.lamplist:
+                            if lamp.isdimmable:
+                                pass # none
+                            else:
+                                lamp.off()
+            self._old_state = ButtonsState.Pressed
+            CheckColorForLeds()
             
     def StillPressed(self):
         if self.model.get() == self.name :
             print self.name + " StillPressed"
             if isinstance(self.controlled, Lamp):
                 print "Lamp StillPressed"
-                lamp = self.controlled
-                if lamp.isdimmable:
-                    lamp.startDimm()
+                if self._old_state == ButtonsState.Pressed:
+                    lamp = self.controlled
+                    if lamp.isdimmable:
+                        lamp.on()
+                if self._old_state == ButtonsState.Released:
+                    lamp = self.controlled
+                    if lamp.isdimmable:
+                        lamp.off()
             if isinstance(self.controlled, Room):
                 print "Room StillPressed"
-                for lamp in self.controlled.lamplist:
+                if self._old_state == ButtonsState.Pressed:
+                    for lamp in self.controlled.lamplist:
+                        if lamp.isdimmable:
+                            lamp.on()
+                if self._old_state == ButtonsState.Released:
                     if lamp.isdimmable:
-                        lamp.startDimm()
+                        lamp.off()
             if isinstance(self.controlled, Home):
                 print "Home StillPressed"
+                if self._old_state == ButtonsState.Pressed:
+                    for room in self.controlled.roomlist:
+                        for lamp in room.lamplist:
+                                if  lamp.isdimmable:
+                                    lamp.on()
+                if self._old_state == ButtonsState.Released:
+                    if lamp.isdimmable:
+                        lamp.off()
+            self._old_state = ButtonsState.StillPressed
+            CheckColorForLeds()
+            
+    def LongPressed(self):
+        if self.model.get() == self.name :
+            print self.name + " LongPressed"
+            if isinstance(self.controlled, Lamp):
+                print "Lamp LongPressed"
+                lamp = self.controlled
+                if self._old_state == ButtonsState.StillPressed:
+                    if lamp.isdimmable:
+                        lamp.startDimm()
+            if isinstance(self.controlled, Room):
+                print "Room LongPressed"
+                for lamp in self.controlled.lamplist:
+                    if self._old_state == ButtonsState.StillPressed:
+                        if lamp.isdimmable:
+                            lamp.startDimm()
+            if isinstance(self.controlled, Home):
+                print "Home LongPressed"
                 for room in self.controlled.roomlist:
                     for lamp in room.lamplist:
+                        if self._old_state == ButtonsState.StillPressed:
                             if  lamp.isdimmable:
                                 lamp.startDimm()
+            self._old_state = ButtonsState.StillPressed
+            CheckColorForLeds()
             
     def Released(self):
         if self.model.get() == self.name :
@@ -271,19 +333,33 @@ class Button(object):
             if isinstance(self.controlled, Lamp):
                 print "Lamp Released"
                 lamp = self.controlled
-                if lamp.isdimmable:
-                    lamp.stopDimm()
+                if self._old_state == ButtonsState.LongPressed:
+                    if lamp.isdimmable:
+                        lamp.stopDimm()
+                if self._old_state == ButtonsState.Pressed:
+                    if lamp.isdimmable:
+                        lamp.off()
             if isinstance(self.controlled, Room):
                 print "Room Released"
                 for lamp in self.controlled.lamplist:
-                    if lamp.isdimmable:
-                        lamp.stopDimm()
+                    if self._old_state == ButtonsState.LongPressed:
+                        if lamp.isdimmable:
+                            lamp.stopDimm()
+                    if self._old_state == ButtonsState.Pressed:
+                        if lamp.isdimmable:
+                            lamp.off()
             if isinstance(self.controlled, Home):
                 print "Home Released"
                 for room in self.controlled.roomlist:
                     for lamp in room.lamplist:
-                            if  lamp.isdimmable:
+                        if self._old_state == ButtonsState.LongPressed:
+                            if lamp.isdimmable:
                                 lamp.stopDimm()
+                        if self._old_state == ButtonsState.Pressed:
+                            if lamp.isdimmable:
+                                lamp.off()
+            self._old_state = ButtonsState.Released
+            CheckColorForLeds()
 
     def __str__(self):
         return self.name
@@ -291,50 +367,51 @@ class Button(object):
     def __repr__(self):
         return "<Button: %s>" % self
    
-    def SetLedColor(self, Color):
-        OldState = bus.read_byte_data(DEVICE,GPIOB)
+    def SetLedColorB(self, Color):
+        OldStateB = bus.read_byte_data(DEVICE,GPIOB)
         NewBinLedNumber = 0b00000000
         if Color == LedColor.Red:
-            NewBinLedNumber =  (OldState & ( ~ self.BinLedNumberGREEN )) | self.BinLedNumberRED
+            NewBinLedNumber =  (OldStateB & ( ~ self.BinLedNumberGREEN )) | self.BinLedNumberRED
         elif Color == LedColor.Green:
-            NewBinLedNumber =  (OldState & ( ~ self.BinLedNumberRED)) | self.BinLedNumberGREEN 
+            NewBinLedNumber =  (OldStateB & ( ~ self.BinLedNumberRED)) | self.BinLedNumberGREEN 
         else:
-            NewBinLedNumber =  OldState & ( ~ (self.BinLedNumberRED |  self.BinLedNumberGREEN))
+            NewBinLedNumber =  OldStateB & ( ~ (self.BinLedNumberRED |  self.BinLedNumberGREEN))
         bus.write_byte_data(DEVICE,GPIOB,NewBinLedNumber)
     
     def SetLedColorA(self, Color):
-        OldState = bus.read_byte_data(DEVICE,GPIOA)
+        OldStateA = bus.read_byte_data(DEVICE,GPIOA)
         NewBinLedNumber = 0b00000000
         if Color == LedColor.Red:
-            NewBinLedNumber =  (OldState & ( ~ self.BinLedNumberGREEN )) | self.BinLedNumberRED
+            NewBinLedNumber =  (OldStateA & ( ~ self.BinLedNumberGREEN )) | self.BinLedNumberRED
         elif Color == LedColor.Green:
-            NewBinLedNumber =  (OldState & ( ~ self.BinLedNumberRED)) | self.BinLedNumberGREEN 
+            NewBinLedNumber =  (OldStateA & ( ~ self.BinLedNumberRED)) | self.BinLedNumberGREEN 
         else:
-            NewBinLedNumber =  OldState & ( ~ (self.BinLedNumberRED |  self.BinLedNumberGREEN))
+            NewBinLedNumber =  OldStateA & ( ~ (self.BinLedNumberRED |  self.BinLedNumberGREEN))
+        bus.write_byte_data(DEVICE,GPIOA,NewBinLedNumber)
             
 # ---- lamp -----
-lampadario_sala_dimm = Lamp("lampadario",LampType.Led,"Sala dimm",1,True,6)
-lampadario_ingresso = Lamp("lampadario",LampType.Led,"Ingresso",3,False,0)
-lampadario_cucina = Lamp("lampadario",LampType.Led,"Cucina",4,False,0)
-lampadario_sala = Lamp("lampadario",LampType.Led,"Sala",5,False,0)
+Lamp_holder_lounge_dimm = Lamp("lamp holder dimm",LampType.Led,"lounge",1,True,6)
+Lamp_holder_entrance = Lamp("lamp holder",LampType.Led,"Entrance",3,False,0)
+Lamp_holder_kitchen = Lamp("lamp holder",LampType.Led,"Kitchen",4,False,0)
+Lamp_holder_lounge = Lamp("lamp holder",LampType.Led,"lounge",5,False,0)
 
-#lampadario_sala_dimm.on()
-#lampadario_sala_dimm.dimm()
-#Lights = [lampadario_sala_dimm,lampadario_ingresso,lampadario_cucina,lampadario_sala]
+#Lamp_holder_lounge.on()
+#Lamp_holder_lounge.dimm()
+#Lights = [Lamp_holder_lounge,lampadario_ingresso,lampadario_cucina,lampadario_sala]
 #for l in Lights:
 #    l.on()
 # Create Room
-Sala = Room("Sala",[lampadario_sala_dimm,lampadario_sala])
-Cucina = Room("Cucina",[lampadario_cucina])
-Ingresso = Room("Ingresso",[lampadario_ingresso])
+Launge = Room("Launge",[Lamp_holder_lounge_dimm,Lamp_holder_lounge])
+Kitchen = Room("Kitchen",[Lamp_holder_kitchen])
+Entrance = Room("Entrance",[Lamp_holder_entrance])
 #Create Home
-Casa = Home("Casa",[Sala,Cucina,Ingresso])
+MyHome = Home("Home",[Launge,Kitchen,Entrance])
 
-BottoneSala_SX = Button("BUTTON_SALA_SX",0,0b00000100,0b00001000,model,Sala)
-BottoneSala_DX = Button("BUTTON_SALA_DX",0,0b00010000,0b00100000,model,Ingresso)
-BottoneCucina = Button("BUTTON_CUCINA",0,0b00000001,0b00000010,model,Cucina)
-BottoneIngresso_SX = Button("BUTTON_INGRESSO_SX",0,0b01000000,0b10000000,model,Casa)
-BottoneIngresso_DX = Button("BUTTON_INGRESSO_DX",0,0b01000000,0b10000000,model,Ingresso) #A
+ButtonLaunge_SX = Button("ButtonLaunge_SX",0,0b00000100,0b00001000,model,Launge)
+ButtonLaunge_DX = Button("ButtonLaunge_DX",0,0b00010000,0b00100000,model,Entrance)
+ButtonKitchen = Button("ButtonKitchen",0,0b00000001,0b00000010,model,Kitchen)
+ButtonEntrance_SX = Button("ButtonEntrance_SX",0,0b01000000,0b10000000,model,MyHome)
+ButtonEntrance_DX = Button("ButtonEntrance_DX",0,0b01000000,0b10000000,model,Entrance) #A
 
 model.start()
 
@@ -346,30 +423,28 @@ def CheckColorForLeds():
     statevalue = int(html)
     #time.sleep(0.1)
     
-    if (statevalue & RELE_CUCINA) == RELE_CUCINA:
-        BottoneCucina.SetLedColor(LedColor.Green)
+    if (statevalue & RELE_KITCHEN) == RELE_KITCHEN:
+        ButtonKitchen.SetLedColorB(LedColor.Green)
     else:
-        BottoneCucina.SetLedColor(LedColor.Red)
+        ButtonKitchen.SetLedColorB(LedColor.Red)
         
-    if (statevalue & RELE_INGRESSO) == RELE_INGRESSO:
-        BottoneSala_DX.SetLedColor(LedColor.Green)
-        BottoneIngresso_DX.SetLedColor(LedColor.Green)
+    if (statevalue & RELE_ENTRANCE) == RELE_ENTRANCE:
+        ButtonLaunge_DX.SetLedColorB(LedColor.Green)
+        ButtonEntrance_DX.SetLedColorB(LedColor.Green)
     else:
-        BottoneSala_DX.SetLedColor(LedColor.Red)
-        BottoneIngresso_DX.SetLedColor(LedColor.Red)
+        ButtonLaunge_DX.SetLedColorB(LedColor.Red)
+        ButtonEntrance_DX.SetLedColorB(LedColor.Red)
         
-    if (statevalue & RELE_SALA) == RELE_SALA:
-        BottoneSala_SX.SetLedColor(LedColor.Green)
+    if ((statevalue & RELE_LOUNGE) == RELE_LOUNGE) & (statevalue & RELE_LOUNGE_DIM) == RELE_LOUNGE_DIM:
+        ButtonLaunge_SX.SetLedColorB(LedColor.Green)
     else:
-        BottoneSala_SX.SetLedColor(LedColor.Red)
+        ButtonLaunge_SX.SetLedColorB(LedColor.Red)
         
-    if ((statevalue & RELE_SALA) == RELE_SALA) &  ((statevalue & RELE_INGRESSO) == RELE_INGRESSO) & \
-    ((statevalue & RELE_CUCINA) == RELE_CUCINA):
-        BottoneIngresso_SX.SetLedColorA(LedColor.Green)
+        
+    if ((statevalue & RELE_LOUNGE) == RELE_LOUNGE) &  ((statevalue & RELE_ENTRANCE) == RELE_ENTRANCE) & ((statevalue & RELE_KITCHEN) == RELE_KITCHEN) & ((statevalue & RELE_LOUNGE_DIM) == RELE_LOUNGE_DIM): 
+        ButtonEntrance_SX.SetLedColorA(LedColor.Green) 
     else:
-        BottoneIngresso_SX.SetLedColorA(LedColor.Red)
-
-
+        ButtonEntrance_SX.SetLedColorA(LedColor.Red)
 
 CheckColorForLeds()
 

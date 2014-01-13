@@ -83,7 +83,7 @@ class _EventSlot:
       return self
 
 class MyEvents(Events):
-   __events__ = ('Pressed', 'StillPressed', 'Released')
+   __events__ = ('Pressed', 'StillPressed','LongPressed', 'Released')
 
 class ValueModel(threading.Thread):
    def __init__(self):
@@ -93,38 +93,35 @@ class ValueModel(threading.Thread):
         self.set("")
         
    def set(self, value):
-        #if (self.__value == value): return
         self.__value = value
         
    def get(self):
         return self.__value
 
    def run(self):
-        Bottone_oldstate = False
+        button_oldstate = False
         i = 0
-        BUTTON_SALA_SX = 61  
-        BUTTON_SALA_DX = 59     
-        BUTTON_CUCINA = 62
-        BUTTON_INGRESSO_DX = 55
-        BUTTON_INGRESSO_SX = 47
-        dict_bottoni = {61:"BUTTON_SALA_SX",59:"BUTTON_SALA_DX",62:"BUTTON_CUCINA",55:"BUTTON_INGRESSO_DX",47:"BUTTON_INGRESSO_SX"}
+        dict_buttons = {61:"ButtonLaunge_SX",59:"ButtonLaunge_DX",62:"ButtonKitchen",55:"ButtonEntrance_DX",47:"ButtonEntrance_SX"}
         while True:
             # Read state of GPIOA register
             time.sleep(0.1)
             MySwitchA = bus.read_byte_data(DEVICE,GPIOA) & 0b00111111
-            if  dict_bottoni.get(MySwitchA) is not None:
-                if Bottone_oldstate == False:
-                    Bottone_oldstate = True
-                    self.set(dict_bottoni.get(MySwitchA))
+            if  dict_buttons.get(MySwitchA) is not None:
+                if button_oldstate == False:
+                    button_oldstate = True
+                    self.set(dict_buttons.get(MySwitchA))
                     self.events.Pressed()
                     i = 0
                 else:
                     i += 1
-                    if i > 5:
-                        self.set(dict_bottoni.get(MySwitchA))
+                    if  5 < i < 20 : # between 0.5 and 2 sec
+                        self.set(dict_buttons.get(MySwitchA))
                         self.events.StillPressed()
+                    if i >= 20: # more then 2 sec
+                        self.set(dict_buttons.get(MySwitchA))
+                        self.events.LongPressed()
             else:
-                Bottone_oldstate = False
+                button_oldstate = False
                 if self.get() != "" :
                     self.events.Released()
                     self.set("")

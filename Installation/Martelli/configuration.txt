@@ -159,3 +159,13 @@ enabled shutdown button on pin 25
     sudo nano /etc/rc.local
     #add this line before exit 0#
 			/usr/bin/python /usr/local/bin/turnoff.py &
+
+# edited file  mcp3008_lm35.py for different IP address#
+server_redis = '192.168.0.208'   ---> server_redis = '192.168.0.107'
+            
+#configure analog probe(my_room_2)#
+	#add the script to crontab#
+	crontab -e
+	#add at the end of the file#
+	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
+    

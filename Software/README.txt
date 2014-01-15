@@ -56,9 +56,11 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 			sudo chmod 666 /dev/spidev0.0
 			sudo chmod 666 /dev/spidev0.1
 		
+        [reboot]
+        
 #SPIDEV# X
 	sudo apt-get install python-pip  
-	sudo pip install spidev
+	sudo pip install spidev # error but continue  ???#
 	sudo pip install python-dev
 	sudo apt-get install python-imaging python-imaging-tk python-pip python-dev git
 	mkdir python-spi
@@ -153,12 +155,20 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 			sudo apt-get install unclutter
 		#reboot#
 			sudo reboot
+
+            
+#enable midori on Desktop#
+	#set autostart#
+		sudo nano /etc/xdg/lxsession/LXDE/autostart
+		#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
+			@midori -e Fullscreen -a http://127.0.0.1/mobile
+
 	
 #toggle light on the TFT#
 	sudo nano /sys/class/backlight/fb_ili9320/bl_power
 	#toggle 1 = (on) or 0 = (off)#
 
-#configure web server#
+#configure web server# X
 	sudo apt-get install apache2 php5 libapache2-mod-php5
 	sudo rm /var/www/index.html
 	sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
@@ -179,9 +189,10 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#NOTE#
 	#be sure to have activate 1 wire module otherwise look #enable 1wire# #
 
-#configuration for read external temp from python#
+#configuration for read external temp from python# X
 #link http://code.google.com/p/python-weather-api/#
 #suggest to add this script in Display raspberry#
+    sudo apt-get install subversion
 	svn checkout http://python-weather-api.googlecode.com/svn/trunk/ python-weather-api-read-only
 	 cd python-weather-api-read-only/
 	 python setup.py build
@@ -213,6 +224,21 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
         wireless-essid XXXXXXX  <--- your SSID
         wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 
+#shutdown button#
+#use pins 25,GND#
+    sudo cp /home/pi/Domotics-Raspberry/Software/utility/turnoff.py /usr/local/bin/
+    sudo chmod +x /usr/local/bin/turnoff.py
+    sudo nano /etc/rc.local
+    #add this line before exit 0#
+			/usr/local/bin/turnoff.py &
+#restart button#
+#use pins 24,GND#
+    sudo cp /home/pi/Domotics-Raspberry/Software/utility/restart.py /usr/local/bin/
+    sudo chmod +x /usr/local/bin/restart.py
+    sudo nano /etc/rc.local
+    #add this line before exit 0#
+			/usr/local/bin/restart.py &
+	
 
 #install RUBY#
 	curl -L https://get.rvm.io | bash -s stable

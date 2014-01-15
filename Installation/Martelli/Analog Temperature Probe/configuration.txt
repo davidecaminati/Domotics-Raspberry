@@ -167,5 +167,5 @@ server_redis = '192.168.0.208'   ---> server_redis = '192.168.0.107'
 	#add the script to crontab#
 	crontab -e
 	#add at the end of the file#
-	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
+	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Installation/Martelli/mcp3008_lm35.py
     

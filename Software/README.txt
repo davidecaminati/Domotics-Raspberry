@@ -218,7 +218,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#put this line for enable wireless#
 	auto wlan0
 	iface wlan0 inet static
-        address 192.168.0.XXX   <--- your ip
+        address 192.168.0.XXX   <--- your ippyth    
         netmask 255.255.255.0   
         gateway 192.168.0.XXX     <--- your gateway
         wireless-essid XXXXXXX  <--- your SSID
@@ -230,16 +230,16 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
     sudo chmod +x /usr/local/bin/turnoff.py
     sudo nano /etc/rc.local
     #add this line before exit 0#
-			/usr/local/bin/turnoff.py &
+			/usr/bin/python /usr/local/bin/turnoff.py &
+            
 #restart button#
 #use pins 24,GND#
     sudo cp /home/pi/Domotics-Raspberry/Software/utility/restart.py /usr/local/bin/
     sudo chmod +x /usr/local/bin/restart.py
     sudo nano /etc/rc.local
     #add this line before exit 0#
-			/usr/local/bin/restart.py &
+			/usr/bin/python /usr/local/bin/restart.py &
 	
-
 #install RUBY#
 	curl -L https://get.rvm.io | bash -s stable
 	source /home/pi/.rvm/scripts/rvm

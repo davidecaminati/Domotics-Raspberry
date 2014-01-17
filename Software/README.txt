@@ -7,14 +7,14 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 
 #install REDIS (redis is a database)# X
 	sudo apt-get install redis-server
-
-#to use REDIS on Python# X
-	sudo apt-get install python-setuptools
-	sudo easy_install redis
 	#configure binding#
 		sudo nano /etc/redis/redis.conf
 		#remark bind 127.0.0.1 putting a # infront of the line#
 		#bind 127.0.0.1
+        
+#to use REDIS on Python# X
+	sudo apt-get install python-setuptools
+	sudo easy_install redis
 	
 	
 #to use REDIS on PHP#
@@ -174,7 +174,15 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
 	#set the redis server#
 	
-
+#installation Servos driver#
+#reference http://learn.adafruit.com/downloads/pdf/adafruit-16-channel-servo-driver-with-raspberry-pi.pdf#
+    git clone https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git
+    #to start the example#
+    #Note default address is 40, use "i2cdetect -y 1" to detect your, don't warry about the address 70#
+    cd Adafruit-Raspberry-Pi-Python-Code/
+    cd Adafruit_PWM_Servo_Driver/
+    sudo python Servo_Example.py
+    
 #configure analog probe(my_room_2)#
 	#add the script to crontab#
 	crontab -e

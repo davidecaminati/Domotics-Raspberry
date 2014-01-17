@@ -160,12 +160,31 @@ enabled shutdown button on pin 25
     #add this line before exit 0#
 			/usr/bin/python /usr/local/bin/turnoff.py &
 
-# edited file  mcp3008_lm35.py for different IP address#
-server_redis = '192.168.0.208'   ---> server_redis = '192.168.0.107'
+          
             
 #configure analog probe(my_room_2)#
 	#add the script to crontab#
 	crontab -e
 	#add at the end of the file#
-	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Installation/Martelli/Analog\ Temperature\ Probe/mcp3008_lm35.py
+	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Installation/Martelli/Analog\ Temperature\ Probe/mcp3008_NTC_termistors.py
+
+    #use 1 PullDown resistor 39K in parallel for each probe#
     
+create mcp3008_NTC_termistors.py file for usage with different probes 
+end working at 19:00
+
+start working 15:00
+#Installation Servos driver#
+#reference http://learn.adafruit.com/downloads/pdf/adafruit-16-channel-servo-driver-with-raspberry-pi.pdf#
+
+    git clone https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git
+    #to start the example#
+    #Note default address is 40, use "i2cdetect -y 1" to detect your, don't warry about the address 70#
+    cd Adafruit-Raspberry-Pi-Python-Code/
+    cd Adafruit_PWM_Servo_Driver/
+    sudo python Servo_Example.py
+    
+#tested  probe for GAS and AIR Quality#
+#use MQ2, anaolg probe 5V from RobotItaly#
+
+end working 21:00

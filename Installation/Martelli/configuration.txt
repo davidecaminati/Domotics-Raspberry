@@ -1,3 +1,20 @@
+Hardware list
+1   Rele Board VTX2580 16 I/O  http://www.parsicitalia.it/files/VTX2508-16IO-MCP23017.pdf
+1 	MCP23017 I2C I/O Expander 	
+1 	MCP3008 8-channel 10-bit ADC 	part number MCP3008
+2 	Turret Pro Servo MG995 
+1 	Adafruit Pi Cobbler 	manufacturer Adafruit Industries
+1 	PCA9685 16x12-bit PWM Breakout 	
+4 	Temperature Sensor (Thermistor) 	resistance at 25° 10kO; package THT; thermistor type NTC; tipo thermistor
+4 	39K  Resistor
+1 	Rotary Potentiometer (Large) 	package THT; size Rotary - 16mm; track Linear; tipo Rotary Shaft Potentiometer; maximum resistance 47k
+4 	Round Pushbutton 	switching circuit SPST; default state Normally Open
+2 	Banana Connector 	editable pin labels false; colore red; variant red; pins 1
+1 	Banana Connector 	editable pin labels false; colore black; variant black; pins 1
+1 	GAS_SENSOR 	package mq-2
+
+
+
 Configuration for Daniele Raspberry
 ip 192.168.0.107
 user pi
@@ -110,7 +127,13 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#set autostart#
 		sudo nano /etc/xdg/lxsession/LXDE/autostart
 		#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
-			@midori -e Fullscreen -a http://127.0.0.1/mobile
+			@midori -e Fullscreen -a http://127.0.0.1
+#hide mouse cursor#
+    sudo apt-get install unclutter
+#disable suspend#
+    sudo nano /etc/lightdm/lightdm.conf
+    # go to [SeatDefaults] and set#
+        xserver-command=X -s 0 -dpms
 
 #configure web server# X
 	sudo apt-get install apache2 php5 libapache2-mod-php5

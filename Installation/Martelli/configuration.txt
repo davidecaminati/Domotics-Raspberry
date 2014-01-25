@@ -123,13 +123,21 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	w1-therm
     
              
-#enable midori on Desktop# X
+#enable midori on Desktop# NOT USED
 	#set autostart#
 		sudo nano /etc/xdg/lxsession/LXDE/autostart
 		#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
 			@midori -e Fullscreen -a http://127.0.0.1
+            
+#Enable Start Application on Boot#
+    #set autostart#
+    sudo nano /etc/xdg/lxsession/LXDE/autostart
+        # write at the end of the file#
+        @/usr/bin/python /home/pi/Domotics-Raspberry/Installation/Martelli/DisplayApplication/test.py
+ 
 #hide mouse cursor#
     sudo apt-get install unclutter
+    
 #disable suspend#
     sudo nano /etc/lightdm/lightdm.conf
     # go to [SeatDefaults] and set#
@@ -211,3 +219,40 @@ start working 15:00
 #use MQ2, anaolg probe 5V from RobotItaly#
 
 end working 21:00
+
+Start Working 14:00
+
+test gas probe (burned)
+test display on little TFT (game)
+test Switch
+test Rele
+
+End Working 20:00
+
+Start Working 10:00
+
+test display on little TFT (Simply interface)
+
+test wireless USB card
+#configure wireless#
+# for help http://www.linux.com/learn/tutorials/374514-control-wireless-on-the-linux-desktop-with-these-tools #
+	sudo nano /etc/network/interfaces
+	#put this line for enable wireless#
+	auto wlan0
+	iface wlan0 inet static
+        address 192.168.0.XXX   <--- your ippyth    
+        netmask 255.255.255.0   
+        gateway 192.168.0.XXX     <--- your gateway
+        wireless-essid XXXXXXX  <--- your SSID
+        wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+
+End Working 12:00
+
+Start Working 18:00
+
+test push notifications
+
+End Working 22:00
+
+TO DO 
+test gas probe

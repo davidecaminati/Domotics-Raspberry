@@ -5,11 +5,11 @@ import urllib
 import urllib2
 import spidev
 from Adafruit_PWM_Servo_Driver import PWM
+import httplib, urllib # push notification
 #SERVO#
-# Initialise the PWM device with i2c adress
-pwm = PWM(0x44, debug=True)
+#http://www.servodatabase.com/servo/towerpro/mg995
 
-
+pwm = PWM(0x44, debug=False)# Initialise the PWM device with i2c adress
 pwm.setPWMFreq(60) # Set frequency to 60 Hz
 #END SERVO#
   
@@ -24,50 +24,48 @@ GPIOA  = 0x12 # Register for inputs for port A
 GPIOB  = 0x13 # Register for inputs for port B
 GPPUA  = 0x0C # Pull-up resistor (0 = disabled, 1 = enabled)
 GPPUB  = 0x0D # Pull-up resistor (0 = disabled, 1 = enabled)
-
-OldState = 255
-bus.write_byte_data(DEVICE,GPPUB,0xff) # Set PullUp resistor for input register
-#end setting for MCP 23017#
-bus.write_byte_data(DEVICE,IODIRA,0x00) # all A output
-bus.write_byte_data(DEVICE,GPPUA,0xff) # all A pull up
-
-#
-bus.write_byte_data(DEVICE,OLATA,0x00) # all A rele ON
-bus.read_byte_data(DEVICE,GPIOA) #read status A 
+bus.write_byte_data(DEVICE,IODIRA,0x00) # set to output all A register
+bus.write_byte_data(DEVICE,IODIRB,0xff) # set to input all B register
+bus.write_byte_data(DEVICE,GPPUA,0xff) # Set PullUp resistor for output register A
+bus.write_byte_data(DEVICE,GPPUB,0xff) # Set PullUp resistor for input register B
 bus.write_byte_data(DEVICE,OLATA,0xff) # all A rele off
-#
+#end setting for MCP 23017#
+
+OldState = 255 # no buttons pressed
 
 #GAS and TEMP
-GAS_CLEAN_AIR = 377
+GAS_CLEAN_AIR = 377 # only for note
+THRESHOLDGAS = 50 # + or - for change state from alarm
+gasAlarm = -1  # variable for toggle from alarm to normal -1=no alarm , 1=alarm sent, 0=still in alarm
 spi = spidev.SpiDev()
 spi.open(0, 0)
 
-#Url for change state of reles
-urlForToggle = 'http://192.168.0.202:5000/reletoggle/'
-#Url for read state of rele
-urlForState = 'http://192.168.0.202:5000/relestate/'
-#Url for dimm on
-urlForDimmOn = 'http://192.168.0.202:5000/reledimmon/'
-#Url for dimm off
-urlForDimmOff = 'http://192.168.0.202:5000/reledimmoff/'
-
+#screen
 pygame.init()
 size = width, height = 480, 234
 screen = pygame.display.set_mode((size),pygame.FULLSCREEN)
 clock = pygame.time.Clock()
-
 done = False
 font = pygame.font.SysFont("comicsansms", 42)
 pygame.mouse.set_visible(False)
 
+def Send_push(title,pushtext):
+    print title,pushtext
+    conn = httplib.HTTPSConnection("api.pushover.net:443")
+    conn.request("POST", "/1/messages.json",urllib.urlencode({"token": "abdf67yAvRcQufveo2nGkwKNi6xTHb","user": "u2v1vYFWvmGGNGN3Ffnn9NnCW1Y3xN","message": pushtext,"title": title}), { "Content-type": "application/x-www-form-urlencoded" })
+    conn.getresponse()
+    return 'ok'
+    
 class Servo(object):
-    def __init__(self, name, servoMin, servoMax, servonum):
+    def __init__(self, name, servoMin, servoMax, servonum, rele):
         self.name = name
         self.servoMin = servoMin
         self.servoMax = servoMax
         self.servonum = servonum
         self.step_slower = 0.002
         self.state = ""
+        self.rele = rele
+        
     def __str__(self):
         return self.name
 
@@ -75,16 +73,26 @@ class Servo(object):
         return "<Servo: %s>" % self
                 
     def Open(self):
+      self.rele.On()
+      time.sleep(1)
       for i in range(self.servoMin,self.servoMax):
         pwm.setPWM(self.servonum, 0, i)
         time.sleep(self.step_slower)
         self.state = "Open"
+      time.sleep(1)
+      self.rele.Off()
+      
         
     def Close(self):
+      self.rele.On()
+      time.sleep(1)
       for i in range(self.servoMax-self.servoMin):
         pwm.setPWM(self.servonum, 0,self.servoMax - i)
         time.sleep(self.step_slower)
         self.state = "Close"
+      time.sleep(1)
+      self.rele.Off()
+      
              
     def State(self):
         return self.state
@@ -119,7 +127,68 @@ class TemperatureProbe(object):
     def Text(self):
         text = font.render(str(self.name) + " " + str(self.readadc()), True, (0, 128, 128))
         return text
-  
+
+class CurrentProbe(object):
+    def __init__(self, name,adcnum,alarmVal ):
+        self.name = name
+        self.adcnum = adcnum
+        self.alarmVal = alarmVal
+        
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return "<CurrentProbe: %s>" % self
+        
+    def InAlarm(self):
+        return self.readadc() > self.alarmVal
+        
+    def readadc(self):
+            # read SPI data from MCP3008 chip, 8 possible adc's (0 thru 7)
+        if self.adcnum > 7 or self.adcnum < 0:
+            return -1
+        r = spi.xfer2([1, 8 + self.adcnum << 4, 0])
+        adcout = ((r[1] & 3) << 8) + r[2]
+        #debug in some case, strange, but after read the pullup resistor register fail, need to be re set
+        #bus.write_byte_data(DEVICE,GPPUB,0xff) # Set PullUp resistor for input register
+        #debug
+        adjust = adcout - 330 #330 = 3.3 Volt base
+        return adcout
+        
+    def Text(self):
+        text = str(self.name) + " " + str(self.readadc())+ " mA"
+        return text
+        
+class GasProbe(object):
+    def __init__(self, name,adcnum,alarmVal ):
+        self.name = name
+        self.adcnum = adcnum
+        self.alarmVal = alarmVal
+    
+    def InAlarm(self):
+        return self.readadc() > self.alarmVal
+    
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return "<GasProbe: %s>" % self
+        
+    def readadc(self):
+            # read SPI data from MCP3008 chip, 8 possible adc's (0 thru 7)
+        if self.adcnum > 7 or self.adcnum < 0:
+            return -1
+        r = spi.xfer2([1, 8 + self.adcnum << 4, 0])
+        adcout = ((r[1] & 3) << 8) + r[2]
+        #debug in some case, strange, but after read the pullup resistor register fail, need to be re set
+        #bus.write_byte_data(DEVICE,GPPUB,0xff) # Set PullUp resistor for input register
+        #debug
+        return adcout
+        
+    def Text(self):
+        text = str(self.name) + " " + str(self.readadc())
+        return text
+        
 class Rele(object):
     def __init__(self, name, relenum):
         self.name = name
@@ -178,6 +247,7 @@ class Tube(object):
         self.rele = rele
         self.val_min_temp = val_min_temp
         self.servo = servo
+        
     
     def __str__(self):
         return self.name
@@ -200,25 +270,31 @@ class Tube(object):
         return text
      
 #create object
-
 #rele
 rele1 = Rele("rele",1)
 rele2 = Rele("rele",2)
 rele3 = Rele("rele",3)
 rele4 = Rele("rele",4)
 rele5 = Rele("rele",5)
+rele6 = Rele("rele",6)
+rele7 = Rele("rele",7) #servo 2
+rele8 = Rele("rele",8) #servo 1
 
-#servo
-#servoMin = 220  # Min 
-#servoMax = 420  # Max 
-servo1 = Servo("servo",220,420,0)
-servo2 = Servo("servo",220,420,1)
+#servo      servoMin = 220  servoMax = 420  
+servo1 = Servo("servo",220,420,3,rele8)
+servo2 = Servo("servo",220,420,10,rele7)
 
 #temperature
 temp1 = TemperatureProbe("temp",0)
 temp2 = TemperatureProbe("temp",1)
 temp3 = TemperatureProbe("temp",2)
 temp4 = TemperatureProbe("temp",3)
+
+#current
+#current1 = CurrentProbe("current",5,5000)
+
+#gas
+gas1 = GasProbe("gas",4,800)
 
 #display grid
 firstCol = 0
@@ -233,19 +309,26 @@ fourthRow = 155
 fifthRow = 200
 Rows = [firstRow,secondRow,thirdRow,fourthRow,fifthRow]
 
-Tube1 = Tube("Tube 1",temp1,rele1,"4",servo1)
-Tube2 = Tube("Tube 2",temp2,rele2,"4",servo2)
-Tube3 = Tube("Tube 3",temp3,rele3,"4")
-Tube4 = Tube("Tube 4",temp4,rele4,"4")
+#Tubes
+Tube1 = Tube("Tube 1",temp1,rele1,"-2",servo1)
+Tube2 = Tube("Tube 2",temp2,rele2,"-2",servo2)
+Tube3 = Tube("Tube 3",temp3,rele3,"-2")
+Tube4 = Tube("Tube 4",temp4,rele4,"-2")
 
 Tubes = [Tube1, Tube2, Tube3, Tube4]
+#close all servo on startup
+for t in Tubes:
+    if t.servo is not None:
+        pass
+        #t.servo.Close()     
+        
 tube_number = 0
 ActualTube = Tubes[tube_number]
+    
 while not done:
+    screen.fill((255, 255, 255)) #white
     
-    screen.fill((255, 255, 255))
     # read buttons
-    
     NewState = bus.read_byte_data(DEVICE,GPIOB)
     if (NewState != OldState) & (NewState != 255):
         if NewState == 254: #1
@@ -257,6 +340,7 @@ while not done:
             print tube_number
             ActualTube = Tubes[tube_number]
         elif NewState == 253: #2
+            # Toggle
             if ActualTube.IsHot():
                 ActualTube.rele.Toggle()
                 if ActualTube.servo is not None:
@@ -266,12 +350,10 @@ while not done:
                         ActualTube.servo.Close()
         elif NewState == 251: #3
             # change Page
-            #rele3.Toggle()
-            #time.sleep(1)
             pass
     OldState = NewState
     
-    #tubes
+    #tubes logic
     for t in Tubes:
         rele = t.rele
         servo = t.servo
@@ -281,18 +363,39 @@ while not done:
                 rele.Off ()
                 if servo is not None:
                     servo.Close()
-            color = (0, 0, 128) #blue
+            colorTube = (0, 0, 128) #blue
         else:
-            color = (0, 128, 0)# green
+            colorTube = (0, 128, 0)# green
          
         if t == ActualTube:
             if t.IsHot():
-                color = (255, 0, 0) #red
+                colorTube = (255, 0, 0) #red
             else:
-                color = (128, 128, 0) #yellow
+                colorTube = (128, 128, 0) #yellow
                 
-        text = font.render(t.Text(), True, color)
-        screen.blit(text,(Cols[0], Rows[Tubes.index(t)]))
+        textTube = font.render(t.Text(), True, colorTube)
+        screen.blit(textTube,(Cols[0], Rows[Tubes.index(t)]))
+        
+    if gas1.InAlarm():
+        colorGas = (255,0,0) #red for alarm
+        if gasAlarm != 1: # we need to comunicate alarm
+            gasAlarm = 1
+            #send push notification
+            Send_push("alarm","Co2 too High")
+    else:
+        colorGas = (0,0,128) #blue, no alarm
+        if gasAlarm == 1:
+            gasAlarm = -1 
+            #send push notification alarm off
+            Send_push("alarm","Co2 OK")
+            
+            
+    #textCurrent = font.render(current1.Text(), True, colorGas)
+    #screen.blit(textCurrent,(Cols[2], Rows[len(Tubes)]))
+    
+    textGas = font.render(gas1.Text(), True, colorGas)
+    screen.blit(textGas,(Cols[0], Rows[len(Tubes)]))
+    
     
     pygame.display.flip()
     clock.tick(10)

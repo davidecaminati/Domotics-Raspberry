@@ -26,7 +26,7 @@ while True:
             
             #response = urllib2.urlopen(urlForToggle)
             #html = response.read()
-            #OldState = NewState
+            OldState = NewState
         else:
             OldState = 0x00
             #print 'NewState != OldState %s' , NewState

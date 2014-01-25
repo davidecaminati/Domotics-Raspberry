@@ -99,6 +99,12 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	w1-gpio
 	w1-therm
 	
+#module for send keys#
+    #http://tjjr.fi/sw/python-uinput/#download-and-install#
+    sudo pip install evdev
+    sudo pip install python-uinput
+    
+    
 #enable TFT display# 
 	#guide http://www.raspberrypi.org/phpBB3/viewtopic.php?f=64&t=48967#
 	#model http://www.raspberrypi.org/phpBB3/viewtopic.php?f=59&t=48956#

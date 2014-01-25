@@ -1,4 +1,5 @@
 import sys, pygame,time
+import subprocess #ping
 import smbus
 import time
 import urllib
@@ -49,6 +50,9 @@ done = False
 font = pygame.font.SysFont("comicsansms", 42)
 pygame.mouse.set_visible(False)
 
+#time
+now = time.strftime("%c")
+
 def Send_push(title,pushtext):
     print title,pushtext
     conn = httplib.HTTPSConnection("api.pushover.net:443")
@@ -56,6 +60,13 @@ def Send_push(title,pushtext):
     conn.getresponse()
     return 'ok'
     
+def CheckInternetConnection():
+    res = subprocess.call(['ping', '-c', '1', "www.google.it"])
+    if res == 0:
+        return "OK"
+    else:
+        return "Error"
+        
 class Servo(object):
     def __init__(self, name, servoMin, servoMax, servonum, rele):
         self.name = name
@@ -74,26 +85,24 @@ class Servo(object):
                 
     def Open(self):
       self.rele.On()
-      time.sleep(1)
+      time.sleep(0.5)
       for i in range(self.servoMin,self.servoMax):
         pwm.setPWM(self.servonum, 0, i)
         time.sleep(self.step_slower)
         self.state = "Open"
-      time.sleep(1)
+      time.sleep(0.5)
       self.rele.Off()
       
-        
     def Close(self):
       self.rele.On()
-      time.sleep(1)
+      time.sleep(0.5)
       for i in range(self.servoMax-self.servoMin):
         pwm.setPWM(self.servonum, 0,self.servoMax - i)
         time.sleep(self.step_slower)
         self.state = "Close"
-      time.sleep(1)
+      time.sleep(0.5)
       self.rele.Off()
-      
-             
+       
     def State(self):
         return self.state
         
@@ -281,8 +290,8 @@ rele7 = Rele("rele",7) #servo 2
 rele8 = Rele("rele",8) #servo 1
 
 #servo      servoMin = 220  servoMax = 420  
-servo1 = Servo("servo",220,420,3,rele8)
-servo2 = Servo("servo",220,420,10,rele7)
+servo1 = Servo("servo",220,420,1,rele8)
+servo2 = Servo("servo",220,420,0,rele7)
 
 #temperature
 temp1 = TemperatureProbe("temp",0)
@@ -294,13 +303,15 @@ temp4 = TemperatureProbe("temp",3)
 #current1 = CurrentProbe("current",5,5000)
 
 #gas
-gas1 = GasProbe("gas",4,800)
+gas1 = GasProbe("Gas",4,800)
 
 #display grid
 firstCol = 0
 secondCol = 120
 thirdCol = 240
-Cols = [firstCol,secondCol,thirdCol]
+fourthCol = 360
+fifthCol = 400
+Cols = [firstCol,secondCol,thirdCol,fourthCol,fifthCol]
 
 firstRow = 20
 secondRow = 65
@@ -310,8 +321,8 @@ fifthRow = 200
 Rows = [firstRow,secondRow,thirdRow,fourthRow,fifthRow]
 
 #Tubes
-Tube1 = Tube("Tube 1",temp1,rele1,"-2",servo1)
-Tube2 = Tube("Tube 2",temp2,rele2,"-2",servo2)
+Tube1 = Tube("Tube 1",temp1,rele1,"-2",servo2)
+Tube2 = Tube("Tube 2",temp2,rele2,"-2",servo1)
 Tube3 = Tube("Tube 3",temp3,rele3,"-2")
 Tube4 = Tube("Tube 4",temp4,rele4,"-2")
 
@@ -319,12 +330,14 @@ Tubes = [Tube1, Tube2, Tube3, Tube4]
 #close all servo on startup
 for t in Tubes:
     if t.servo is not None:
-        pass
-        #t.servo.Close()     
+        t.servo.Close()     
         
 tube_number = 0
 ActualTube = Tubes[tube_number]
     
+n = 0
+connection = CheckInternetConnection()
+
 while not done:
     screen.fill((255, 255, 255)) #white
     
@@ -337,7 +350,7 @@ while not done:
                 tube_number += 1
             else:
                 tube_number = 0
-            print tube_number
+            #print tube_number
             ActualTube = Tubes[tube_number]
         elif NewState == 253: #2
             # Toggle
@@ -357,7 +370,6 @@ while not done:
     for t in Tubes:
         rele = t.rele
         servo = t.servo
-        
         if t.IsHot() == False :
             if rele.Read_state() == "on":
                 rele.Off ()
@@ -389,13 +401,42 @@ while not done:
             #send push notification alarm off
             Send_push("alarm","Co2 OK")
             
-            
+    #current
     #textCurrent = font.render(current1.Text(), True, colorGas)
     #screen.blit(textCurrent,(Cols[2], Rows[len(Tubes)]))
     
+    #time
+    ## date and time representation
+    #print "Current date & time " + time.strftime("%c")
+    ## Only date representation
+    #print "Current date "  + time.strftime("%x")
+    ## Only time representation
+    #print "Current time " + time.strftime("%X")
+    ## Display current date and time from now variable 
+    #print ("Current time %s"  % now )
+    textTime = font.render("Time %s"  % time.strftime("%X"), True, (0,0,128))
+    screen.blit(textTime,(Cols[1], Rows[len(Tubes)]))
+    
+    #gas
     textGas = font.render(gas1.Text(), True, colorGas)
     screen.blit(textGas,(Cols[0], Rows[len(Tubes)]))
     
     
+    #Internet
+    if connection == "Error":
+        colorInternet = (255, 0, 0) #red
+    else:
+        colorInternet = (0,0,128) #blue
+    textInternet = font.render(connection, True, colorInternet)
+    screen.blit(textInternet,(Cols[4], Rows[len(Tubes)]))
+    
+    
     pygame.display.flip()
     clock.tick(10)
+    
+    #check internet connection
+    n += 1
+    if n > 10000 :
+        print "test"
+        n = 0
+        connection = CheckInternetConnection()

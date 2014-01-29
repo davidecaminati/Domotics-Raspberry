@@ -11,7 +11,7 @@ pwm = PWM(0x44, debug=True)
 #MIN_VAL4 = 220
 #MAX_VAL4 = 700
 
-STEP_SLOWER = 0.02
+STEP_SLOWER = 0.0000001
 servoMin = 220  # Min pulse length out of 4096
 servoMax = 420  # Max pulse length out of 4096
 
@@ -30,10 +30,15 @@ def Close(servonum):
     time.sleep(STEP_SLOWER)
   return "ok"
   
-  
-Open(0)
-time.sleep(3)
-Close(0)
-Open(4)
-time.sleep(3)
-Close(4)
+while True:
+    print "open"
+    Close(0)
+    time.sleep(1)
+    print "close"
+    Open(0)
+    time.sleep(1)
+    print "open"
+    Open(4)
+    time.sleep(1)
+    print "close"
+    Close(4)

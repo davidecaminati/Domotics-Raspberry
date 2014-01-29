@@ -38,7 +38,7 @@ class PWM :
   def setPWMFreq(self, freq):
     "Sets the PWM frequency"
     prescaleval = 25000000.0    # 25MHz
-    #prescaleval = 25000.0    # 25MHz
+    #prescaleval = 25000.0    # 0.25MHz
  
     prescaleval /= 4096.0       # 12-bit
     prescaleval /= float(freq)
@@ -74,7 +74,7 @@ class PWM :
     #print "self.__LED0_OFF_L+4*channel, off & 0xFF = ",self.__LED0_OFF_L+4*channel, off & 0xFF
     self.i2c.write8(self.__LED0_OFF_H+4*channel, off >> 8)
     #print "self.__LED0_OFF_H+4*channel, off >> 8 = ",self.__LED0_OFF_H+4*channel, off >> 8
-    print "setPWM ++++++"
+    #print "setPWM ++++++"
 
 
 

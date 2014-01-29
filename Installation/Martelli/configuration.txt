@@ -1,17 +1,18 @@
 Hardware list
-2   Rele Board 4 Relay
+1   Rele Board VTX2580 16 I/O  http://www.parsicitalia.it/files/VTX2508-16IO-MCP23017.pdf
 1 	MCP23017 I2C I/O Expander 	
 1 	MCP3008 8-channel 10-bit ADC 	part number MCP3008
-2 	Turret Pro Servo MG995 (not so good, in future i want to change it)
+2 	Turret Pro Servo MG995 
 1 	Adafruit Pi Cobbler 	manufacturer Adafruit Industries
 1 	PCA9685 16x12-bit PWM Breakout 	
 4 	Temperature Sensor (Thermistor) 	resistance at 25° 10kO; package THT; thermistor type NTC; tipo thermistor
 4 	39K  Resistor
 1 	Rotary Potentiometer (Large) 	package THT; size Rotary - 16mm; track Linear; tipo Rotary Shaft Potentiometer; maximum resistance 47k
 4 	Round Pushbutton 	switching circuit SPST; default state Normally Open
-2 	Banana Connector 	variant red
-1 	Banana Connector 	variant black
+2 	Banana Connector 	editable pin labels false; colore red; variant red; pins 1
+1 	Banana Connector 	editable pin labels false; colore black; variant black; pins 1
 1 	GAS_SENSOR 	package mq-2
+
 
 
 Expand your partition, set password, set you timezone and keyboard, overclock to 800Mhz, i suggest to no start desktop mode (you need only the console mode) for fast boot then select finish for save and reboot.
@@ -115,21 +116,14 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	w1-gpio
 	w1-therm
     
-#enable midori on Desktop# NOT USED
+             
+#enable midori on Desktop# X
 	#set autostart#
 		sudo nano /etc/xdg/lxsession/LXDE/autostart
 		#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
 			@midori -e Fullscreen -a http://127.0.0.1
-            
-#Enable Start Application on Boot#
-    #set autostart#
-    sudo nano /etc/xdg/lxsession/LXDE/autostart
-        # write at the end of the file#
-        @/usr/bin/python /home/pi/Domotics-Raspberry/Installation/Martelli/DisplayApplication/test.py
- 
 #hide mouse cursor#
     sudo apt-get install unclutter
-    
 #disable suspend#
     sudo nano /etc/lightdm/lightdm.conf
     # go to [SeatDefaults] and set#
@@ -153,27 +147,12 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	#add at the end of the file#
 	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Display\ TFT/weather.py
 
-
-personalization needed:
-change ip address to 192.168.0.208 fixed, or change IP address on file
-change mobile website 
-change main website
-enable autostart for script
-test probe
-test motors
-test switch ( and shutdown switch)
-### look at http://www.raspibo.org/wiki/index.php?title=Leggere_un_pulsante_su_GPIO_con_antirimbalzo_software ###
-###for shutdown###
-            
-test push notifications
-test gas probe
-test display on little TFT
-test wireless USB card
-
-
-#enabled shutdown button on pin 25
+#shutdown switch#
+    ### look at http://www.raspibo.org/wiki/index.php?title=Leggere_un_pulsante_su_GPIO_con_antirimbalzo_software ###
+    ###for shutdown###
 
 #shutdown button#
+#enabled shutdown button on pin 25#
 #use pins 25,GND#
     sudo cp /home/pi/Domotics-Raspberry/Software/utility/turnoff.py /usr/local/bin/
     sudo chmod +x /usr/local/bin/turnoff.py
@@ -182,6 +161,16 @@ test wireless USB card
 			/usr/bin/python /usr/local/bin/turnoff.py &
 
           
+            
+#configure analog probe(my_room_2)#
+	#add the script to crontab#
+	crontab -e
+	#add at the end of the file#
+	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Installation/Martelli/Analog\ Temperature\ Probe/mcp3008_NTC_termistors.py
+
+    #use 1 PullDown resistor 39K in parallel for each probe#
+    
+#create mcp3008_NTC_termistors.py file for usage with different probes# 
 #Installation Servos driver#
 #reference http://learn.adafruit.com/downloads/pdf/adafruit-16-channel-servo-driver-with-raspberry-pi.pdf#
 
@@ -194,24 +183,3 @@ test wireless USB card
     
 #tested  probe for GAS and AIR Quality#
 #use MQ2, anaolg probe 5V from RobotItaly#
-
-
-test gas probe (burned) :(
-test display on little TFT (game)
-test Switch
-test Rele
-
-
-#test display on little TFT (Simply interface)
-#test wireless USB card
-#configure wireless#
-# for help http://www.linux.com/learn/tutorials/374514-control-wireless-on-the-linux-desktop-with-these-tools #
-	sudo nano /etc/network/interfaces
-	#put this line for enable wireless#
-	auto wlan0
-	iface wlan0 inet static
-        address 192.168.0.XXX   <--- your ippyth    
-        netmask 255.255.255.0   
-        gateway 192.168.0.XXX     <--- your gateway
-        wireless-essid XXXXXXX  <--- your SSID
-        wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf

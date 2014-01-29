@@ -27,22 +27,19 @@ class PWM :
   __ALLLED_OFF_H       = 0xFD
 
   def __init__(self, address=0x44, debug=False):
-    self.i2c = Adafruit_I2C(address,1)
+    self.i2c = Adafruit_I2C(address)
     self.address = address
     self.debug = debug
     if (self.debug):
       print "Reseting PCA9685"
     self.i2c.write8(self.__MODE1, 0x00)
-    print "init"
 
   def setPWMFreq(self, freq):
     "Sets the PWM frequency"
     prescaleval = 25000000.0    # 25MHz
-    #prescaleval = 25000.0    # 25MHz
- 
     prescaleval /= 4096.0       # 12-bit
     prescaleval /= float(freq)
-    prescaleval -= 5.0
+    prescaleval -= 1.0
     if (self.debug):
       print "Setting PWM frequency to %d Hz" % freq
       print "Estimated pre-scale: %d" % prescaleval
@@ -57,25 +54,10 @@ class PWM :
     self.i2c.write8(self.__MODE1, oldmode)
     time.sleep(0.005)
     self.i2c.write8(self.__MODE1, oldmode | 0x80)
-    print "setPWMFreq"
 
   def setPWM(self, channel, on, off):
     "Sets a single PWM channel"
-    #self.i2c.write8(self.__LED0_ON_L+4*channel, on & 0xFF)
-    #self.i2c.write8(self.__LED0_ON_H+4*channel, on >> 8)
-    #self.i2c.write8(self.__LED0_OFF_L+4*channel, off & 0xFF)
-    #self.i2c.write8(self.__LED0_OFF_H+4*channel, off >> 8)
-    
     self.i2c.write8(self.__LED0_ON_L+4*channel, on & 0xFF)
-    #print "self.__LED0_ON_L+4*channel, on & 0xFF = " , self.__LED0_ON_L+4*channel, on & 0xFF
     self.i2c.write8(self.__LED0_ON_H+4*channel, on >> 8)
-    #print "self.__LED0_ON_H+4*channel, on >> 8 = " , self.__LED0_ON_H+4*channel, on >> 8
     self.i2c.write8(self.__LED0_OFF_L+4*channel, off & 0xFF)
-    #print "self.__LED0_OFF_L+4*channel, off & 0xFF = ",self.__LED0_OFF_L+4*channel, off & 0xFF
     self.i2c.write8(self.__LED0_OFF_H+4*channel, off >> 8)
-    #print "self.__LED0_OFF_H+4*channel, off >> 8 = ",self.__LED0_OFF_H+4*channel, off >> 8
-    print "setPWM ++++++"
-
-
-
-

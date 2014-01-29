@@ -10,7 +10,7 @@ device_folder = glob.glob(base_dir + '28*')[0]
 device_file = device_folder + '/w1_slave' 
 server_redis = '192.168.0.208'
 room_name = 'my_room_1'
-debug = False
+debug = True
 
 def read_temp_raw():
     f = open(device_file, 'r')
@@ -37,4 +37,4 @@ pool = redis.ConnectionPool(host=server_redis, port=6379, db=0)
 r = redis.Redis(connection_pool=pool)
 r.rpush(room_name,str(temp))
 if debug:
-    print(temp())
+    print(temp)

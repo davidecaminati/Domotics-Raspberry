@@ -364,5 +364,102 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 #see the documentation https://github.com/ServiceStack/ServiceStack.Redis#
 
 
+#Enable Nokia 5110 Display (SPI interface)#
+	git clone git://git.drogon.net/wiringPi
+	cd wiringPi
+	sudo apt-get install python-dev python-imaging python-imaging-tk python-pip
+	cd 
+	sudo nano /etc/modprobe.d/raspi-blacklist.conf
+	git clone https://github.com/XavierBerger/pcd8544.git
+	cd examples
+	python dimmer.py 
+
+
+#Enable PiCamera#
+	sudo apt-get update
+	sudo pip install picamera
+	sudo apt-get install python-picamera
+	#to test#
+		raspistill -o cat.jpg -t 10000
+	#if you receive this error#
+		mmal: Failed to run camera app. Please check for firmware updates
+		#you need to:#
+		#set 256 MB of ram in your video card using rasp-config#
+		#check this 2 file#
+		sudo nano /etc/modprobe.d/raspi-blacklist.conf
+			blacklist spi-bcm2708
+			blacklist i2c-bcm2708
+
+		sudo nano /etc/modules 
+			w1-therm
+			w1-gpio pullup=1
+			i2c-dev
+			i2c-bcm2708
+			spi-bcm2708
+			snd-bcm2835
+			bcm2708_wdog
+			
+# start on boot up#
+#Here is the command line info and file contents:#
+
+	nano RunCamera.sh
+	
+	–
+	
+	#! /bin/bash
+	python /home/pi/CamInterface.py
+	
+	
+	
+	–
+	
+	chmod +x RunCamera.sh
+	sudo nano /etc/init.d/StartCameraInterface.sh
+	
+	—
+	
+	#! /bin/bash
+	# /etc/init.d/StartCameraInterface.sh
+	
+	### BEGIN INIT INFO
+	# Provides: Starts Camera interface at startup
+	# Required-Start: $remote_fs $syslog
+	# Required-Stop: $remote_fs $syslog
+	# Default-Start: 2 3 4 5
+	# Default-Stop: 0 1 6
+	# Short-Description: Simple script to start a program at boot
+	# Description: A simple script from www.stuffaboutcode.com which will start / stop a program a boot / shutdown.
+	### END INIT INFO
+	
+	# If you want a command to always run, put it here
+	# Carry out specific functions when asked to by the system
+	case “$1? in
+	start)
+	echo “Starting Camera Interface”
+	# run application you want to start
+	/home/pi/RunCamera.sh
+	;;
+	stop)
+	echo “Stopping Camera Interface”
+	# kill application you want to stop
+	killall RunCamera.sh
+	kill $(ps aux | grep “python /home/pi/CamInterface.py” | awk ‘{ print $2 }’)
+	;;
+	*)
+	
+	echo “Usage: /etc/init.d/noip {start|stop}”
+	exit 1
+	;;
+	esac
+	
+	exit 0
+	—
+	sudo chmod 755 /etc/init.d/StartCameraInterface.sh
+	sudo update-rc.d StartCameraInterface.sh defaults
+	sudo reboot
+	
+	
+	
+
 #if you want to test now the capability of your powerful Raspberry go to
 

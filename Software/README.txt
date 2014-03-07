@@ -369,12 +369,17 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	cd wiringPi
 	./build
 	sudo apt-get install python-dev python-imaging python-imaging-tk python-pip
+	sudo pip install wiringpi wiringpi2
 	cd 
 	sudo nano /etc/modprobe.d/raspi-blacklist.conf
-	#make sure have enabled SPI module #
+	#make sure have enabled SPI module adding a # at the init of the line #
+		#blacklist spi-bcm2708
 	git clone https://github.com/XavierBerger/pcd8544.git
+	cd pcd8544
+	./setup.py clean build
+	sudo ./setup.py install
 	cd examples
-	python dimmer.py 
+	sudo python dimmer.py 
 
 
 #Enable PiCamera#

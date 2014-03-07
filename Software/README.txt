@@ -367,9 +367,11 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 #Enable Nokia 5110 Display (SPI interface)#
 	git clone git://git.drogon.net/wiringPi
 	cd wiringPi
+	./build
 	sudo apt-get install python-dev python-imaging python-imaging-tk python-pip
 	cd 
 	sudo nano /etc/modprobe.d/raspi-blacklist.conf
+	#make sure have enabled SPI module #
 	git clone https://github.com/XavierBerger/pcd8544.git
 	cd examples
 	python dimmer.py 
@@ -404,19 +406,19 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 
 	nano RunCamera.sh
 	
-	–
+	ï¿½
 	
 	#! /bin/bash
 	python /home/pi/CamInterface.py
 	
 	
 	
-	–
+	ï¿½
 	
 	chmod +x RunCamera.sh
 	sudo nano /etc/init.d/StartCameraInterface.sh
 	
-	—
+	ï¿½
 	
 	#! /bin/bash
 	# /etc/init.d/StartCameraInterface.sh
@@ -433,27 +435,27 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	
 	# If you want a command to always run, put it here
 	# Carry out specific functions when asked to by the system
-	case “$1? in
+	case ï¿½$1? in
 	start)
-	echo “Starting Camera Interface”
+	echo ï¿½Starting Camera Interfaceï¿½
 	# run application you want to start
 	/home/pi/RunCamera.sh
 	;;
 	stop)
-	echo “Stopping Camera Interface”
+	echo ï¿½Stopping Camera Interfaceï¿½
 	# kill application you want to stop
 	killall RunCamera.sh
-	kill $(ps aux | grep “python /home/pi/CamInterface.py” | awk ‘{ print $2 }’)
+	kill $(ps aux | grep ï¿½python /home/pi/CamInterface.pyï¿½ | awk ï¿½{ print $2 }ï¿½)
 	;;
 	*)
 	
-	echo “Usage: /etc/init.d/noip {start|stop}”
+	echo ï¿½Usage: /etc/init.d/noip {start|stop}ï¿½
 	exit 1
 	;;
 	esac
 	
 	exit 0
-	—
+	ï¿½
 	sudo chmod 755 /etc/init.d/StartCameraInterface.sh
 	sudo update-rc.d StartCameraInterface.sh defaults
 	sudo reboot

@@ -300,6 +300,8 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 			/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
 	
 #enable server and wall switch monitor for rele board control# X
+	sudo pip install pyserial
+	--- required this setup--> #Configure XBEE#
 	#set autostart#
 		sudo nano /etc/rc.local
 		#add this line before exit 0#

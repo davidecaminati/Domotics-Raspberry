@@ -2,6 +2,9 @@
 import threading
 import smbus
 import time
+import serial
+from xbee import ZigBee
+##Configure XBEE on Raspberry#
 
 # IODIRA   0x00   // IO direction  (0 = output, 1 = input (Default))
 # IODIRB   0x01
@@ -50,6 +53,13 @@ bus.write_byte_data(DEVICE,OLATB,0x00) #00000000 B
 bus.write_byte_data(DEVICE,GPPUA,0xFF) #11111111 A
 bus.write_byte_data(DEVICE,GPPUB,0xC0) #11000000 B
 
+
+
+
+serial_port = serial.Serial('/dev/ttyAMA0', 9600)
+#xbee = ZigBee(serial_port) #sync mode
+#xbee = ZigBee(serial_port, callback=self.SendEventXBee) # async mode
+
 class Events:
    def __getattr__(self, name):
       if hasattr(self.__class__, '__events__'):
@@ -91,40 +101,54 @@ class ValueModel(threading.Thread):
         self.events = MyEvents()
         self.__value = None
         self.set("")
+        xbee = ZigBee(serial_port, callback=self.SendEventXBee)
+        self.xbeeLastState = 0
         
    def set(self, value):
         self.__value = value
         
    def get(self):
         return self.__value
-
+        
+   def SendEventXBee(self, dati):
+        dict_buttons_Xbee =  {1:"ButtonXBee_DX",2:"ButtonXBee_SX"}
+        rf_data = dati['rf_data']
+        int_rf_data = ord(rf_data[5:6])
+        if  self.xbeeLastState != int_rf_data: # soft anti-bounce
+            if  dict_buttons_Xbee.get(int_rf_data) is not None:
+                self.set(dict_buttons_Xbee.get(int_rf_data))
+                self.events.Pressed(True)
+                #print int_rf_data
+                #print self.__value
+            self.xbeeLastState = int_rf_data
+                
+        
    def run(self):
+        ##Configure XBEE on Raspberry#
         button_oldstate = False
         i = 0
-        dict_buttons = {61:"ButtonLaunge_SX",59:"ButtonLaunge_DX",62:"ButtonKitchen",55:"ButtonEntrance_DX",47:"ButtonEntrance_SX"}
+        dict_buttons_wall = {61:"ButtonLaunge_SX",59:"ButtonLaunge_DX",62:"ButtonKitchen",55:"ButtonEntrance_DX",47:"ButtonEntrance_SX"}
         while True:
             # Read state of GPIOA register
             time.sleep(0.1)
             MySwitchA = bus.read_byte_data(DEVICE,GPIOA) & 0b00111111
-            if  dict_buttons.get(MySwitchA) is not None:
+            if  dict_buttons_wall.get(MySwitchA) is not None:
                 if button_oldstate == False:
                     button_oldstate = True
-                    self.set(dict_buttons.get(MySwitchA))
+                    self.set(dict_buttons_wall.get(MySwitchA))
                     self.events.Pressed()
                     i = 0
                 else:
                     i += 1
                     if  5 < i < 20 : # between 0.5 and 2 sec
-                        self.set(dict_buttons.get(MySwitchA))
+                        self.set(dict_buttons_wall.get(MySwitchA))
                         self.events.StillPressed()
                     if i >= 20: # more then 2 sec
-                        self.set(dict_buttons.get(MySwitchA))
+                        self.set(dict_buttons_wall.get(MySwitchA))
                         self.events.LongPressed()
             else:
                 button_oldstate = False
                 if self.get() != "" :
                     self.events.Released()
                     self.set("")
-               
-            
             

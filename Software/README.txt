@@ -412,21 +412,13 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 #Here is the command line info and file contents:#
 
 	nano RunCamera.sh
-	
-	�
-	
+
 	#! /bin/bash
 	python /home/pi/CamInterface.py
-	
-	
-	
-	�
-	
+
 	chmod +x RunCamera.sh
 	sudo nano /etc/init.d/StartCameraInterface.sh
-	
-	�
-	
+
 	#! /bin/bash
 	# /etc/init.d/StartCameraInterface.sh
 	
@@ -462,7 +454,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	esac
 	
 	exit 0
-	�
+    
 	sudo chmod 755 /etc/init.d/StartCameraInterface.sh
 	sudo update-rc.d StartCameraInterface.sh defaults
 	sudo reboot

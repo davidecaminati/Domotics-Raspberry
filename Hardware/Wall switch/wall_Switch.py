@@ -309,7 +309,7 @@ class MainController(object):
                 return "allready done"
 
 
-
+#"ButtonXBee_DX",0,0b00000100,0b00001000,model,Launge
 class Button(object):
     def __init__(self, name, inputpin,BinLedNumberRED,BinLedNumberGREEN,model,controlled):
         self.name = name
@@ -324,11 +324,12 @@ class Button(object):
         self.controlled = controlled
         self._old_state = ButtonsState.Released
         
-    def Pressed(self):
+    def Pressed(self,Xbee=False):
+        #print "bo="
         if self.model.get() == self.name :
-            print self.name + " Pressed"
+            #print self.name + " Pressed"
             if isinstance(self.controlled, Lamp):
-                print "Lamp Pressed"
+                #print "Lamp Pressed"
                 if self._old_state == ButtonsState.Released:
                     lamp = self.controlled
                     if lamp.isdimmable:
@@ -336,7 +337,7 @@ class Button(object):
                     else:
                         lamp.toggle()
             if isinstance(self.controlled, Room):
-                print "Room Pressed"
+                #print "Room Pressed"
                 if self._old_state == ButtonsState.Released:
                     for lamp in self.controlled.lamplist:
                         if lamp.isdimmable:
@@ -344,7 +345,7 @@ class Button(object):
                         else:
                             lamp.toggle()
             if isinstance(self.controlled, Home):
-                print "Home Pressed"
+                #print "Home Pressed"
                 if self._old_state == ButtonsState.Released:
                     for room in self.controlled.roomlist:
                         for lamp in room.lamplist:
@@ -357,9 +358,9 @@ class Button(object):
             
     def StillPressed(self):
         if self.model.get() == self.name :
-            print self.name + " StillPressed"
+            #print self.name + " StillPressed"
             if isinstance(self.controlled, Lamp):
-                print "Lamp StillPressed"
+                #print "Lamp StillPressed"
                 if self._old_state == ButtonsState.Pressed:
                     lamp = self.controlled
                     if lamp.isdimmable:
@@ -369,7 +370,7 @@ class Button(object):
                     if lamp.isdimmable:
                         lamp.off()
             if isinstance(self.controlled, Room):
-                print "Room StillPressed"
+                #print "Room StillPressed"
                 if self._old_state == ButtonsState.Pressed:
                     for lamp in self.controlled.lamplist:
                         if lamp.isdimmable:
@@ -378,7 +379,7 @@ class Button(object):
                     if lamp.isdimmable:
                         lamp.off()
             if isinstance(self.controlled, Home):
-                print "Home StillPressed"
+                #print "Home StillPressed"
                 if self._old_state == ButtonsState.Pressed:
                     for room in self.controlled.roomlist:
                         for lamp in room.lamplist:
@@ -392,21 +393,21 @@ class Button(object):
             
     def LongPressed(self):
         if self.model.get() == self.name :
-            print self.name + " LongPressed"
+            #print self.name + " LongPressed"
             if isinstance(self.controlled, Lamp):
-                print "Lamp LongPressed"
+                #print "Lamp LongPressed"
                 lamp = self.controlled
                 if self._old_state == ButtonsState.StillPressed:
                     if lamp.isdimmable:
                         lamp.startDimm()
             if isinstance(self.controlled, Room):
-                print "Room LongPressed"
+                #print "Room LongPressed"
                 for lamp in self.controlled.lamplist:
                     if self._old_state == ButtonsState.StillPressed:
                         if lamp.isdimmable:
                             lamp.startDimm()
             if isinstance(self.controlled, Home):
-                print "Home LongPressed"
+                #print "Home LongPressed"
                 for room in self.controlled.roomlist:
                     for lamp in room.lamplist:
                         if self._old_state == ButtonsState.StillPressed:
@@ -417,9 +418,9 @@ class Button(object):
             
     def Released(self):
         if self.model.get() == self.name :
-            print self.name + " Released"
+            #print self.name + " Released"
             if isinstance(self.controlled, Lamp):
-                print "Lamp Released"
+                #print "Lamp Released"
                 lamp = self.controlled
                 if self._old_state == ButtonsState.LongPressed:
                     if lamp.isdimmable:
@@ -428,7 +429,7 @@ class Button(object):
                     if lamp.isdimmable:
                         lamp.off()
             if isinstance(self.controlled, Room):
-                print "Room Released"
+                #print "Room Released"
                 for lamp in self.controlled.lamplist:
                     if self._old_state == ButtonsState.LongPressed:
                         if lamp.isdimmable:
@@ -437,7 +438,7 @@ class Button(object):
                         if lamp.isdimmable:
                             lamp.off()
             if isinstance(self.controlled, Home):
-                print "Home Released"
+                #print "Home Released"
                 for room in self.controlled.roomlist:
                     for lamp in room.lamplist:
                         if self._old_state == ButtonsState.LongPressed:
@@ -505,6 +506,9 @@ ButtonLaunge_DX = Button("ButtonLaunge_DX",0,0b00010000,0b00100000,model,Entranc
 ButtonKitchen = Button("ButtonKitchen",0,0b00000001,0b00000010,model,Kitchen)
 ButtonEntrance_SX = Button("ButtonEntrance_SX",0,0b01000000,0b10000000,model,MyHome)
 ButtonEntrance_DX = Button("ButtonEntrance_DX",0,0b01000000,0b10000000,model,Entrance) #A
+
+ButtonXBee_SX = Button("ButtonXBee_SX",0,0b00000100,0b00001000,model,Launge)
+ButtonXBee_DX = Button("ButtonXBee_DX",0,0b00000100,0b00001000,model,Kitchen)
 
 model.daemon = True # non blocking thread
 model.start()

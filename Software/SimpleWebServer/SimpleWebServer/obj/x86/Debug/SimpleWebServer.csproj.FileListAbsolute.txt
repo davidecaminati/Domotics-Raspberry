@@ -1,0 +1,5 @@
+C:\Users\davide\documents\visual studio 2010\Projects\SimpleWebServer\SimpleWebServer\bin\Debug\SimpleWebServer.exe
+C:\Users\davide\documents\visual studio 2010\Projects\SimpleWebServer\SimpleWebServer\bin\Debug\SimpleWebServer.pdb
+C:\Users\davide\documents\visual studio 2010\Projects\SimpleWebServer\SimpleWebServer\obj\x86\Debug\SimpleWebServer.exe
+C:\Users\davide\documents\visual studio 2010\Projects\SimpleWebServer\SimpleWebServer\obj\x86\Debug\SimpleWebServer.pdb
+C:\Users\davide\documents\visual studio 2010\Projects\SimpleWebServer\SimpleWebServer\obj\x86\Debug\SimpleWebServer.csprojResolveAssemblyReference.cache

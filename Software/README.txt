@@ -459,7 +459,83 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	sudo update-rc.d StartCameraInterface.sh defaults
 	sudo reboot
 	
-	
+
+#Bluetooth Proximity
+    #install bluetooth software#
+    #http://rasspberrypi.wordpress.com/2012/09/03/install-bluetooth-dongle-on-raspberry-pi/#
+    sudo apt-get update
+    sudo apt-get install bluetooth
+    1. On boot i typed the following command to see if my connected dongle was visible.
+    $lsusb
+
+    This returned the following line to make sure that the dongle was detected
+    Bus 001 Device 004: ID 1131:1001 Integrated System Solution Corp. KY-BT100 Bluetooth Adapter
+
+    2. Then typed in
+    $lsmod
+
+    This returned
+    bluetooth 166552 23 btusb,rfcomm,bnep
+
+    3. Now to install bluetooth package
+    $sudo apt-get install bluetooth
+
+    Note: Installation takes a while relax and enjoy for the time
+
+    4. Now after the installation is completed, run the following to get the status.
+    $/etc/init.d/bluetooth status
+
+    This is returned if all is good
+    [ ok ] bluetooth is running.
+
+    5. Now you can find your blueetooth address using the following command
+    $hcitool dev
+
+    This returns something like this
+    Devices:
+    hci0 00:11:67:10:80:F0
+
+    6. Now we can scan for nearby devices using the following command
+    $hcitool scan
+
+    This returns
+    Scanning ...
+    54:9B:12:99:36:61 YourBluetoothDevice
+
+    7. Now we can run a small test to connect to the following device
+    $sudo l2ping -c 1 54:9B:12:99:36:61
+
+    This returns
+    Ping: 54:9B:12:99:36:61 from 00:11:67:10:80:F0 (data size 44) ...
+    0 bytes from 54:9B:12:99:36:61 id 0 time 19.28ms
+    1 sent, 1 received, 0% loss
+
+    Success :)
+    
+    
+    #now#
+    apt-get install bluetooth bluez-utils
+    
+    
+    
+    
+    
+    #now install the utility software#
+    sudo apt-get install blueproximity
+    #For security reasons, some interactions with the mobile require that the device is `paired' with the one it is interacting with. First, store a number (4 or more digits) in the file /etc/bluetooth/pin (say 12345). Stop and restart the bluetooth service by doing:
+        sh /etc/init.d/bluetooth stop
+        sh /etc/init.d/bluetooth start
+    #make discoverable raspberry bluetooth#
+    sudo hciconfig hci0 piscan
+    #Setup bluetooth-agent to pass the expected pairing code#
+    #install tools#
+    sudo apt-get install bluez-tools
+    #script#
+    sudo rfcomm connect 0 B0:EC:71:72:FF:8D
+    watch -n 0.5 hcitool  rssi B0:EC:71:72:FF:8D
+
+
+    
 	
 
 #if you want to test now the capability of your powerful Raspberry go to

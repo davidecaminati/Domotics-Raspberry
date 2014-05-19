@@ -535,7 +535,12 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
     watch -n 0.5 hcitool  rssi B0:EC:71:72:FF:8D
 
 
-    
+#Sound Control
+    #this software permit to control the main volume of a Windows 7 64bit using a raspberry and a microphone near the loudspeackers#
+        #for windows#
+            #launch the exe file located in SimpleWebServer#
+            #path Software\SimpleWebServer\SimpleWebServer\bin\Debug\SimpleWebServer.exe#
+        #for Raspberry#
 	
 
 #if you want to test now the capability of your powerful Raspberry go to

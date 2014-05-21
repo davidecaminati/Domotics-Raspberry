@@ -111,7 +111,9 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	
 	sudo wget https://raw.github.com/Hexxeh/rpi-update/master/rpi-update -O /usr/bin/rpi-update && sudo chmod +x /usr/bin/rpi-update
 	
-	sudo mv /lib/modules/$(uname -r) /lib/modules/$(uname -r).bak
+	#sudo mv /lib/modules/$(uname -r) /lib/modules/$(uname -r).bak
+    sudo cp -R /lib/modules/$(uname -r) /lib/modules/$(uname -r).bak
+    
 	sudo REPO_URI=https://github.com/notro/rpi-firmware rpi-update
 	sudo shutdown -r now
 	
@@ -130,7 +132,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		
 	#In order to use the touch panel with python, X, and to calibrate it, a few packages need loading :#
 
-		sudo apt-get update	
+		#sudo apt-get update	
 		sudo apt-get install libts-bin evtest xinput
 		sudo pip install evdev
 
@@ -159,6 +161,9 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 			Option "InvertY" "true"
 		#remove the mouse pointer#
 			sudo apt-get install unclutter
+        #enable desktop manager on raspi-config#
+        sudo raspi-config
+        enable desktop manager
 		#reboot#
 			sudo reboot
 
@@ -535,13 +540,80 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
     watch -n 0.5 hcitool  rssi B0:EC:71:72:FF:8D
 
 
-#Sound Control
+#Sound Control the volume adjuster#
     #this software permit to control the main volume of a Windows 7 64bit using a raspberry and a microphone near the loudspeackers#
         #for windows#
             #launch the exe file located in SimpleWebServer#
             #path Software\SimpleWebServer\SimpleWebServer\bin\Debug\SimpleWebServer.exe#
+            #copy this file in a folder of your Windows computer#
+            #download this program nircmd from this url http://www.nirsoft.net/utils/nircmd.html  (bottom of the page)#
+            #put nircmd.exe in the same folder of the SimpleWebServer.exe#
+            #run SimpleWebServer.exe#
+            
         #for Raspberry#
-	
+            #NOTE, i use a usb audio interface for mic input#
+            sudo apt-get install python-pyaudio
+            #execute the program#
+            python  /home/pi/Domotics-Raspberry/Software/VolumeControl/volumeControl.py
+            
+#Audio multiroom with graphic control#
+	#download the image 2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.img # 
+	#url for download http://tronnes.org/downloads/2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.zip#
+	#unzip and copy the image file into SDCARD using Win32DiskImager.exe#
+	#boot and wait the prompt (is normal 1 auto reboot for configuration)#
+	#login with user pi password raspberry#
+	#change the password# i use "1"#
+		sudo passwd pi
+	#update#
+		sudo apt-get update
+	#Install audio-related packages needed by SoundWire (Pulse Audio, Pulse Audio Volume Control, Portaudio)#
+        sudo apt-get install -y pulseaudio pavucontrol libportaudio2
+    #Launch Pulse Audio Volume Control, needs the GUI (X Windows) running.#
+		#if you are connected througt SSH client need to export the display using this command
+			export DISLPAY=:0
+		#launch the graphical interface#
+			startx
+			#aligh the touchscreen with a pencil pressing the cross on the screen#
+		#start another ssh session using PUTTY#
+		#download the server for Raspberry#
+			wget http://georgielabs.99k.org/SoundWire_Server_RPi.tar.gz
+		#uncompress the file#
+			tar xvzf SoundWire_Server_RPi.tar.gz
+		#move to the folder#
+			cd SoundWireServer/
+		#make executable the program#
+			sudo chmod +x SoundWireServer
+		#using winscp (ssh graphical interface, copy some mp3 in the home folder of pi user (/home/pi)#
+		#install mpg123 (mpeg player)#
+			sudo apt-get install mpg123
+		#launch SoundWireServer#
+			./SoundWireServer
+        #open pavucontrol on the display of raspberry#
+            export DISPLAY=:0
+            pavucontrol
+            #go in the tab [Configuration]#
+            #select Profile [OFF] (this is to fix the error of mp3 session still running after close)#
+        #close the graphical interface ([ctrl]+c) in the other PUTTY session.
+        #go in the folder of executable server#
+            cd ~/SoundWireServer
+        #restart the server#
+            ./SoundWireServer
+		#open another ssh client PUTTY#
+		#launch mp3 player with a song#
+			mpg123 name_of_mp3
+	#Install demon for control mp3 with API#
+        
+    #install SoundWire on your Android Phone from the market#
+		#connect the SoundWire client to your server putting the address in the text box (ex. 192.168.0.110)
+    
+
+
+#nota per avvio automatico#
+    root@raspberrypi:~/shairport# make install
+    root@raspberrypi:~/shairport# cp shairport.init.sample /etc/init.d/shairport
+    root@raspberrypi:~/shairport# cd /etc/init.d
+    root@raspberrypi:/etc/init.d# chmod a+x shairport
+    root@raspberrypi:/etc/init.d# update-rc.d shairport defaults
 
 #if you want to test now the capability of your powerful Raspberry go to
 

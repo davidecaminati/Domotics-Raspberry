@@ -602,7 +602,12 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		#launch mp3 player with a song#
 			mpg123 name_of_mp3
 	#Install demon for control mp3 with API#
-        
+        sudo pip install flask
+        ######NEED A PROCEDURE#####
+        ### need to start SoundWireServer and python script  AS USER NON ROOT ####
+                    sudo nano /etc/rc.local
+                    #add this line before exit 0#
+                    /usr/bin/python /home/pi/Domotics-Raspberry/Software/RadioStreaming/radioStreaming.py &
     #install SoundWire on your Android Phone from the market#
 		#connect the SoundWire client to your server putting the address in the text box (ex. 192.168.0.110)
     

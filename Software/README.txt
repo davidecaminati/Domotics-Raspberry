@@ -138,6 +138,56 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 
 	#To calibrate the touch panel#
 		sudo TSLIB_FBDEVICE=/dev/fb1 TSLIB_TSDEVICE=/dev/input/event0 ts_calibrate
+    ######UPDATE for image 2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.img ###
+    #if you need to rotate the screen on the TFT touch 2,8 "#
+        sudo nano /boot/cmdline.txt
+            #change fbtft_device.rotate=270 with fbtft_device.rotate=90 #
+        sudo nano  /etc/X11/xorg.conf.d/99-calibration.conf
+        #edit the file like this#
+            Section "InputClass"
+                    Identifier      "calibration"
+                    MatchProduct    "ADS7846 Touchscreen"
+                    Option  "SwapAxes"      "1"
+                    Option "InvertX" "True"
+            EndSection
+            
+            Section "InputClass"
+                    Identifier      "calibration"
+                    MatchProduct    "stmpe-ts"
+                    Option  "SwapAxes"      "1"
+                    Option "InvertX" "True"
+            EndSection
+            
+            #if you need to disable suspend add this#
+            Section "ServerFlags"
+                    Option         "blank time" "0"
+                    Option         "standby time" "0"
+                    Option         "suspend time" "0"
+                    Option         "off time" "0"
+            EndSection
+        #edit this file for touchscreen#
+        sudo nano /usr/share/X11/xorg.conf.d/10-evdev.conf
+        #addthis line on each input class (probably is necessary only for touchscreen)#
+                Option "InvertY" "True"
+
+    
+    
+    #remove suspend#
+        sudo nano  /etc/X11/xorg.conf.d/99-calibration.conf
+        #add this part in the end of the file#
+        Section "ServerFlags"
+            Option         "blank time" "0"
+            Option         "standby time" "0"
+            Option         "suspend time" "0"
+            Option         "off time" "0"
+        EndSection
+        
+#api temperature for request temperature to redis server#
+     sudo nano /etc/rc.local
+     #add this line before exit 0#
+     /usr/bin/python /home/pi/Domotics-Raspberry/Software/Weather/api_temperature.py &
+
+
 		
 #enable midori on TFT#
 	sudo nano /boot/cmdline.txt
@@ -150,6 +200,13 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 			@xset -dpms
 			@xset s noblank
 			@midori -e Fullscreen -a http://127.0.0.1/mobile
+        # if necessary  comment out the @xscreensaver line with a #
+    
+    #Disable mouse cursor#
+        sudo nano /etc/X11/xinit/xserverrc
+        #add -nocursor as parameter#
+        exec /usr/bin/X -nocursor -nolisten tcp "$@"
+        
 	#Auto startx: modify this file #
 		sudo nano /etc/rc.local
 		#after fi and before exit 0#
@@ -160,12 +217,13 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		#find Input Class of touchscreen and before that EndSection insert a new line:
 			Option "InvertY" "true"
 		#remove the mouse pointer#
-			sudo apt-get install unclutter
+		#	sudo apt-get install unclutter
         #enable desktop manager on raspi-config#
         sudo raspi-config
         enable desktop manager
 		#reboot#
 			sudo reboot
+# if problems look https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
 
             
 #enable midori on Desktop#
@@ -218,7 +276,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	 sudo python setup.py install
 	 crontab -e
 	#add at the end of the file#
-	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Display\ TFT/weather.py
+	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Software/Weather/weather.py
 
 #Update a device#
 	#in Update directory, you will find usefull script to automate this (website, ....)#

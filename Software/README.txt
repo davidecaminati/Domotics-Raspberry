@@ -138,6 +138,8 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 
 	#To calibrate the touch panel#
 		sudo TSLIB_FBDEVICE=/dev/fb1 TSLIB_TSDEVICE=/dev/input/event0 ts_calibrate
+        
+        
     ######UPDATE for image 2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.img ###
     #if you need to rotate the screen on the TFT touch 2,8 "#
         sudo nano /boot/cmdline.txt
@@ -199,7 +201,7 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 			@xset s off
 			@xset -dpms
 			@xset s noblank
-			@midori -e Fullscreen -a http://127.0.0.1/mobile
+			@midori -e Fullscreen -a http://127.0.0.1
         # if necessary  comment out the @xscreensaver line with a #
     
     #Disable mouse cursor#
@@ -219,8 +221,8 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 		#remove the mouse pointer#
 		#	sudo apt-get install unclutter
         #enable desktop manager on raspi-config#
-        sudo raspi-config
-        enable desktop manager
+        #sudo raspi-config
+        #enable desktop manager
 		#reboot#
 			sudo reboot
 # if problems look https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
@@ -237,10 +239,17 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 	sudo nano /sys/class/backlight/fb_ili9320/bl_power
 	#toggle 1 = (on) or 0 = (off)#
 
-#configure web server# X
+#configure web server old version PHP# X
 	sudo apt-get install apache2 php5 libapache2-mod-php5
 	sudo rm /var/www/index.html
 	sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
+	#set the redis server#
+    
+    
+#configure web server NEW version HTML5# X
+	sudo apt-get install apache2 php5 libapache2-mod-php5
+	sudo rm /var/www/index.html
+	sudo cp -r /home/pi/Domotics-Raspberry/Web_site_NEW/* /var/www/
 	#set the redis server#
 	
 #installation Servos driver#
@@ -271,10 +280,10 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 #suggest to add this script in Display raspberry#
     sudo apt-get install subversion
 	svn checkout http://python-weather-api.googlecode.com/svn/trunk/ python-weather-api-read-only
-	 cd python-weather-api-read-only/
-	 python setup.py build
-	 sudo python setup.py install
-	 crontab -e
+	cd python-weather-api-read-only/
+	python setup.py build
+	sudo python setup.py install
+	crontab -e
 	#add at the end of the file#
 	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Software/Weather/weather.py
 
@@ -669,7 +678,10 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
     #install SoundWire on your Android Phone from the market#
 		#connect the SoundWire client to your server putting the address in the text box (ex. 192.168.0.110)
     
-
+#API for redis server interface and Streaming server interface#
+    sudo nano /etc/rc.local
+		#write at the end of the file #		
+		/usr/bin/python /home/pi/Domotics-Raspberry/Software/RadioStreaming/radioStreaming.py &
 
 #nota per avvio automatico#
     root@raspberrypi:~/shairport# make install

@@ -31,7 +31,7 @@ def api_play(number):
     #call(["killall", "mpg123"])
     #call(["mpg123", file])
     #api_stop()
-    p = subprocess.Popen(['mpg123', '/home/pi/Domotics-Raspberry/Software/RadioStreaming/' + file])
+    p = subprocess.Popen(['mpg123', '/home/pi/mp3/' + file])
     return "play"
     
 @app.route('/stop')

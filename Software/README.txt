@@ -672,16 +672,59 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
         sudo pip install flask
         ######NEED A PROCEDURE#####
         ### need to start SoundWireServer and python script  AS USER NON ROOT ####
-                    sudo nano /etc/rc.local
-                    #add this line before exit 0#
-                    /usr/bin/python /home/pi/Domotics-Raspberry/Software/RadioStreaming/radioStreaming.py &
+            sudo nano /etc/rc.local
+            #add this line before exit 0#
+            (sleep 5;su - pi -c "/usr/bin/python /home/pi/Domotics-Raspberry/Software/RadioStreaming/radioStreaming.py ")&
+
     #install SoundWire on your Android Phone from the market#
-		#connect the SoundWire client to your server putting the address in the text box (ex. 192.168.0.110)
+		#connect the SoundWire client to your server putting the address in the text box (ex. 192.168.0.208)
     
 #API for redis server interface and Streaming server interface#
     sudo nano /etc/rc.local
 		#write at the end of the file #		
-		/usr/bin/python /home/pi/Domotics-Raspberry/Software/RadioStreaming/radioStreaming.py &
+		(sleep 5;su - pi -c "/usr/bin/python /home/pi/Domotics-Raspberry/Software/RadioStreaming/radioStreaming.py ")&
+
+        
+#Streaming Audio server (SoundWire)#
+    #install prerequisite#
+    sudo apt-get install pavucontrol
+    sudo apt-get install pulseaudio
+    sudo apt-get install mpg123
+    #download the server#
+        wget http://georgielabs.99k.org/SoundWire_Server_RPi.tar.gz
+    #extract#
+        tar -zxvf SoundWire_Server_RPi.tar.gz
+        cd SoundWireServer
+    #1) Start the SoundWire Server application from the command line:
+      ./SoundWireServer &
+    #The first time you do this you should have the GUI running (X Windows) so that
+    #you can launch Pulse Audio Volume Control later below.
+    #SoundWireServer will display the IP address (IPv4) of the server, or several
+    #addresses if there's more than one possibility. You should see the message
+    #"Audio capture running". If not then there is a problem, check the other output
+    #lines for details. To see the complete console output start SoundWireServer with
+    #the -verbose option, this will display messages from Portaudio.
+    #
+    #2) Launch Pulse Audio Volume Control, needs the GUI (X Windows) running.
+        #pavucontrol &
+    #If it doesn't start then it may not be installed, or pavucontrol may not be in
+    #your search path. You can also start it from your GUI. If you have no GUI then 
+    #you should configure pulse audio as required manually if SoundWire doesn't work.
+    #
+    #3) In Pulse Audio Volume Control go to the Configuration tab, select Internal
+    #Audio profile "Analog Stereo Duplex" or a similar name. Alternatively, try
+    #different configuration profiles if you have problems. SoundWire can also work
+    #with no audio hardware present, in which case the Configuration tab may be
+    #empty. You can also simulate having no audio hardware by selecting profile
+    #"Off", SoundWire should still work properly by monitoring Pulse's dummy output.
+    ##USE OFF#
+    #in case of problem read the README file inside the directory of Soundwire#
+    sudo nano /etc/rc.local
+        #write at the end of the file #		
+        su -l pi -c " ./SoundWireServer/SoundWireServer &"
+    #NOTE#
+    #you need to copy some mp3 in /home/pi/mp3/ folder with name 1.mp3, 2.mp3 .....
+
 
 #nota per avvio automatico#
     root@raspberrypi:~/shairport# make install

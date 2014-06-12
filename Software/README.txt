@@ -725,7 +725,42 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
     #NOTE#
     #you need to copy some mp3 in /home/pi/mp3/ folder with name 1.mp3, 2.mp3 .....
 
+#read tag ID3 from python#
+#for information http://eyed3.nicfit.net/installation.html#
+    sudo pip install eyeD3
+    #this is the code#
+    
+    import eyed3
+    audiofile = eyed3.load("/home/pi/mp3/1.mp3")
+    print audiofile.tag.artist
+    print audiofile.tag.album 
+    print audiofile.tag.title 
+    print audiofile.tag.track_num
 
+    
+#read process list and CPU usage#
+#for information https://github.com/giampaolo/psutil#
+    sudo apt-get install python-psutil
+    #for documentation https://pypi.python.org/pypi/psutil# 
+        # # exceptions
+        "Error", "NoSuchProcess", "AccessDenied", "TimeoutExpired",
+        # constants
+        "NUM_CPUS", "TOTAL_PHYMEM", "BOOT_TIME",
+        "version_info", "__version__",
+        "STATUS_RUNNING", "STATUS_IDLE", "STATUS_SLEEPING", "STATUS_DISK_SLEEP",
+        "STATUS_STOPPED", "STATUS_TRACING_STOP", "STATUS_ZOMBIE", "STATUS_DEAD",
+        "STATUS_WAKING", "STATUS_LOCKED",
+        # classes
+        "Process", "Popen",
+        # functions
+        "test", "pid_exists", "get_pid_list", "process_iter", "get_process_list",
+        "phymem_usage", "virtmem_usage"
+        "cpu_times", "cpu_percent", "per_cpu_percent",
+        "network_io_counters", "disk_io_counters",
+
+#integrazione wolframalpha#
+    #http://www.wolframalpha.com/input/?i=tomorrow+temperature+cesena+italy
+    
 #nota per avvio automatico#
     root@raspberrypi:~/shairport# make install
     root@raspberrypi:~/shairport# cp shairport.init.sample /etc/init.d/shairport

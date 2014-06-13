@@ -32,12 +32,22 @@ def api_play(number):
     #call(["mpg123", file])
     #api_stop()
     p = subprocess.Popen(['mpg123', '/home/pi/mp3/' + file])
-    return "play"
+    return "play", 201, {'Access-Control-Allow-Origin': '*'} 
     
 @app.route('/stop')
 def api_stop():
     k = subprocess.Popen(['killall', 'mpg123'])
     return "stop" , 201, {'Access-Control-Allow-Origin': '*'} 
+    
+@app.route('/shutdown')
+def api_shutdown():
+    k = subprocess.Popen(['sudo','shutdown'])
+    return "shutdown" , 201, {'Access-Control-Allow-Origin': '*'} 
+    
+@app.route('/reboot')
+def api_reboot():
+    k = subprocess.Popen(['sudo','reboot'])
+    return "reboot" , 201, {'Access-Control-Allow-Origin': '*'} 
     
     
 @app.route('/setredis/<campo>/<valore>')

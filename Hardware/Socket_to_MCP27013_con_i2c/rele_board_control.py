@@ -70,6 +70,17 @@ def api_root():
     return 'Welcome'
 
 
+@app.route('/shutdown')
+def api_shutdown():
+    k = subprocess.Popen(['sudo','shutdown'])
+    return "shutdown" , 201, {'Access-Control-Allow-Origin': '*'} 
+    
+@app.route('/reboot')
+def api_reboot():
+    k = subprocess.Popen(['sudo','reboot'])
+    return "reboot" , 201, {'Access-Control-Allow-Origin': '*'} 
+    
+    
 @app.route('/releoff/<int:number>')
 def api_releoff(number):
     if number > 8 or number < 1:

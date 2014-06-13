@@ -20760,8 +20760,145 @@ cr.getProjectModel = function() { return [
 		[],
 		null
 	]
+,	[
+		"t22",
+		cr.plugins_.Button,
+		false,
+		[],
+		0,
+		0,
+		null,
+		null,
+		[
+		],
+		false,
+		false,
+		5421725477473444,
+		[],
+		null
+	]
+,	[
+		"t23",
+		cr.plugins_.Text,
+		false,
+		[],
+		0,
+		0,
+		null,
+		null,
+		[
+		],
+		false,
+		false,
+		821895330784089,
+		[],
+		null
+	]
+,	[
+		"t24",
+		cr.plugins_.Text,
+		false,
+		[],
+		0,
+		0,
+		null,
+		null,
+		[
+		],
+		false,
+		false,
+		1517613918446349,
+		[],
+		null
+	]
+,	[
+		"t25",
+		cr.plugins_.Button,
+		false,
+		[],
+		0,
+		0,
+		null,
+		null,
+		[
+		],
+		false,
+		false,
+		5433907139680271,
+		[],
+		null
+	]
+,	[
+		"t26",
+		cr.plugins_.Button,
+		false,
+		[],
+		0,
+		0,
+		null,
+		null,
+		[
+		],
+		false,
+		false,
+		1935240465665512,
+		[],
+		null
+	]
+,	[
+		"t27",
+		cr.plugins_.Button,
+		false,
+		[],
+		0,
+		0,
+		null,
+		null,
+		[
+		],
+		false,
+		false,
+		1873524989559538,
+		[],
+		null
+	]
+,	[
+		"t28",
+		cr.plugins_.Button,
+		false,
+		[],
+		0,
+		0,
+		null,
+		null,
+		[
+		],
+		false,
+		false,
+		7389709119021906,
+		[],
+		null
+	]
+,	[
+		"t29",
+		cr.plugins_.Button,
+		true,
+		[],
+		0,
+		0,
+		null,
+		null,
+		[
+		],
+		false,
+		false,
+		7665850275994499,
+		[],
+		null
+	]
 	],
 	[
+		[29,3,28,7,10,19,5,17,26,22,4,27,25,6,20]
 	],
 	[
 	[
@@ -20788,19 +20925,6 @@ cr.getProjectModel = function() { return [
 			0,
 			[
 			[
-				[-6, -4, 0, 512, 512, 0, 0, 1, 0, 0, 0, 0, []],
-				8,
-				8,
-				[
-				],
-				[
-				],
-				[
-					0,
-					0
-				]
-			]
-,			[
 				[110.5, 7, 0, 99, 130, 0, 0, 1, 0, 0, 0, 0, []],
 				3,
 				4,
@@ -20814,7 +20938,7 @@ cr.getProjectModel = function() { return [
 					"",
 					1,
 					1,
-					1,
+					0,
 					"",
 					0
 				]
@@ -20833,7 +20957,7 @@ cr.getProjectModel = function() { return [
 					"",
 					1,
 					1,
-					1,
+					0,
 					"",
 					0
 				]
@@ -20852,7 +20976,7 @@ cr.getProjectModel = function() { return [
 					"",
 					1,
 					1,
-					1,
+					0,
 					"",
 					0
 				]
@@ -20871,7 +20995,7 @@ cr.getProjectModel = function() { return [
 					"",
 					1,
 					1,
-					1,
+					0,
 					"",
 					0
 				]
@@ -20890,7 +21014,7 @@ cr.getProjectModel = function() { return [
 					"",
 					1,
 					1,
-					1,
+					0,
 					"",
 					0
 				]
@@ -20940,7 +21064,7 @@ cr.getProjectModel = function() { return [
 					"",
 					1,
 					1,
-					1,
+					0,
 					"",
 					0
 				]
@@ -21132,7 +21256,7 @@ cr.getProjectModel = function() { return [
 			0,
 			[
 			[
-				[218, 4, 0, 94, 107, 0, 0, 1, 0, 0, 0, 0, []],
+				[152, 4, 0, 160, 107, 0, 0, 1, 0, 0, 0, 0, []],
 				17,
 				19,
 				[
@@ -21145,7 +21269,7 @@ cr.getProjectModel = function() { return [
 					"",
 					1,
 					1,
-					1,
+					0,
 					"",
 					0
 				]
@@ -21164,7 +21288,7 @@ cr.getProjectModel = function() { return [
 					"",
 					1,
 					1,
-					1,
+					0,
 					"",
 					0
 				]
@@ -21183,13 +21307,13 @@ cr.getProjectModel = function() { return [
 					"",
 					1,
 					1,
-					1,
+					0,
 					"",
 					0
 				]
 			]
 ,			[
-				[10, 6, 0, 191, 51, 0, 0, 1, 0, 0, 0, 0, []],
+				[10, 6, 0, 126, 51, 0, 0, 1, 0, 0, 0, 0, []],
 				21,
 				23,
 				[
@@ -21205,6 +21329,172 @@ cr.getProjectModel = function() { return [
 					0,
 					1,
 					""
+				]
+			]
+			],
+			[			]
+		]
+		],
+		[
+		],
+		[]
+	]
+,	[
+		"Layout 4",
+		1708,
+		960,
+		false,
+		"Event sheet 4",
+		3809971035840037,
+		[
+		[
+			"Layer 0",
+			0,
+			427052978602961,
+			true,
+			[255, 255, 255],
+			false,
+			1,
+			1,
+			1,
+			false,
+			1,
+			0,
+			0,
+			[
+			[
+				[173, 29, 0, 136, 50, 0, 0, 1, 0, 0, 0, 0, []],
+				22,
+				8,
+				[
+				],
+				[
+				],
+				[
+					0,
+					"Rele",
+					"",
+					1,
+					1,
+					1,
+					"",
+					0
+				]
+			]
+,			[
+				[207, 8, 0, 68, 30, 0, 0, 1, 0, 0, 0, 0, []],
+				23,
+				24,
+				[
+				],
+				[
+				],
+				[
+					"Riavvia",
+					0,
+					"12pt Arial",
+					"rgb(0,0,0)",
+					0,
+					0,
+					0,
+					0,
+					0
+				]
+			]
+,			[
+				[37, 6, 0, 77, 30, 0, 0, 1, 0, 0, 0, 0, []],
+				24,
+				25,
+				[
+				],
+				[
+				],
+				[
+					"Spegni",
+					0,
+					"12pt Arial",
+					"rgb(0,0,0)",
+					0,
+					0,
+					0,
+					0,
+					0
+				]
+			]
+,			[
+				[8, 27, 0, 136, 50, 0, 0, 1, 0, 0, 0, 0, []],
+				25,
+				26,
+				[
+				],
+				[
+				],
+				[
+					0,
+					"Rele",
+					"",
+					1,
+					1,
+					1,
+					"",
+					0
+				]
+			]
+,			[
+				[174, 87, 0, 136, 50, 0, 0, 1, 0, 0, 0, 0, []],
+				26,
+				27,
+				[
+				],
+				[
+				],
+				[
+					0,
+					"Monitor",
+					"",
+					1,
+					1,
+					1,
+					"",
+					0
+				]
+			]
+,			[
+				[8, 85, 0, 136, 50, 0, 0, 1, 0, 0, 0, 0, []],
+				27,
+				28,
+				[
+				],
+				[
+				],
+				[
+					0,
+					"Monitor",
+					"",
+					1,
+					1,
+					1,
+					"",
+					0
+				]
+			]
+,			[
+				[217, 147, 0, 94, 84, 0, 0, 1, 0, 0, 0, 0, []],
+				28,
+				29,
+				[
+				],
+				[
+				],
+				[
+					0,
+					"Next",
+					"",
+					1,
+					1,
+					1,
+					"",
+					0
 				]
 			]
 			],
@@ -21430,6 +21720,120 @@ cr.getProjectModel = function() { return [
 				[
 					6,
 					"Layout 2"
+				]
+				]
+			]
+			]
+		]
+,		[
+			0,
+			null,
+			false,
+			null,
+			8224230860708826,
+			[
+			[
+				-1,
+				cr.system_object.prototype.cnds.OnLayoutStart,
+				null,
+				1,
+				false,
+				false,
+				false,
+				7694877591687395,
+				false
+			]
+			],
+			[
+			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				2072847179155153,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"color"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"white"
+					]
+				]
+				]
+			]
+,			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				2466675854528863,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"background-color"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"Black"
+					]
+				]
+				]
+			]
+,			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				777315301191099,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"border"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"3px solid #AAAAAA"
+					]
+				]
+				]
+			]
+,			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				7433889402855529,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"font-size"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"2em"
+					]
 				]
 				]
 			]
@@ -22062,10 +22466,113 @@ false,false,2966530160546301,false
 			null,
 			false,
 			null,
-			4278867834798676,
+			9607351578238736,
 			[
+			[
+				-1,
+				cr.system_object.prototype.cnds.OnLayoutStart,
+				null,
+				1,
+				false,
+				false,
+				false,
+				2320113481720298,
+				false
+			]
 			],
 			[
+			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				8195933394345978,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"color"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"white"
+					]
+				]
+				]
+			]
+,			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				2100582771824391,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"background-color"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"Black"
+					]
+				]
+				]
+			]
+,			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				7167686566892707,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"border"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"3px solid #AAAAAA"
+					]
+				]
+				]
+			]
+,			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				4891149588511018,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"font-size"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"2em"
+					]
+				]
+				]
+			]
 			]
 		]
 		]
@@ -22157,7 +22664,7 @@ false,false,2966530160546301,false
 				,[
 				[
 					6,
-					"Layout 1"
+					"Layout 4"
 				]
 				]
 			]
@@ -22208,6 +22715,477 @@ false,false,2966530160546301,false
 			]
 			]
 		]
+,		[
+			0,
+			null,
+			false,
+			null,
+			55096713688063,
+			[
+			[
+				-1,
+				cr.system_object.prototype.cnds.OnLayoutStart,
+				null,
+				1,
+				false,
+				false,
+				false,
+				4540393153967979,
+				false
+			]
+			],
+			[
+			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				7487174500204954,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"color"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"white"
+					]
+				]
+				]
+			]
+,			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				7088813538718891,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"background-color"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"Black"
+					]
+				]
+				]
+			]
+,			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				8178970450740141,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"border"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"3px solid #AAAAAA"
+					]
+				]
+				]
+			]
+,			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				679516954898135,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"font-size"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"2em"
+					]
+				]
+				]
+			]
+,			[
+				21,
+				cr.plugins_.List.prototype.acts.SetCSSStyle,
+				null,
+				3576667451781559,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"font-size"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"2em"
+					]
+				]
+				]
+			]
+			]
+		]
+		]
+	]
+,	[
+		"Event sheet 4",
+		[
+		[
+			0,
+			null,
+			false,
+			null,
+			4867477428582978,
+			[
+			[
+				26,
+				cr.plugins_.Button.prototype.cnds.OnClicked,
+				null,
+				1,
+				false,
+				false,
+				false,
+				9698616335781473,
+				false
+			]
+			],
+			[
+			[
+				1,
+				cr.plugins_.AJAX.prototype.acts.Request,
+				null,
+				4906169731665411,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"RebootMonitor"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"http://192.168.0.208:5000/reboot"
+					]
+				]
+				]
+			]
+			]
+		]
+,		[
+			0,
+			null,
+			false,
+			null,
+			9968215670630859,
+			[
+			[
+				22,
+				cr.plugins_.Button.prototype.cnds.OnClicked,
+				null,
+				1,
+				false,
+				false,
+				false,
+				6549009297029506,
+				false
+			]
+			],
+			[
+			[
+				1,
+				cr.plugins_.AJAX.prototype.acts.Request,
+				null,
+				3667125082396929,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"RebootRele"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"http://192.168.0.202:5000/reboot"
+					]
+				]
+				]
+			]
+			]
+		]
+,		[
+			0,
+			null,
+			false,
+			null,
+			8712595944002911,
+			[
+			[
+				27,
+				cr.plugins_.Button.prototype.cnds.OnClicked,
+				null,
+				1,
+				false,
+				false,
+				false,
+				3616753137651732,
+				false
+			]
+			],
+			[
+			[
+				1,
+				cr.plugins_.AJAX.prototype.acts.Request,
+				null,
+				6806717069065598,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"ShutdownMonitor"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"http://192.168.0.208:5000/shutdown"
+					]
+				]
+				]
+			]
+			]
+		]
+,		[
+			0,
+			null,
+			false,
+			null,
+			4795396627303314,
+			[
+			[
+				25,
+				cr.plugins_.Button.prototype.cnds.OnClicked,
+				null,
+				1,
+				false,
+				false,
+				false,
+				8281608720161735,
+				false
+			]
+			],
+			[
+			[
+				1,
+				cr.plugins_.AJAX.prototype.acts.Request,
+				null,
+				2627952556480504,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"ShutdownRele"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"http://192.168.0.202:5000/shutdown"
+					]
+				]
+				]
+			]
+			]
+		]
+,		[
+			0,
+			null,
+			false,
+			null,
+			7474858693932614,
+			[
+			[
+				28,
+				cr.plugins_.Button.prototype.cnds.OnClicked,
+				null,
+				1,
+				false,
+				false,
+				false,
+				9140079713663882,
+				false
+			]
+			],
+			[
+			[
+				-1,
+				cr.system_object.prototype.acts.GoToLayout,
+				null,
+				7108952392227958,
+				false
+				,[
+				[
+					6,
+					"Layout 1"
+				]
+				]
+			]
+			]
+		]
+,		[
+			0,
+			null,
+			false,
+			null,
+			9444536905673533,
+			[
+			[
+				-1,
+				cr.system_object.prototype.cnds.OnLayoutStart,
+				null,
+				1,
+				false,
+				false,
+				false,
+				4202398321527598,
+				false
+			]
+			],
+			[
+			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				2971898041901721,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"color"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"white"
+					]
+				]
+				]
+			]
+,			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				7766771896432854,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"background-color"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"Black"
+					]
+				]
+				]
+			]
+,			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				2716170325256645,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"border"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"3px solid #AAAAAA"
+					]
+				]
+				]
+			]
+,			[
+				29,
+				cr.plugins_.Button.prototype.acts.SetCSSStyle,
+				null,
+				4220356098324114,
+				false
+				,[
+				[
+					1,
+					[
+						2,
+						"font-size"
+					]
+				]
+,				[
+					1,
+					[
+						2,
+						"2em"
+					]
+				]
+				]
+			]
+			]
+		]
 		]
 	]
 	],
@@ -22224,7 +23202,7 @@ false,false,2966530160546301,false
 	false,
 	0,
 	0,
-	24,
+	30,
 	false,
 	true,
 	[

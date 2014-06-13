@@ -3,6 +3,7 @@ import smbus
 import time
 import urllib
 import urllib2
+import subprocess
 import redis
 from flask import Flask, url_for #, render_template, request, jsonify
 # IODIRA   0x00   // IO direction  (0 = output, 1 = input (Default))

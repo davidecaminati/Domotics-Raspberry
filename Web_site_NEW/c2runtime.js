@@ -20271,11 +20271,11 @@ cr.getProjectModel = function() { return [
 		false
 	]
 ,	[
-		cr.plugins_.Button,
+		cr.plugins_.Browser,
+		true,
 		false,
-		true,
-		true,
-		true,
+		false,
+		false,
 		false,
 		false,
 		false,
@@ -20283,11 +20283,11 @@ cr.getProjectModel = function() { return [
 		false
 	]
 ,	[
-		cr.plugins_.Browser,
+		cr.plugins_.Button,
+		false,
 		true,
-		false,
-		false,
-		false,
+		true,
+		true,
 		false,
 		false,
 		false,
@@ -21683,7 +21683,7 @@ cr.getProjectModel = function() { return [
 					1,
 					[
 						2,
-						"http://192.168.0.202:5000/multireleoff/2/2/3/4/5"
+						"http://192.168.0.202:5000/multireleoff/1/2/3/4/5"
 					]
 				]
 				]

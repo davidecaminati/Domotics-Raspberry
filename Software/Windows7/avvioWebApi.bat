@@ -1,0 +1,1 @@
+start /min C:\webservice.bat ^& exit

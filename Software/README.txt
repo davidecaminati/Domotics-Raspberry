@@ -761,6 +761,19 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 #integrazione wolframalpha#
     #http://www.wolframalpha.com/input/?i=tomorrow+temperature+cesena+italy
     
+#Configuration for webapi on Windows 7 64 bit computer (probably works on all windows systems#
+    #install python 2.7 from this url https://www.python.org/ftp/python/2.7.6/python-2.7.6.msi#
+        #open prompt MSDOS#
+        #copy the file [your download path]/Domotics-Raspberry/Software/Windows7/distribute_setup.py in c:/distribute_setup.py
+        #go in the installation directory of python (ex. c:\python27\ )
+        #launch "python.exe c:\distribute_setup.py"
+        #go in the folder SCRIPTS (cd scripts)#
+        #launch "easy_install.exe flask" for install flask framework#
+        #close Prompt MSDOS#
+        #copy [your download path]/Domotics-Raspberry/Software/Windows7/avvioWebApi.bat in C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup/avvioWebApi.bat#
+        #copy [your download path]/Domotics-Raspberry/Software/Windows7/webservice.bat in c:/webservice.bat#
+        
+        
 #nota per avvio automatico#
     root@raspberrypi:~/shairport# make install
     root@raspberrypi:~/shairport# cp shairport.init.sample /etc/init.d/shairport

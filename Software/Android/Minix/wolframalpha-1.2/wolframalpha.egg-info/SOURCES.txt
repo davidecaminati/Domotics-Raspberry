@@ -1,0 +1,12 @@
+.hgtags
+README
+setup.py
+wolframalpha/__init__.py
+wolframalpha/compat.py
+wolframalpha/test_client.py
+wolframalpha.egg-info/PKG-INFO
+wolframalpha.egg-info/SOURCES.txt
+wolframalpha.egg-info/dependency_links.txt
+wolframalpha.egg-info/not-zip-safe
+wolframalpha.egg-info/requires.txt
+wolframalpha.egg-info/top_level.txt

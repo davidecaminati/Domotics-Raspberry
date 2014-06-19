@@ -776,16 +776,16 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
 #Minix X5 mini for speek engine#
     #install on the minix this software#
     SSHDroid (ssh server)
-    Script Launcher 
-    TaskBomb
-    #run script launcher#
-        #click on the link SL$A and go in the download page, in the left download the first link Python4Android_r4.apk and the link sl4a_r6.apk#
+    SL4A Script Launcher 
+    TaskBomb task scheduler
+    #run Script Launcher#
+        #click on the link SL4A and go in the download page, in the left download the first link Python4Android_r4.apk and the link sl4a_r6.apk#
         #download and install Python4Android_r4.apk#
         #download and install sl4a_r6.apk#
         #after the installation , open Python4Android and click on the first button [INSTALL] (start the download of PythonExtra_14)#
-        #select [Browse Module] then click on TWISTED for download it (dont try to install, this is an EGG file not APK)#
-        #return in [IMPORT MODULES] then select TWISTEDxxx for import the module#
-    #download and unzip lastest CherryPy from this url https://pypi.python.org/pypi/CherryPy/3.2.4#
+        #select [Browse Module] then click on TWISTEDmatrix for download it (dont try to install, this is an EGG file not APK)#
+        #return in [IMPORT MODULES] then select TWISTEDmatrix for import the module#
+    #from a computer download and unzip lastest CherryPy from this url https://pypi.python.org/pypi/CherryPy/3.2.4#
         #copy the folder (in my case using winscp because i'm on Windows machine)  (ex /home/pi/CherryPy-3.2.4 in a Raspberry (we need linux for compile this with ARM architecture#
         #open ssh on this raspberry, go in the folder /home/pi/CherryPy-3.2.4#
         #launch this command python setup.py build#
@@ -797,46 +797,13 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
         #now copy (with WINSCP) the folder cherrypy (c:\cherrypy\build\lib.linux-armv6l-2.7\cherrypy)  into MINIX /sdcard/sl4a/scripts
         # for more information look http://www.defuze.org/archives/228-running-cherrypy-on-android-with-sl4a.html#
     #create a new file in /sdcard/sl4a/scripts named cpdroid.py#
-        #put inside the new file (cpdroid.py) this code#
+        #put inside the new file ([repository]/Domotics-Raspberry/trunk/Software/Android/Minix/cpdroid.py) this code#
     #open the launcher and click on the cpdroid.py file to start the server#
-    
-        
-        # -*- coding: utf-8 -*-
-        import logging
-        # The multiprocessing package isn't
-        # part of the ASE installation so
-        # we must disable multiprocessing logging
-        logging.logMultiprocessing = 0
-        
-        import android
-        import cherrypy
-        
-        class Root(object):
-            def __init__(self):
-                self.droid = android.Android()
-        
-            @cherrypy.expose
-            def index(self):
-                self.droid.vibrate()
-                return "Hello from my phone"
-        
-            @cherrypy.expose
-            def location(self):
-                location = self.droid.getLastKnownLocation().result
-                location = location.get('network', location.get('gps'))
-                return "LAT: %s, LON: %s" % (location['latitude'],
-                                            location['longitude'])
-        
-        def run():
-            cherrypy.config.update({'server.socket_host': '0.0.0.0'})
-            cherrypy.quickstart(Root(), '/')
-        
-        if __name__ == '__main__':
-            run()
-        
-    
-    ###################################
-
+    #add translation module for python#
+        #download Goslate from https://pypi.python.org/pypi/goslate#downloads#
+        #put this file into Minix in the folder /mnt/sdcard/Download#
+        #open Python for Android, press [Import Modules] then select goslate#
+       
 
     SL4A
     QPython - Python for Android

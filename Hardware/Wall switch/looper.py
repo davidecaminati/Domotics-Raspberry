@@ -93,7 +93,7 @@ class _EventSlot:
       return self
 
 class MyEvents(Events):
-   __events__ = ('Pressed', 'StillPressed','LongPressed', 'Released')
+   __events__ = ('Pressed', 'StillPressed','LongPressed', 'Released', 'Voice')
 
 class ValueModel(threading.Thread):
    def __init__(self):
@@ -101,6 +101,7 @@ class ValueModel(threading.Thread):
         self.events = MyEvents()
         self.__value = None
         self.set("")
+        self.vocal = None
         xbee = ZigBee(serial_port, callback=self.SendEventXBee)
         self.xbeeLastState = 0
         
@@ -110,19 +111,48 @@ class ValueModel(threading.Thread):
    def get(self):
         return self.__value
         
+   def setVocal(self, value):
+        self.vocal = value.strip()
+        
+   def getVocal(self):
+        return self.vocal
+        
    def SendEventXBee(self, dati):
         dict_buttons_Xbee =  {1:"ButtonXBee_DX",2:"ButtonXBee_SX"}
-        rf_data = dati['rf_data']
-        int_rf_data = ord(rf_data[5:6])
-        if  self.xbeeLastState != int_rf_data: # soft anti-bounce
-            if  dict_buttons_Xbee.get(int_rf_data) is not None:
-                self.set(dict_buttons_Xbee.get(int_rf_data))
-                self.events.Pressed(True)
-                #print int_rf_data
-                #print self.__value
-            self.xbeeLastState = int_rf_data
-                
+        #print "dati " , dati
         
+        rf_data = dati['rf_data']
+        #print "rf_data ", rf_data
+        
+        # 39 12 = vocal Xbee
+        # 96 153 = button Xbee
+        # 145 101 = another Xbee
+        source_address0 = ord(dati['source_addr'][0])
+        source_address1 = ord(dati['source_addr'][1])
+        #print "source_addr ", source_address0 , " " ,source_address1
+        #print "source_address0"
+        #print source_address0
+        #print "source_address1"
+        #print source_address1
+        if source_address0 == 145: #vocal
+            try:
+                self.set('Vocal')
+                self.setVocal(rf_data)
+                self.events.Voice()
+            except :
+                print "except voice"
+        else: #buttons
+            try:
+                int_rf_data = ord(rf_data[5:6])
+                print int_rf_data
+                if  self.xbeeLastState != int_rf_data: # soft anti-bounce
+                    if  dict_buttons_Xbee.get(int_rf_data) is not None:
+                        self.set(dict_buttons_Xbee.get(int_rf_data))
+                        self.events.Pressed(True)
+                self.xbeeLastState = int_rf_data
+            except:
+                print "except buttons"
+            
    def run(self):
         ##Configure XBEE on Raspberry#
         button_oldstate = False

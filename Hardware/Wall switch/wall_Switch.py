@@ -321,15 +321,91 @@ class Button(object):
         model.events.StillPressed += self.StillPressed
         model.events.LongPressed += self.LongPressed
         model.events.Released += self.Released
+        model.events.Voice += self.Voice
         self.controlled = controlled
         self._old_state = ButtonsState.Released
         
+    def Voice(self):
+        if self.model.get() == self.name : # 'Vocal'
+            #print str(self.model.getVocal())
+            #voice command grom Minix
+            if str(self.model.getVocal()) == 'SAMANTHA':
+                print "SAMANTA"
+                try:
+                    response = urllib2.urlopen("http://192.168.0.114:8080/getQuestion", timeout = 1)
+                except socket.timeout, e:
+                    # For Python 2.7
+                     urllib2.urlopen("http://192.168.0.114:8080/speak/scusa%20non%20trovo%20nulla")
+            
+            
+            #print str(self.model.getVocal()).split()
+            if str(self.model.getVocal()).split()[0] == 'Temperature':
+                print "Temperature"
+                try:
+                    response = urllib2.urlopen("http://192.168.0.208:5000/setredis/Temperature/" + str(self.model.getVocal()).split()[1], timeout = 1)
+                except socket.timeout, e:
+                    # For Python 2.7
+                    #urllib2.urlopen("http://192.168.0.114:8080/speak/scusa%20non%20trovo%20nulla")
+                    pass
+                    
+            #print str(self.model.getVocal()).split()
+            if str(self.model.getVocal()).split()[0] == 'Light':
+                print "Light"
+                try:
+                    response = urllib2.urlopen("http://192.168.0.208:5000/setredis/Light/" + str(self.model.getVocal()).split()[1], timeout = 1)
+                except socket.timeout, e:
+                    # For Python 2.7
+                    #urllib2.urlopen("http://192.168.0.114:8080/speak/scusa%20non%20trovo%20nulla")
+                    pass
+                    
+            if str(self.model.getVocal()) == 'TEMPERATURA':
+                print "TEMPERATURA"
+                try:
+                    response = urllib2.urlopen("http://192.168.0.208:5000/getredis/Temperature", timeout = 1)
+
+                    speak = urllib2.urlopen("http://192.168.0.114:8080/speak/" + response.read() + "%20gradi")
+                except socket.timeout, e:
+                    # For Python 2.7
+                     urllib2.urlopen("http://192.168.0.114:8080/speak/scusa%20non%20trovo%20nulla")
+            
+            
+            if str(self.model.getVocal()) == 'LUCE_INGRESSO':
+                Lamp_holder_entrance.toggle()
+            elif str(self.model.getVocal()) == 'LUCE_SALA':
+                Lamp_holder_lounge.toggle()
+            elif str(self.model.getVocal()) == 'LUCE_CUCINA':
+                Lamp_holder_kitchen.toggle()
+            elif str(self.model.getVocal()) == 'SPEGNI_TUTTO':
+                for room in MyHome.roomlist:
+                    for lamp in room.lamplist:
+                        lamp.off()
+
+            print str(self.model.getVocal())
+            if str(self.model.getVocal()) == 'LUCE_INGRESSO_ONDI':
+                Lamp_holder_entrance.toggle()
+            elif str(self.model.getVocal()) == 'LUCE_SALA_ONDI':
+                Lamp_holder_lounge.toggle()
+            elif str(self.model.getVocal()) == 'LUCE_CUCINA_ONDI':
+                Lamp_holder_kitchen.toggle()
+            elif str(self.model.getVocal()) == 'SPEGNI_TUTTO_ONDI':
+                for room in MyHome.roomlist:
+                    for lamp in room.lamplist:
+                        lamp.off()
+
+            self._old_state = ButtonsState.Pressed
+            CheckColorForLeds()
+            #else:
+            #    print 'not match' , self.model.getVocal()
+            
+            
+        
+        
     def Pressed(self,Xbee=False):
-        #print "bo="
+        if Xbee:
+            self._old_state = ButtonsState.Released
+            
         if self.model.get() == self.name :
-            #print self.name + " Pressed"
             if isinstance(self.controlled, Lamp):
-                #print "Lamp Pressed"
                 if self._old_state == ButtonsState.Released:
                     lamp = self.controlled
                     if lamp.isdimmable:
@@ -337,7 +413,6 @@ class Button(object):
                     else:
                         lamp.toggle()
             if isinstance(self.controlled, Room):
-                #print "Room Pressed"
                 if self._old_state == ButtonsState.Released:
                     for lamp in self.controlled.lamplist:
                         if lamp.isdimmable:
@@ -345,7 +420,6 @@ class Button(object):
                         else:
                             lamp.toggle()
             if isinstance(self.controlled, Home):
-                #print "Home Pressed"
                 if self._old_state == ButtonsState.Released:
                     for room in self.controlled.roomlist:
                         for lamp in room.lamplist:
@@ -353,6 +427,7 @@ class Button(object):
                                 pass # none
                             else:
                                 lamp.off()
+            
             self._old_state = ButtonsState.Pressed
             CheckColorForLeds()
             
@@ -509,6 +584,7 @@ ButtonEntrance_DX = Button("ButtonEntrance_DX",0,0b01000000,0b10000000,model,Ent
 
 ButtonXBee_SX = Button("ButtonXBee_SX",0,0b00000100,0b00001000,model,Launge)
 ButtonXBee_DX = Button("ButtonXBee_DX",0,0b00000100,0b00001000,model,Kitchen)
+ButtonXBee_Vocal = Button("Vocal",0,0b00000100,0b00001000,model,Kitchen)
 
 model.daemon = True # non blocking thread
 model.start()
@@ -519,7 +595,6 @@ def CheckColorForLeds():
     response = urllib2.urlopen(urlForStateAll)
     html = response.read()
     statevalue = int(html)
-    #time.sleep(0.1)
     
     if (statevalue & RELE_KITCHEN) == RELE_KITCHEN:
         ButtonKitchen.SetLedColorB(LedColor.Green)

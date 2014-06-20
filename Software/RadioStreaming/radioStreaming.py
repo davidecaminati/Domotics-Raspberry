@@ -1,3 +1,6 @@
+#!/usr/bin/python
+
+
 import urllib
 import urllib2
 import pygame
@@ -6,7 +9,6 @@ import redis
 import time
 from random import randint
 from flask import Flask, url_for #, render_template, request, jsonify
-
 
 server_redis = '127.0.0.1'
 

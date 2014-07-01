@@ -815,5 +815,25 @@ Expand your partition, set password, set you timezone and keyboard, overclock to
     root@raspberrypi:/etc/init.d# chmod a+x shairport
     root@raspberrypi:/etc/init.d# update-rc.d shairport defaults
 
+    
+#DATE ISSUE#
+    #chenge the file#
+    sudo nano /etc/resolv.conf
+    #add this line#
+    nameserver 8.8.8.8
+    nameserver 8.8.4.4
+    #if not work open the file#
+    sudo nano /etc/network/interfaces
+    #above the line#
+    iface eth0 inet dhcp
+    #you need to insert#
+    dns-nameserver 8.8.8.8
+    #restart the daemon#
+    service ntpd restart
+    #or#
+    /etc/init.d/ntpd restart
+    #use the command  "date" to test.#
+    date
+
 #if you want to test now the capability of your powerful Raspberry go to
 

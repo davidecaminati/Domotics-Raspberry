@@ -12,7 +12,7 @@ DallasTemperature sensors(&oneWire);
 
 // photo
 int LDR_Pin = A0; //analog pin 0
-int Timer_For_Send = 3; //timer
+int Timer_For_Send = 200; //timer
 int counter_for_send = 0; // counter
 
 #if defined(ARDUINO) && ARDUINO >= 100

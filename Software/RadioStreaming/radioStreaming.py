@@ -16,23 +16,43 @@ app = Flask(__name__)
 
 @app.route('/')
 def api_root():
-    return 'Welcome'
+    documentation = ('Welcome <br>'
+    'this is the list of API implemented: <br>'
+    '<br>'
+    '/play/[number] <br>'
+    'play [number].mp3 in the folder home/pi/mp3/ <br>'
+    '<br>'
+    '/stop <br>'
+    'stop all songs  <br>'
+    '<br>'
+    '/shutdown <br>'
+    'shutdown this computer <br>'
+    '<br>'
+    '/reboot <br>'
+    'reboot this computer <br>'
+    '<br>'
+    '/setredis/[campo]/[valore]  <br>'
+    'save value in the database redis  <br>'
+    '<br>'
+    '/getredis/[campo] <br>'
+    'get value from the database redis in the field specified <br>'
+    '<br>'
+    '/getredis/[campo]/[validita] <br>'
+    'get value from the database redis in the field specified only if the value are saved less the [validita] seconds <br>'
+    'otherwise return -- <br>'
+    '<br>'
+    '/getinfo/[campo] <br>'
+    'get info about the state of computer (ex "tempcpu" for cpu temperature) <br>'
+    '/ <br>'
+    'this help <br>'
+    )
+    return documentation
 
 @app.route('/play/<int:number>')
 def api_play(number):
     print number
     file = str(number) + '.mp3'
     print file
-    #file = 'http://kos.broadstreamer.com:8500'
-    #pygame.init()
-    #pygame.mixer.init()
-    #pygame.mixer.music.load(file)
-    #pygame.mixer.music.play()
-    
-    #from subprocess import call
-    #call(["killall", "mpg123"])
-    #call(["mpg123", file])
-    #api_stop()
     p = subprocess.Popen(['mpg123', '/home/pi/mp3/' + file])
     return "play", 201, {'Access-Control-Allow-Origin': '*'} 
     
@@ -40,6 +60,13 @@ def api_play(number):
 def api_stop():
     k = subprocess.Popen(['killall', 'mpg123'])
     return "stop" , 201, {'Access-Control-Allow-Origin': '*'} 
+    
+@app.route('/getinfo/<campo>')
+def api_getinfo(campo):
+    valore = ""
+    if str(campo) == "tempcpu":
+        valore = int(open('/sys/class/thermal/thermal_zone0/temp').read()) / 1e3
+    return str(valore) , 201, {'Access-Control-Allow-Origin': '*'} 
     
 @app.route('/shutdown')
 def api_shutdown():
@@ -58,7 +85,7 @@ def api_setredis(campo,valore):
     r = redis.Redis(connection_pool=pool)
     ts = time.time()
     r.rpush(campo,str(valore))
-    r.rpush(campo + "timestamp",str(ts))
+    r.rpush(campo + "timestamp",int(ts))
     return "ok", 201, {'Access-Control-Allow-Origin': '*'} 
     
 @app.route('/getredis/<campo>')
@@ -71,6 +98,36 @@ def api_getredis(campo):
         valore = valori[0]
     else:
         valore = "errore"
+    return valore , 201, {'Access-Control-Allow-Origin': '*'} 
+
+def get_elapsed_time(campo):
+    pool = redis.ConnectionPool(host=server_redis, port=6379, db=0)
+    r = redis.Redis(connection_pool=pool)
+    field_timestamps = r.lrange(campo + "timestamp",'-1','-1')
+    if len(field_timestamps) >= 1:
+        field_timestamp = int(field_timestamps[0])
+    else :
+        field_timestamp = 0
+    ts = int(time.time())
+    elapsed = ts - field_timestamp
+    return elapsed
+    
+@app.route('/getredis/<campo>/<validita>')
+def api_getredisvalidita(campo,validita):
+    pool = redis.ConnectionPool(host=server_redis, port=6379, db=0)
+    r = redis.Redis(connection_pool=pool)
+    valori = r.lrange(campo,'-1','-1')
+    valore = ""
+    elapsed = get_elapsed_time(campo)
+    print elapsed
+    print int(validita)
+    if elapsed <= int(validita):
+        if len(valori) >= 1:
+            valore = valori[0]
+        else:
+            valore = "errore"
+    else:
+        valore = "--"
     return valore , 201, {'Access-Control-Allow-Origin': '*'} 
     
     

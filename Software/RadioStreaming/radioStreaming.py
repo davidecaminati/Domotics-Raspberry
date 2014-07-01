@@ -1,12 +1,11 @@
 #!/usr/bin/python
-
-
 import urllib
 import urllib2
 import pygame
 import subprocess
 import redis
 import time
+import os
 from random import randint
 from flask import Flask, url_for #, render_template, request, jsonify
 
@@ -42,7 +41,7 @@ def api_root():
     'otherwise return -- <br>'
     '<br>'
     '/getinfo/[campo] <br>'
-    'get info about the state of computer (ex "tempcpu" for cpu temperature) <br>'
+    'get info about the state of computer (ex "tempcpu" for cpu temperature,"cpuuse" for cpu used, "ramfree" for free ram im KB) <br>'
     '/ <br>'
     'this help <br>'
     )
@@ -63,21 +62,34 @@ def api_stop():
     
 @app.route('/getinfo/<campo>')
 def api_getinfo(campo):
+#thanks to PhJulien posted into http://www.raspberrypi.org/forums/viewtopic.php?f=32&t=22180
     valore = ""
     if str(campo) == "tempcpu":
         valore = int(open('/sys/class/thermal/thermal_zone0/temp').read()) / 1e3
+    if str(campo) == "cpuuse":
+        valore = str(os.popen("top -n1 | awk '/Cpu\(s\):/ {print $2}'").readline().strip())
+    if str(campo) == "ramfree":
+        p = os.popen('free')
+        i = 0
+        while i < 3:
+            i = i + 1
+            line = p.readline()
+            if i==2:
+                valore = line.split()[1:4][2]
     return str(valore) , 201, {'Access-Control-Allow-Origin': '*'} 
     
 @app.route('/shutdown')
 def api_shutdown():
-    k = subprocess.Popen(['sudo','shutdown'])
+    #k = subprocess.Popen(['sudo','shutdown'])
+    command = "/usr/bin/sudo /sbin/shutdown -h now"
+    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+    output = process.communicate()[0]
     return "shutdown" , 201, {'Access-Control-Allow-Origin': '*'} 
     
 @app.route('/reboot')
 def api_reboot():
     k = subprocess.Popen(['sudo','reboot'])
     return "reboot" , 201, {'Access-Control-Allow-Origin': '*'} 
-    
     
 @app.route('/setredis/<campo>/<valore>')
 def api_setredis(campo,valore):
@@ -128,8 +140,7 @@ def api_getredisvalidita(campo,validita):
             valore = "errore"
     else:
         valore = "--"
-    return valore , 201, {'Access-Control-Allow-Origin': '*'} 
-    
+    return str(valore) , 201, {'Access-Control-Allow-Origin': '*'} 
     
 if __name__ == '__main__':
     app.run(host='192.168.0.208',debug = True)

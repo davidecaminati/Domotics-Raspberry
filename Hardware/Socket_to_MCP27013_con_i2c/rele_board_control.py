@@ -73,7 +73,10 @@ def api_root():
 
 @app.route('/shutdown')
 def api_shutdown():
-    k = subprocess.Popen(['sudo','shutdown'])
+    #k = subprocess.Popen(['sudo','shutdown'])
+    command = "/usr/bin/sudo /sbin/shutdown -h now"
+    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+    output = process.communicate()[0]
     return "shutdown" , 201, {'Access-Control-Allow-Origin': '*'} 
     
 @app.route('/reboot')

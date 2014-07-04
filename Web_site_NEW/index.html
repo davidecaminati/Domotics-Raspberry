@@ -5,6 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>New project</title>
 	
+	<!-- Standardised web app manifest -->
+	<link rel="manifest" href="app.manifest" />
+	
 	<!-- Allow fullscreen mode on iOS devices. (These are Apple specific meta tags.) -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -22,10 +25,11 @@
 			padding: 0;
 			margin: 0;
 		}
-		body {
+		html, body {
 			background: #000;
 			color: #fff;
 			overflow: hidden;
+			touch-action: none;
 			-ms-touch-action: none;
 		}
 		canvas {

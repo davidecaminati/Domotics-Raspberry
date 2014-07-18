@@ -237,14 +237,14 @@ sudo nano /etc/xdg/lxsession/LXDE/autostart
 # if necessary  comment out the @xscreensaver line with a #
 ```
     
-#Disable mouse cursor
+### Disable mouse cursor
 ```python
 sudo nano /etc/X11/xinit/xserverrc
 #add -nocursor as parameter#
 exec /usr/bin/X -nocursor -nolisten tcp "$@"
 ```
 
-#Auto startx: modify this file
+### Auto startx: modify this file
 ```python
 sudo nano /etc/rc.local
 #after fi and before exit 0#
@@ -520,57 +520,55 @@ sudo pip install pyserial
 ```
         
 ### VISUAL STUDIO 2010
-#Install redis client for c# #
-#see the documentation https://github.com/ServiceStack/ServiceStack.Redis#
-
+#### Install redis client for c# 
+#### see the documentation https://github.com/ServiceStack/ServiceStack.Redis
 
 ### Enable Nokia 5110 Display (SPI interface)
 ```python
-	git clone git://git.drogon.net/wiringPi
-	cd wiringPi
-	./build
-	sudo apt-get install python-dev python-imaging python-imaging-tk python-pip
-	sudo pip install wiringpi wiringpi2
-	cd 
-	sudo nano /etc/modprobe.d/raspi-blacklist.conf
-	#make sure have enabled SPI module adding a # at the init of the line #
-		#blacklist spi-bcm2708
-	git clone https://github.com/XavierBerger/pcd8544.git
-	cd pcd8544
-	./setup.py clean build
-	sudo ./setup.py install
-	cd examples
-	sudo python dimmer.py 
+git clone git://git.drogon.net/wiringPi
+cd wiringPi
+./build
+sudo apt-get install python-dev python-imaging python-imaging-tk python-pip
+sudo pip install wiringpi wiringpi2
+cd 
+sudo nano /etc/modprobe.d/raspi-blacklist.conf
+#make sure have enabled SPI module adding a # at the init of the line #
+#blacklist spi-bcm2708
+git clone https://github.com/XavierBerger/pcd8544.git
+cd pcd8544
+./setup.py clean build
+sudo ./setup.py install
+cd examples
+sudo python dimmer.py 
 ```
-
 
 ### Enable PiCamera
 ```python
-	sudo apt-get update
-	sudo pip install picamera
-	sudo apt-get install python-picamera
-	#to test#
-		raspistill -o cat.jpg -t 10000
-	#if you receive this error#
-		mmal: Failed to run camera app. Please check for firmware updates
-		#you need to:#
-		#set 256 MB of ram in your video card using rasp-config#
-		#check this 2 file#
-		sudo nano /etc/modprobe.d/raspi-blacklist.conf
-			blacklist spi-bcm2708
-			blacklist i2c-bcm2708
+sudo apt-get update
+sudo pip install picamera
+sudo apt-get install python-picamera
+#to test#
+raspistill -o cat.jpg -t 10000
+#if you receive this error#
+mmal: Failed to run camera app. Please check for firmware updates
+#you need to:#
+#set 256 MB of ram in your video card using rasp-config#
+#check this 2 file#
+sudo nano /etc/modprobe.d/raspi-blacklist.conf
+blacklist spi-bcm2708
+blacklist i2c-bcm2708
 
-		sudo nano /etc/modules 
-			w1-therm
-			w1-gpio pullup=1
-			i2c-dev
-			i2c-bcm2708
-			spi-bcm2708
-			snd-bcm2835
-			bcm2708_wdog
+sudo nano /etc/modules 
+w1-therm
+w1-gpio pullup=1
+i2c-dev
+i2c-bcm2708
+spi-bcm2708
+snd-bcm2835
+bcm2708_wdog
 ```
 			
-# start on boot up#
+###  Start on boot up
 ```python
 #Here is the command line info and file contents:#
 nano RunCamera.sh
@@ -625,75 +623,75 @@ sudo reboot
 
 ### Bluetooth Proximity
 ```python
-    #install bluetooth software#
-    #http://rasspberrypi.wordpress.com/2012/09/03/install-bluetooth-dongle-on-raspberry-pi/#
-    sudo apt-get update
-    sudo apt-get install bluetooth
-    1. On boot i typed the following command to see if my connected dongle was visible.
-    $lsusb
+#install bluetooth software#
+#http://rasspberrypi.wordpress.com/2012/09/03/install-bluetooth-dongle-on-raspberry-pi/#
+sudo apt-get update
+sudo apt-get install bluetooth
+1. On boot i typed the following command to see if my connected dongle was visible.
+$lsusb
 
-    This returned the following line to make sure that the dongle was detected
-    Bus 001 Device 004: ID 1131:1001 Integrated System Solution Corp. KY-BT100 Bluetooth Adapter
+This returned the following line to make sure that the dongle was detected
+Bus 001 Device 004: ID 1131:1001 Integrated System Solution Corp. KY-BT100 Bluetooth Adapter
 
-    2. Then typed in
-    $lsmod
+2. Then typed in
+$lsmod
 
-    This returned
-    bluetooth 166552 23 btusb,rfcomm,bnep
+This returned
+bluetooth 166552 23 btusb,rfcomm,bnep
 
-    3. Now to install bluetooth package
-    $sudo apt-get install bluetooth
+3. Now to install bluetooth package
+$sudo apt-get install bluetooth
 
-    Note: Installation takes a while relax and enjoy for the time
+Note: Installation takes a while relax and enjoy for the time
 
-    4. Now after the installation is completed, run the following to get the status.
-    $/etc/init.d/bluetooth status
+4. Now after the installation is completed, run the following to get the status.
+$/etc/init.d/bluetooth status
 
-    This is returned if all is good
-    [ ok ] bluetooth is running.
+This is returned if all is good
+[ ok ] bluetooth is running.
 
-    5. Now you can find your blueetooth address using the following command
-    $hcitool dev
+5. Now you can find your blueetooth address using the following command
+$hcitool dev
 
-    This returns something like this
-    Devices:
-    hci0 00:11:67:10:80:F0
+This returns something like this
+Devices:
+hci0 00:11:67:10:80:F0
 
-    6. Now we can scan for nearby devices using the following command
-    $hcitool scan
+6. Now we can scan for nearby devices using the following command
+$hcitool scan
 
-    This returns
-    Scanning ...
-    54:9B:12:99:36:61 YourBluetoothDevice
+This returns
+Scanning ...
+54:9B:12:99:36:61 YourBluetoothDevice
 
-    7. Now we can run a small test to connect to the following device
-    $sudo l2ping -c 1 54:9B:12:99:36:61
+7. Now we can run a small test to connect to the following device
+$sudo l2ping -c 1 54:9B:12:99:36:61
 
-    This returns
-    Ping: 54:9B:12:99:36:61 from 00:11:67:10:80:F0 (data size 44) ...
-    0 bytes from 54:9B:12:99:36:61 id 0 time 19.28ms
-    1 sent, 1 received, 0% loss
+This returns
+Ping: 54:9B:12:99:36:61 from 00:11:67:10:80:F0 (data size 44) ...
+0 bytes from 54:9B:12:99:36:61 id 0 time 19.28ms
+1 sent, 1 received, 0% loss
 
-    Success :)
-    
-    
-    #now#
-    apt-get install bluetooth bluez-utils
-    
-    
-    #now install the utility software#
-    sudo apt-get install blueproximity
-    #For security reasons, some interactions with the mobile require that the device is `paired' with the one it is interacting with. First, store a number (4 or more digits) in the file /etc/bluetooth/pin (say 12345). Stop and restart the bluetooth service by doing:
-        sh /etc/init.d/bluetooth stop
-        sh /etc/init.d/bluetooth start
-    #make discoverable raspberry bluetooth#
-    sudo hciconfig hci0 piscan
-    #Setup bluetooth-agent to pass the expected pairing code#
-    #install tools#
-    sudo apt-get install bluez-tools
-    #script#
-    sudo rfcomm connect 0 B0:EC:71:72:FF:8D
-    watch -n 0.5 hcitool  rssi B0:EC:71:72:FF:8D
+Success :)
+
+
+#now#
+apt-get install bluetooth bluez-utils
+
+
+#now install the utility software#
+sudo apt-get install blueproximity
+#For security reasons, some interactions with the mobile require that the device is `paired' with the one it is interacting with. First, store a number (4 or more digits) in the file /etc/bluetooth/pin (say 12345). Stop and restart the bluetooth service by doing:
+sh /etc/init.d/bluetooth stop
+sh /etc/init.d/bluetooth start
+#make discoverable raspberry bluetooth#
+sudo hciconfig hci0 piscan
+#Setup bluetooth-agent to pass the expected pairing code#
+#install tools#
+sudo apt-get install bluez-tools
+#script#
+sudo rfcomm connect 0 B0:EC:71:72:FF:8D
+watch -n 0.5 hcitool  rssi B0:EC:71:72:FF:8D
 ```
 
 
@@ -825,7 +823,7 @@ su -l pi -c " ./SoundWireServer/SoundWireServer &"
 ```
 
 ### Read tag ID3 from python
-#for information http://eyed3.nicfit.net/installation.html#
+### for information http://eyed3.nicfit.net/installation.html
 ```python
 sudo pip install eyeD3
 #this is the code#
@@ -840,7 +838,7 @@ print audiofile.tag.track_num
 
     
 ### Read process list and CPU usage
-#for information https://github.com/giampaolo/psutil#
+### for information https://github.com/giampaolo/psutil
 ```
 sudo apt-get install python-psutil
 #for documentation https://pypi.python.org/pypi/psutil# 

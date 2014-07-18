@@ -19,7 +19,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	sudo apt-get update  
 
 ### Install REDIS 
-''' ruby
+```ruby
 # install latest redis-server 
 	sudo apt-get install redis-server
 	
@@ -27,7 +27,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	sudo nano /etc/redis/redis.conf
 #remark bind 127.0.0.1 putting a # infront of the line
 	bind 127.0.0.1
-'''
+```
 
 ### REDIS on Python
 	sudo apt-get install python-setuptools

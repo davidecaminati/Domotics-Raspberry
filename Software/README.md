@@ -21,7 +21,7 @@ git clone https://github.com/davidecaminati/Domotics-Raspberry
 sudo apt-get update  
 ```
 
-### Install REDIS 
+### Install Redis 
 ```python
 # install latest redis-server 
 sudo apt-get install redis-server
@@ -32,13 +32,13 @@ sudo nano /etc/redis/redis.conf
 bind 127.0.0.1
 ```
 
-### REDIS on Python
+### Redis on Python
 ```python
 sudo apt-get install python-setuptools
 sudo easy_install redis
 ```
 	
-### REDIS on PHP
+### Redis on PHP
 ```python
 #Preparation#
 sudo apt-get install php5-dev
@@ -267,7 +267,7 @@ sudo reboot
 ```
 >if problems look https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
             
-### enable midori on Desktop
+### Enable midori start on boot
 ```python
 #set autostart#
 sudo nano /etc/xdg/lxsession/LXDE/autostart
@@ -288,7 +288,6 @@ sudo rm /var/www/index.html
 sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
 #set the redis server#
 ```
-    
     
 ### Configure web server NEW version HTML5
 ```python
@@ -487,7 +486,6 @@ sudo apt-get install python-imaging
 sudo pip install v4l2
 ```
 
-            
 ### Configure speek recognition on raspberry
 ```python
 #http://www.aonsquared.co.uk/raspi_voice_control#
@@ -522,6 +520,7 @@ sudo pip install pyserial
 ### VISUAL STUDIO 2010
 #### Install redis client for c# 
 #### see the documentation https://github.com/ServiceStack/ServiceStack.Redis
+=============================================================================
 
 ### Enable Nokia 5110 Display (SPI interface)
 ```python
@@ -620,7 +619,6 @@ sudo update-rc.d StartCameraInterface.sh defaults
 sudo reboot
 ```
 	
-
 ### Bluetooth Proximity
 ```python
 #install bluetooth software#
@@ -694,23 +692,22 @@ sudo rfcomm connect 0 B0:EC:71:72:FF:8D
 watch -n 0.5 hcitool  rssi B0:EC:71:72:FF:8D
 ```
 
-
 ### Sound Control the volume adjuster
 ```python
-    #this software permit to control the main volume of a Windows 7 64bit using a raspberry and a microphone near the loudspeackers#
-        #for windows#
-            #launch the exe file located in SimpleWebServer#
-            #path Software\SimpleWebServer\SimpleWebServer\bin\Debug\SimpleWebServer.exe#
-            #copy this file in a folder of your Windows computer#
-            #download this program nircmd from this url http://www.nirsoft.net/utils/nircmd.html  (bottom of the page)#
-            #put nircmd.exe in the same folder of the SimpleWebServer.exe#
-            #run SimpleWebServer.exe#
-            
-        #for Raspberry#
-            #NOTE, i use a usb audio interface for mic input#
-            sudo apt-get install python-pyaudio
-            #execute the program#
-            python  /home/pi/Domotics-Raspberry/Software/VolumeControl/volumeControl.py
+#this software permit to control the main volume of a Windows 7 64bit using a raspberry and a microphone near the loudspeackers#
+#for windows#
+#launch the exe file located in SimpleWebServer#
+#path Software\SimpleWebServer\SimpleWebServer\bin\Debug\SimpleWebServer.exe#
+#copy this file in a folder of your Windows computer#
+#download this program nircmd from this url http://www.nirsoft.net/utils/nircmd.html  (bottom of the page)#
+#put nircmd.exe in the same folder of the SimpleWebServer.exe#
+#run SimpleWebServer.exe#
+
+#for Raspberry#
+#NOTE, i use a usb audio interface for mic input#
+sudo apt-get install python-pyaudio
+#execute the program#
+python  /home/pi/Domotics-Raspberry/Software/VolumeControl/volumeControl.py
 ```
             
 ### Audio multiroom with graphic control
@@ -778,7 +775,6 @@ sudo nano /etc/rc.local
 (sleep 5;su - pi -c "/usr/bin/python /home/pi/Domotics-Raspberry/Software/RadioStreaming/radioStreaming.py ")&
 ```
 
-        
 ### Streaming Audio server (SoundWire)
 ```python
 #install prerequisite#
@@ -836,7 +832,6 @@ print audiofile.tag.title
 print audiofile.tag.track_num
 ```
 
-    
 ### Read process list and CPU usage
 ### for information https://github.com/giampaolo/psutil
 ```

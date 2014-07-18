@@ -12,11 +12,11 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 
 
 ### Copy the repository
-    git clone https://github.com/davidecaminati/Domotics-Raspberry
+git clone https://github.com/davidecaminati/Domotics-Raspberry
 
 
 ### Update the system
-	sudo apt-get update  
+sudo apt-get update  
 
 ### Install REDIS 
 ```ruby
@@ -31,8 +31,8 @@ bind 127.0.0.1
 
 ### REDIS on Python
 ```ruby
-	sudo apt-get install python-setuptools
-	sudo easy_install redis
+sudo apt-get install python-setuptools
+sudo easy_install redis
 ```
 	
 ### REDIS on PHP
@@ -132,7 +132,6 @@ sudo pip install evdev
 sudo pip install python-uinput
 ```
     
-    
 ### Enable TFT display
 ```ruby
 #guide http://www.raspberrypi.org/phpBB3/viewtopic.php?f=64&t=48967#
@@ -212,7 +211,7 @@ Section "ServerFlags"
 EndSection
 ```
 
-### Api temperature for request temperature to redis server#
+### Api temperature for request temperature to redis server
 ```ruby
 sudo nano /etc/rc.local
 #add this line before exit 0#
@@ -220,7 +219,7 @@ sudo nano /etc/rc.local
 ```
 
 		
-### Enable midori on TFT#
+### Enable midori on TFT
 ```ruby
 sudo nano /boot/cmdline.txt
 #at the end of line add this#
@@ -235,80 +234,95 @@ sudo nano /etc/xdg/lxsession/LXDE/autostart
 # if necessary  comment out the @xscreensaver line with a #
 ```
     
-#Disable mouse cursor#
+#Disable mouse cursor
 ```ruby
 sudo nano /etc/X11/xinit/xserverrc
 #add -nocursor as parameter#
 exec /usr/bin/X -nocursor -nolisten tcp "$@"
 ```
 
-	#Auto startx: modify this file #
-		sudo nano /etc/rc.local
-		#after fi and before exit 0#
-		#add this line#
-			su -l pi -c "env FRAMEBUFFER=/dev/fb1 startx &"
-		#fix error calibration#
-			sudo nano /usr/share/X11/xorg.conf.d/10-evdev.conf
-		#find Input Class of touchscreen and before that EndSection insert a new line:
-			Option "InvertY" "true"
-		#remove the mouse pointer#
-		#	sudo apt-get install unclutter
-        #enable desktop manager on raspi-config#
-        #sudo raspi-config
-        #enable desktop manager
-		#reboot#
-			sudo reboot
-            
->if problems look https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
+#Auto startx: modify this file
+```ruby
+sudo nano /etc/rc.local
+#after fi and before exit 0#
+#add this line#
+su -l pi -c "env FRAMEBUFFER=/dev/fb1 startx &"
+#fix error calibration#
+sudo nano /usr/share/X11/xorg.conf.d/10-evdev.conf
+#find Input Class of touchscreen and before that EndSection insert a new line:
+Option "InvertY" "true"
 
+#remove the mouse pointer#
+sudo apt-get install unclutter
+
+#enable desktop manager on raspi-config
+sudo raspi-config
+#select enable desktop manager
+
+#reboot#
+sudo reboot
+```
+>if problems look https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
             
 ### enable midori on Desktop
-	#set autostart#
-		sudo nano /etc/xdg/lxsession/LXDE/autostart
-		#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
-			@midori -e Fullscreen -a http://127.0.0.1/mobile
+```ruby
+#set autostart#
+sudo nano /etc/xdg/lxsession/LXDE/autostart
+#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
+@midori -e Fullscreen -a http://127.0.0.1/mobile
+```
 
-	
 ### Toggle light on the TFT
-	sudo nano /sys/class/backlight/fb_ili9320/bl_power
-	#toggle 1 = (on) or 0 = (off)#
+```ruby
+sudo nano /sys/class/backlight/fb_ili9320/bl_power
+#toggle 1 = (on) or 0 = (off)#
+```
 
 ### Configure web server old version PHP
-	sudo apt-get install apache2 php5 libapache2-mod-php5
-	sudo rm /var/www/index.html
-	sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
-	#set the redis server#
+```ruby
+sudo apt-get install apache2 php5 libapache2-mod-php5
+sudo rm /var/www/index.html
+sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
+#set the redis server#
+```
     
     
 ### Configure web server NEW version HTML5
-	sudo apt-get install apache2 php5 libapache2-mod-php5
-	sudo rm /var/www/index.html
-	sudo cp -r /home/pi/Domotics-Raspberry/Web_site_NEW/* /var/www/
-	#set the redis server#
+```ruby
+sudo apt-get install apache2 php5 libapache2-mod-php5
+sudo rm /var/www/index.html
+sudo cp -r /home/pi/Domotics-Raspberry/Web_site_NEW/* /var/www/
+#set the redis server#
+```
 	
 ### Installation Servos driver
-    git clone https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git
-    #to start the example#
-    #Note default address is 40, use "i2cdetect -y 1" to detect your, don't warry about the address 70#
-    cd Adafruit-Raspberry-Pi-Python-Code/
-    cd Adafruit_PWM_Servo_Driver/
-    sudo python Servo_Example.py
-    
+```ruby
+git clone https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git
+#to start the example#
+#Note default address is 40, use "i2cdetect -y 1" to detect your, don't warry about the address 70#
+cd Adafruit-Raspberry-Pi-Python-Code/
+cd Adafruit_PWM_Servo_Driver/
+sudo python Servo_Example.py
+```
 > reference http://learn.adafruit.com/downloads/pdf/adafruit-16-channel-servo-driver-with-raspberry-pi.pdf
     
 ### Configure analog probe(my_room_2)
-	#add the script to crontab#
-	crontab -e
-	#add at the end of the file#
-	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
-		 
+```ruby
+#add the script to crontab#
+crontab -e
+#add at the end of the file#
+* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
+```
+
 ### Configure digital probe (my_room_1)
-	#add the script to crontab#
-	crontab -e
-	#add at the end of the file#
-	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/thermometer.py
-	#NOTE#
-	#be sure to have activate 1 wire module otherwise look #enable 1wire# #
+```ruby
+#add the script to crontab#
+crontab -e
+#add at the end of the file#
+* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/thermometer.py
+#NOTE#
+#be sure to have activate 1 wire module otherwise look #enable 1wire# 
+```
 
 > configuration for read external temp from python
 > link http://code.google.com/p/python-weather-api/

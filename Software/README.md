@@ -1,7 +1,7 @@
-# Domotics project
+## Domotics project
 
 
-## Setup the SD card
+### Setup the SD card
 Expand your partition, set password, set you timezone and keyboard, overclock to 800Mhz, i suggest to no start desktop mode (you need only the console mode) for fast boot then select finish for save and reboot.
 #copy the repository# X
 	git clone https://github.com/davidecaminati/Domotics-Raspberry

@@ -1,15 +1,19 @@
 ## Domotics project
 
 
-### Setup the SD card
+### OS Initial configuration
 * Expand your partition
 * Set password
 * Set you timezone and keyboard
 * Overclock to 800Mhz
+* Select finish for save and reboot
 
-i suggest to no start desktop mode (you need only the console mode) for fast boot then select finish for save and reboot.
-#copy the repository# X
-	git clone https://github.com/davidecaminati/Domotics-Raspberry
+I suggest to **not start desktop mode** (you need only the console mode) for fast boot. 
+
+
+### Copy this repository
+''' git clone https://github.com/davidecaminati/Domotics-Raspberry
+'''
 
 #start with an update# X
 	sudo apt-get update  

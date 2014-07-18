@@ -12,11 +12,14 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 
 
 ### Copy the repository
+```python
 git clone https://github.com/davidecaminati/Domotics-Raspberry
-
+```
 
 ### Update the system
+```python
 sudo apt-get update  
+```
 
 ### Install REDIS 
 ```python

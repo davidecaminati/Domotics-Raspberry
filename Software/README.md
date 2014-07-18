@@ -56,179 +56,192 @@ cd .. (go to home)
 ```
 
 ### Enable SPI module
-	#Enabling the SPI kernel module#
-	#As root, edit the kernel module blacklist file:#
-		sudo nano /etc/modprobe.d/raspi-blacklist.conf
+```ruby
+#Enabling the SPI kernel module#
+#As root, edit the kernel module blacklist file:#
+sudo nano /etc/modprobe.d/raspi-blacklist.conf
 
-	#Comment out the spi-bcm2708 line so it looks like this:#
-		#blacklist spi-bcm2708
+#Comment out the spi-bcm2708 line so it looks like this:#
+#blacklist spi-bcm2708
 
-	#Save the file so that the module will load on future reboots. To enable the module now, enter:#
-			sudo modprobe spi-bcm2708
+#Save the file so that the module will load on future reboots. To enable the module now, enter:#
+sudo modprobe spi-bcm2708
 
-	#Now, if you run the lsmod command, you should see something like:#
-		lsmod
-		Module                  Size  Used by
-		spi_bcm2708             4421  0
-	#change permission permanent#
-		sudo nano /etc/rc.local
-		#add this two line before exit 0#
-			sudo chmod 666 /dev/spidev0.0
-			sudo chmod 666 /dev/spidev0.1
-		
-        [reboot]
-        
+#Now, if you run the lsmod command, you should see something like:#
+lsmod
+Module                  Size  Used by
+spi_bcm2708             4421  0
+#change permission permanent#
+sudo nano /etc/rc.local
+#add this two line before exit 0#
+sudo chmod 666 /dev/spidev0.0
+sudo chmod 666 /dev/spidev0.1
+[reboot]
+```
+
 ### SPIDEV
-	sudo apt-get install python-pip  
-	sudo pip install spidev # error but continue  ???#
-	sudo pip install python-dev
-	sudo apt-get install python-imaging python-imaging-tk python-pip python-dev git
-	mkdir python-spi
-	cd python-spi
-	wget https://raw.github.com/doceme/py-spidev/master/setup.py
-	wget https://raw.github.com/doceme/py-spidev/master/spidev_module.c
-	sudo python setup.py install
-	cd ..
-	sudo pip install wiringpi
+```ruby
+sudo apt-get install python-pip  
+sudo pip install spidev # error but continue  ???#
+sudo pip install python-dev
+sudo apt-get install python-imaging python-imaging-tk python-pip python-dev git
+mkdir python-spi
+cd python-spi
+wget https://raw.github.com/doceme/py-spidev/master/setup.py
+wget https://raw.github.com/doceme/py-spidev/master/spidev_module.c
+sudo python setup.py install
+cd ..
+sudo pip install wiringpi
+```
 	
 ### Enable I2C module
-	sudo apt-get install python-smbus
-	sudo apt-get install i2c-tools (usefull but not essential)
-	sudo modprobe i2c-dev
-	sudo modprobe i2c-bcm2708
-	#change permission permanent#
-		sudo nano /etc/rc.local
-		#add this two line before exit 0#
-			sudo chmod 666 /dev/i2c-0
-			sudo chmod 666 /dev/i2c-1
-	sudo nano /etc/modules
-	#add this line#
-		i2c-dev
-	# /etc/modules: kernel modules to load at boot time.
-	#
-	# This file contains the names of kernel modules that should be loaded
-	# at boot time, one per line. Lines beginning with "#" are ignored.
-	# Parameters can be specified after the module name.
-
-	snd-bcm2835
-	i2c-dev
+```ruby
+sudo apt-get install python-smbus
+sudo apt-get install i2c-tools (usefull but not essential)
+sudo modprobe i2c-dev
+sudo modprobe i2c-bcm2708
+#change permission permanent#
+sudo nano /etc/rc.local
+#add this two line before exit 0#
+sudo chmod 666 /dev/i2c-0
+sudo chmod 666 /dev/i2c-1
+sudo nano /etc/modules
+#add this line#
+i2c-dev
+# /etc/modules: kernel modules to load at boot time.
+#
+# This file contains the names of kernel modules that should be loaded
+# at boot time, one per line. Lines beginning with "#" are ignored.
+# Parameters can be specified after the module name.
+snd-bcm2835
+i2c-dev
+```
 
 ### Enable 1wire module
-	sudo nano /etc/modules
-	#add this lines#
-	w1-gpio
-	w1-therm
+```ruby
+sudo nano /etc/modules
+#add this lines#
+w1-gpio
+w1-therm
+```
 	
 ### Send keys
-    #http://tjjr.fi/sw/python-uinput/#download-and-install#
-    sudo pip install evdev
-    sudo pip install python-uinput
+```ruby
+#http://tjjr.fi/sw/python-uinput/#download-and-install#
+sudo pip install evdev
+sudo pip install python-uinput
+```
     
     
 ### Enable TFT display
-	#guide http://www.raspberrypi.org/phpBB3/viewtopic.php?f=64&t=48967#
-	#model http://www.raspberrypi.org/phpBB3/viewtopic.php?f=59&t=48956#
-	
-	sudo wget https://raw.github.com/Hexxeh/rpi-update/master/rpi-update -O /usr/bin/rpi-update && sudo chmod +x /usr/bin/rpi-update
-	
-	#sudo mv /lib/modules/$(uname -r) /lib/modules/$(uname -r).bak
-    sudo cp -R /lib/modules/$(uname -r) /lib/modules/$(uname -r).bak
-    
-	sudo REPO_URI=https://github.com/notro/rpi-firmware rpi-update
-	sudo shutdown -r now
-	
-	sudo modprobe fbtft dma
-	sudo modprobe fbtft_device name=hy28a rotate=270 speed=48000000 fps=50
-	#Then to configure the touch panel#
-		sudo modprobe ads7846_device pressure_max=255 y_min=190 y_max=3850 gpio_pendown=17 x_max=3850 x_min=230 x_plate_ohms=100 swap_xy=1 verbose=3
+```ruby
+#guide http://www.raspberrypi.org/phpBB3/viewtopic.php?f=64&t=48967#
+#model http://www.raspberrypi.org/phpBB3/viewtopic.php?f=59&t=48956#
 
-		sudo nano /etc/modules
-		#and add#
-			fbtft dma
-			fbtft_device name=hy28a rotate=270 speed=48000000 fps=50
-			ads7846_device pressure_max=255 y_min=190 y_max=3850 gpio_pendown=17 x_max=3850 x_min=230 x_plate_ohms=100 swap_xy=1 verbose=3
-		#now reboot#
-			sudo reboot
-		
-	#In order to use the touch panel with python, X, and to calibrate it, a few packages need loading :#
+sudo wget https://raw.github.com/Hexxeh/rpi-update/master/rpi-update -O /usr/bin/rpi-update && sudo chmod +x /usr/bin/rpi-update
 
-		#sudo apt-get update	
-		sudo apt-get install libts-bin evtest xinput
-		sudo pip install evdev
+#sudo mv /lib/modules/$(uname -r) /lib/modules/$(uname -r).bak
+sudo cp -R /lib/modules/$(uname -r) /lib/modules/$(uname -r).bak
 
-	#To calibrate the touch panel#
-		sudo TSLIB_FBDEVICE=/dev/fb1 TSLIB_TSDEVICE=/dev/input/event0 ts_calibrate
-        
-        
-    ######UPDATE for image 2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.img ###
-    #if you need to rotate the screen on the TFT touch 2,8 "#
-        sudo nano /boot/cmdline.txt
-            #change fbtft_device.rotate=270 with fbtft_device.rotate=90 #
-        sudo nano  /etc/X11/xorg.conf.d/99-calibration.conf
-        #edit the file like this#
-            Section "InputClass"
-                    Identifier      "calibration"
-                    MatchProduct    "ADS7846 Touchscreen"
-                    Option  "SwapAxes"      "1"
-                    Option "InvertX" "True"
-            EndSection
-            
-            Section "InputClass"
-                    Identifier      "calibration"
-                    MatchProduct    "stmpe-ts"
-                    Option  "SwapAxes"      "1"
-                    Option "InvertX" "True"
-            EndSection
-            
-            #if you need to disable suspend add this#
-            Section "ServerFlags"
-                    Option         "blank time" "0"
-                    Option         "standby time" "0"
-                    Option         "suspend time" "0"
-                    Option         "off time" "0"
-            EndSection
-        #edit this file for touchscreen#
-        sudo nano /usr/share/X11/xorg.conf.d/10-evdev.conf
-        #addthis line on each input class (probably is necessary only for touchscreen)#
-                Option "InvertY" "True"
+sudo REPO_URI=https://github.com/notro/rpi-firmware rpi-update
+sudo shutdown -r now
 
-    
-    
-    #remove suspend#
-        sudo nano  /etc/X11/xorg.conf.d/99-calibration.conf
-        #add this part in the end of the file#
-        Section "ServerFlags"
-            Option         "blank time" "0"
-            Option         "standby time" "0"
-            Option         "suspend time" "0"
-            Option         "off time" "0"
-        EndSection
-        
+sudo modprobe fbtft dma
+sudo modprobe fbtft_device name=hy28a rotate=270 speed=48000000 fps=50
+#Then to configure the touch panel#
+sudo modprobe ads7846_device pressure_max=255 y_min=190 y_max=3850 gpio_pendown=17 x_max=3850 x_min=230 x_plate_ohms=100 swap_xy=1 verbose=3
+
+sudo nano /etc/modules
+#and add#
+fbtft dma
+fbtft_device name=hy28a rotate=270 speed=48000000 fps=50
+ads7846_device pressure_max=255 y_min=190 y_max=3850 gpio_pendown=17 x_max=3850 x_min=230 x_plate_ohms=100 swap_xy=1 verbose=3
+#now reboot#
+sudo reboot
+
+#In order to use the touch panel with python, X, and to calibrate it, a few packages need loading :#
+
+#sudo apt-get update	
+sudo apt-get install libts-bin evtest xinput
+sudo pip install evdev
+
+#To calibrate the touch panel#
+sudo TSLIB_FBDEVICE=/dev/fb1 TSLIB_TSDEVICE=/dev/input/event0 ts_calibrate
+
+
+######UPDATE for image 2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.img ###
+#if you need to rotate the screen on the TFT touch 2,8 "#
+sudo nano /boot/cmdline.txt
+#change fbtft_device.rotate=270 with fbtft_device.rotate=90 #
+sudo nano  /etc/X11/xorg.conf.d/99-calibration.conf
+#edit the file like this#
+Section "InputClass"
+    Identifier      "calibration"
+    MatchProduct    "ADS7846 Touchscreen"
+    Option  "SwapAxes"      "1"
+    Option "InvertX" "True"
+EndSection
+
+Section "InputClass"
+    Identifier      "calibration"
+    MatchProduct    "stmpe-ts"
+    Option  "SwapAxes"      "1"
+    Option "InvertX" "True"
+EndSection
+
+#if you need to disable suspend add this#
+Section "ServerFlags"
+    Option         "blank time" "0"
+    Option         "standby time" "0"
+    Option         "suspend time" "0"
+    Option         "off time" "0"
+EndSection
+#edit this file for touchscreen#
+sudo nano /usr/share/X11/xorg.conf.d/10-evdev.conf
+#addthis line on each input class (probably is necessary only for touchscreen)#
+Option "InvertY" "True"
+
+#remove suspend#
+sudo nano  /etc/X11/xorg.conf.d/99-calibration.conf
+#add this part in the end of the file#
+Section "ServerFlags"
+    Option         "blank time" "0"
+    Option         "standby time" "0"
+    Option         "suspend time" "0"
+    Option         "off time" "0"
+EndSection
+```
+
 ### Api temperature for request temperature to redis server#
-     sudo nano /etc/rc.local
-     #add this line before exit 0#
-     /usr/bin/python /home/pi/Domotics-Raspberry/Software/Weather/api_temperature.py &
-
+```ruby
+sudo nano /etc/rc.local
+#add this line before exit 0#
+/usr/bin/python /home/pi/Domotics-Raspberry/Software/Weather/api_temperature.py &
+```
 
 		
 ### Enable midori on TFT#
-	sudo nano /boot/cmdline.txt
-	#at the end of line add this#
-		fbcon=map:10 fbcon=font:VGA8x8
-	#set autostart#
-		sudo nano /etc/xdg/lxsession/LXDE/autostart
-		#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
-			@xset s off
-			@xset -dpms
-			@xset s noblank
-			@midori -e Fullscreen -a http://127.0.0.1
-        # if necessary  comment out the @xscreensaver line with a #
+```ruby
+sudo nano /boot/cmdline.txt
+#at the end of line add this#
+fbcon=map:10 fbcon=font:VGA8x8
+#set autostart#
+sudo nano /etc/xdg/lxsession/LXDE/autostart
+#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
+@xset s off
+@xset -dpms
+@xset s noblank
+@midori -e Fullscreen -a http://127.0.0.1
+# if necessary  comment out the @xscreensaver line with a #
+```
     
-    #Disable mouse cursor#
-        sudo nano /etc/X11/xinit/xserverrc
-        #add -nocursor as parameter#
-        exec /usr/bin/X -nocursor -nolisten tcp "$@"
-        
+#Disable mouse cursor#
+```ruby
+sudo nano /etc/X11/xinit/xserverrc
+#add -nocursor as parameter#
+exec /usr/bin/X -nocursor -nolisten tcp "$@"
+```
+
 	#Auto startx: modify this file #
 		sudo nano /etc/rc.local
 		#after fi and before exit 0#

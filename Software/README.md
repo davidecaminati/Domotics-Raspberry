@@ -12,25 +12,28 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 
 
 ### Copy this repository
-''' git clone https://github.com/davidecaminati/Domotics-Raspberry
-'''
+    git clone https://github.com/davidecaminati/Domotics-Raspberry
 
-#start with an update# X
+
+### Update
 	sudo apt-get update  
 
-#install REDIS (redis is a database)# X
+### install REDIS 
+#### (redis is a database)
 	sudo apt-get install redis-server
-	#configure binding#
-		sudo nano /etc/redis/redis.conf
-		#remark bind 127.0.0.1 putting a # infront of the line#
-		#bind 127.0.0.1
+	
+####configure binding#
+	
+	sudo nano /etc/redis/redis.conf
+		remark bind 127.0.0.1 putting a # infront of the line#
+		bind 127.0.0.1
         
-#to use REDIS on Python# X
+### REDIS on Python
 	sudo apt-get install python-setuptools
 	sudo easy_install redis
 	
 	
-#to use REDIS on PHP#
+### REDIS on PHP
 	#Preparation#
 		sudo apt-get install php5-dev
 	#note (php5-dev provides the dev library as well as the phpize command which is required for the compiling step)#
@@ -48,7 +51,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 			exit
 			cd .. (go to home)
 		
-#SPI# X
+### Enable SPI module
 	#Enabling the SPI kernel module#
 	#As root, edit the kernel module blacklist file:#
 		sudo nano /etc/modprobe.d/raspi-blacklist.conf
@@ -71,7 +74,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 		
         [reboot]
         
-#SPIDEV# X
+### SPIDEV
 	sudo apt-get install python-pip  
 	sudo pip install spidev # error but continue  ???#
 	sudo pip install python-dev
@@ -84,7 +87,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	cd ..
 	sudo pip install wiringpi
 	
-#MODULE I2C# X
+### Enable I2C module
 	sudo apt-get install python-smbus
 	sudo apt-get install i2c-tools (usefull but not essential)
 	sudo modprobe i2c-dev
@@ -106,19 +109,19 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	snd-bcm2835
 	i2c-dev
 
-#enable 1wire# X
+### Enable 1wire module
 	sudo nano /etc/modules
 	#add this lines#
 	w1-gpio
 	w1-therm
 	
-#module for send keys#
+### Send keys
     #http://tjjr.fi/sw/python-uinput/#download-and-install#
     sudo pip install evdev
     sudo pip install python-uinput
     
     
-#enable TFT display# 
+### Enable TFT display
 	#guide http://www.raspberrypi.org/phpBB3/viewtopic.php?f=64&t=48967#
 	#model http://www.raspberrypi.org/phpBB3/viewtopic.php?f=59&t=48956#
 	
@@ -197,14 +200,14 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
             Option         "off time" "0"
         EndSection
         
-#api temperature for request temperature to redis server#
+### Api temperature for request temperature to redis server#
      sudo nano /etc/rc.local
      #add this line before exit 0#
      /usr/bin/python /home/pi/Domotics-Raspberry/Software/Weather/api_temperature.py &
 
 
 		
-#enable midori on TFT#
+### Enable midori on TFT#
 	sudo nano /boot/cmdline.txt
 	#at the end of line add this#
 		fbcon=map:10 fbcon=font:VGA8x8
@@ -238,34 +241,34 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
         #enable desktop manager
 		#reboot#
 			sudo reboot
-# if problems look https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
+ if problems look https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
 
             
-#enable midori on Desktop#
+### enable midori on Desktop
 	#set autostart#
 		sudo nano /etc/xdg/lxsession/LXDE/autostart
 		#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
 			@midori -e Fullscreen -a http://127.0.0.1/mobile
 
 	
-#toggle light on the TFT#
+### Toggle light on the TFT
 	sudo nano /sys/class/backlight/fb_ili9320/bl_power
 	#toggle 1 = (on) or 0 = (off)#
 
-#configure web server old version PHP# X
+### Configure web server old version PHP
 	sudo apt-get install apache2 php5 libapache2-mod-php5
 	sudo rm /var/www/index.html
 	sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
 	#set the redis server#
     
     
-#configure web server NEW version HTML5# X
+### Configure web server NEW version HTML5
 	sudo apt-get install apache2 php5 libapache2-mod-php5
 	sudo rm /var/www/index.html
 	sudo cp -r /home/pi/Domotics-Raspberry/Web_site_NEW/* /var/www/
 	#set the redis server#
 	
-#installation Servos driver#
+### Installation Servos driver
 #reference http://learn.adafruit.com/downloads/pdf/adafruit-16-channel-servo-driver-with-raspberry-pi.pdf#
     git clone https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git
     #to start the example#
@@ -274,13 +277,13 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
     cd Adafruit_PWM_Servo_Driver/
     sudo python Servo_Example.py
     
-#configure analog probe(my_room_2)#
+### Configure analog probe(my_room_2)
 	#add the script to crontab#
 	crontab -e
 	#add at the end of the file#
 	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
 		 
-#configure digital probe (my_room_1)#
+### Configure digital probe (my_room_1)
 	#add the script to crontab#
 	crontab -e
 	#add at the end of the file#
@@ -288,7 +291,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	#NOTE#
 	#be sure to have activate 1 wire module otherwise look #enable 1wire# #
 
-#configuration for read external temp from python# X
+#configuration for read external temp from python
 #link http://code.google.com/p/python-weather-api/#
 #suggest to add this script in Display raspberry#
     sudo apt-get install subversion
@@ -300,18 +303,18 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	#add at the end of the file#
 	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Software/Weather/weather.py
 
-#Update a device#
+### Update a device
 	#in Update directory, you will find usefull script to automate this (website, ....)#
 	cd /home/pi/Domotics-Raspberry/Update
 	
-#error in editing file from windows#
+###Error in editing file from windows
 	#if you need to create a  new bash script from windows , pay attention to new line characters , in Win are different than unix#
 	#so if you want to sure your file are compatible , you coud install an utility to convert file in unix style#
 		sudo apt-get install dos2unix
 		#how to use this utility#
 		dos2unix <file to convert>
 		
-#configure wireless#
+### Configure wireless
 # for help http://www.linux.com/learn/tutorials/374514-control-wireless-on-the-linux-desktop-with-these-tools #
 	sudo nano /etc/network/interfaces
 	#put this line for enable wireless#
@@ -323,15 +326,15 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
         wireless-essid XXXXXXX  <--- your SSID
         wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 
-#shutdown button#
-#use pins 25,GND#
+### Shutdown button
+use pins 25,GND#
     sudo cp /home/pi/Domotics-Raspberry/Software/utility/turnoff.py /usr/local/bin/
     sudo chmod +x /usr/local/bin/turnoff.py
     sudo nano /etc/rc.local
     #add this line before exit 0#
 			/usr/bin/python /usr/local/bin/turnoff.py &
             
-#restart button#
+### Restart button
 #use pins 24,GND#
     sudo cp /home/pi/Domotics-Raspberry/Software/utility/restart.py /usr/local/bin/
     sudo chmod +x /usr/local/bin/restart.py
@@ -339,7 +342,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
     #add this line before exit 0#
 			/usr/bin/python /usr/local/bin/restart.py &
 	
-#install RUBY#
+### Install RUBY
 	curl -L https://get.rvm.io | bash -s stable
 	source /home/pi/.rvm/scripts/rvm
     rvm install ruby-2
@@ -354,20 +357,20 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	#read test from client#
 		curl 192.168.0.202:9292/temperature/cucina
 
-#install webapi for python# X
+### Install webapi for python
 	#http://blog.luisrei.com/articles/flaskrest.html#
 	sudo apt-get install python-pip
 	sudo pip install flask
 	
-#enable thermo control#
+### Enable thermo control
 	/usr/bin/python /home/pi/Domotics-Raspberry/Software/thermo/thermo.py
 	#check il you want push notification in the source code#
 	
-#enable COLOR LED control#
+### Enable COLOR LED control
     sudo nano /etc/rc.local
 	/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Color_LED/color_led.py
 
-#enabled fade color led#
+### Enabled fade color led
     #https://github.com/metachris/RPIO/blob/master/examples/example4_pwm_lowlevel.py#
     #http://pythonhosted.org/RPIO/pwm_py.html##
     #http://www.rpiblog.com/2012/11/pwm-on-raspberry-pi.html#
@@ -378,13 +381,13 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
     # from https://github.com/metachris/RPIO#
     sudo easy_install -U RPIO
 
-#enable server for push notification#
+### Enable server for push notification
 	#set autostart#
 		sudo nano /etc/rc.local
 		#add this line before exit 0#
 			/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
 	
-#enable server and wall switch monitor for rele board control# X
+### Enable server and wall switch monitor for rele board control
 	sudo pip install pyserial
 	--- required this setup--> #Configure XBEE#
 	#set autostart#
@@ -396,13 +399,13 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 		# for schema look at #
             http://fritzing.org/projects/rele-board-control-with-beedback-state-and-by-pass
 			
-#configure ping test for probe#
+### Configure ping test for probe
 	#set autostart#
 		sudo nano /etc/xdg/lxsession/LXDE/autostart
 		#add this line at the end of the file#
 			@/usr/bin/python /home/pi/Domotics-Raspberry/Software/Check_probe/check_probe.py
 			
-#configure door/windows monitor#
+### Configure door/windows monitor
 	#change permission permanent#
 		sudo nano /etc/rc.local
 		#add this two line before exit 0#
@@ -413,16 +416,16 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 		#add at the end of the file#
 			* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Windows\ Switch\ MCP23017/windows_doors_probe.py
 
-#Configure Webcam#
+### Configure Webcam
     sudo apt-get install python-imaging
     sudo pip install v4l2
             
             
-#configure speek recognition on raspberry#
+### Configure speek recognition on raspberry
     #http://www.aonsquared.co.uk/raspi_voice_control#
     
 
-#Configure XBEE#
+### Configure XBEE
 #http://cae2100.wordpress.com/2012/12/23/raspberry-pi-and-the-serial-port/#
     sudo nano /etc/inittab
         #remark this line putting a # in front of the line#
@@ -446,12 +449,12 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
     #http://blog.james147.net/xbee-configuration/#
     #http://tutorial.cytron.com.my/2012/03/08/xbee-series-2-point-to-point-communication/#
         
-#VISUAL STUDIO 2010#
+### VISUAL STUDIO 2010
 #Install redis client for c# #
 #see the documentation https://github.com/ServiceStack/ServiceStack.Redis#
 
 
-#Enable Nokia 5110 Display (SPI interface)#
+### Enable Nokia 5110 Display (SPI interface)
 	git clone git://git.drogon.net/wiringPi
 	cd wiringPi
 	./build
@@ -469,7 +472,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	sudo python dimmer.py 
 
 
-#Enable PiCamera#
+### Enable PiCamera
 	sudo apt-get update
 	sudo pip install picamera
 	sudo apt-get install python-picamera
@@ -545,7 +548,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	sudo reboot
 	
 
-#Bluetooth Proximity
+### Bluetooth Proximity
     #install bluetooth software#
     #http://rasspberrypi.wordpress.com/2012/09/03/install-bluetooth-dongle-on-raspberry-pi/#
     sudo apt-get update
@@ -620,7 +623,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
     watch -n 0.5 hcitool  rssi B0:EC:71:72:FF:8D
 
 
-#Sound Control the volume adjuster#
+### Sound Control the volume adjuster
     #this software permit to control the main volume of a Windows 7 64bit using a raspberry and a microphone near the loudspeackers#
         #for windows#
             #launch the exe file located in SimpleWebServer#
@@ -636,7 +639,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
             #execute the program#
             python  /home/pi/Domotics-Raspberry/Software/VolumeControl/volumeControl.py
             
-#Audio multiroom with graphic control#
+### Audio multiroom with graphic control
 	#download the image 2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.img # 
 	#url for download http://tronnes.org/downloads/2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.zip#
 	#unzip and copy the image file into SDCARD using Win32DiskImager.exe#
@@ -692,13 +695,13 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
     #install SoundWire on your Android Phone from the market#
 		#connect the SoundWire client to your server putting the address in the text box (ex. 192.168.0.208)
     
-#API for redis server interface and Streaming server interface#
+### API for redis server interface and Streaming server interface
     sudo nano /etc/rc.local
 		#write at the end of the file #		
 		(sleep 5;su - pi -c "/usr/bin/python /home/pi/Domotics-Raspberry/Software/RadioStreaming/radioStreaming.py ")&
 
         
-#Streaming Audio server (SoundWire)#
+### Streaming Audio server (SoundWire)
     #install prerequisite#
     sudo apt-get install pavucontrol
     sudo apt-get install pulseaudio
@@ -738,7 +741,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
     #NOTE#
     #you need to copy some mp3 in /home/pi/mp3/ folder with name 1.mp3, 2.mp3 .....
 
-#read tag ID3 from python#
+### Read tag ID3 from python
 #for information http://eyed3.nicfit.net/installation.html#
     sudo pip install eyeD3
     #this is the code#
@@ -751,7 +754,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
     print audiofile.tag.track_num
 
     
-#read process list and CPU usage#
+### Read process list and CPU usage
 #for information https://github.com/giampaolo/psutil#
     sudo apt-get install python-psutil
     #for documentation https://pypi.python.org/pypi/psutil# 
@@ -771,10 +774,10 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
         "cpu_times", "cpu_percent", "per_cpu_percent",
         "network_io_counters", "disk_io_counters",
 
-#integrazione wolframalpha#
+### Wolframalpha integration#
     #http://www.wolframalpha.com/input/?i=tomorrow+temperature+cesena+italy
     
-#Configuration for webapi on Windows 7 64 bit computer (probably works on all windows systems#
+### Configuration for webapi on Windows 7 64 bit computer (probably works on all windows systems
     #install python 2.7 from this url https://www.python.org/ftp/python/2.7.6/python-2.7.6.msi#
         #open prompt MSDOS#
         #copy the file [your download path]/Domotics-Raspberry/Software/Windows7/distribute_setup.py in c:/distribute_setup.py
@@ -786,7 +789,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
         #copy [your download path]/Domotics-Raspberry/Software/Windows7/avvioWebApi.bat in C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup/avvioWebApi.bat#
         #copy [your download path]/Domotics-Raspberry/Software/Windows7/webservice.bat in c:/webservice.bat#
         
-#Minix X5 mini for speek engine#
+### Minix X5 mini for speek engine
     #install on the minix this software#
     SSHDroid (ssh server)
     SL4A Script Launcher 
@@ -821,7 +824,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
     SL4A
     QPython - Python for Android
     
-#nota per avvio automatico#
+### Nota per avvio automatico
     root@raspberrypi:~/shairport# make install
     root@raspberrypi:~/shairport# cp shairport.init.sample /etc/init.d/shairport
     root@raspberrypi:~/shairport# cd /etc/init.d
@@ -829,7 +832,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
     root@raspberrypi:/etc/init.d# update-rc.d shairport defaults
 
     
-#DATE ISSUE#
+### DATE ISSUE
     #chenge the file#
     sudo nano /etc/resolv.conf
     #add this line#

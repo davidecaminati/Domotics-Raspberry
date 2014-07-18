@@ -21,37 +21,40 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 ### Install REDIS 
 ```ruby
 # install latest redis-server 
-	sudo apt-get install redis-server
+sudo apt-get install redis-server
 	
 #Configure binding	
-	sudo nano /etc/redis/redis.conf
-#remark bind 127.0.0.1 putting a # infront of the line
-	bind 127.0.0.1
+sudo nano /etc/redis/redis.conf
+# remark bind 127.0.0.1 putting a # infront of the line
+bind 127.0.0.1
 ```
 
 ### REDIS on Python
+```ruby
 	sudo apt-get install python-setuptools
 	sudo easy_install redis
-	
+```
 	
 ### REDIS on PHP
-	#Preparation#
-		sudo apt-get install php5-dev
-	#note (php5-dev provides the dev library as well as the phpize command which is required for the compiling step)#
-	#Get phpredis source code, should be pretty easy by running#
-		git clone git://github.com/nicolasff/phpredis.git
-	#Compile and install#
-			cd phpredis
-			phpize
-			./configure
-			make
-			sudo -s make install
-	#Enable the phpredis extension#
-			sudo -s
-			echo "extension=redis.so">/etc/php5/conf.d/redis.ini
-			exit
-			cd .. (go to home)
-		
+```ruby
+#Preparation#
+sudo apt-get install php5-dev
+#note (php5-dev provides the dev library as well as the phpize command which is required for the compiling step)#
+#Get phpredis source code, should be pretty easy by running#
+git clone git://github.com/nicolasff/phpredis.git
+#Compile and install#
+cd phpredis
+phpize
+./configure
+make
+sudo -s make install
+#Enable the phpredis extension#
+sudo -s
+echo "extension=redis.so">/etc/php5/conf.d/redis.ini
+exit
+cd .. (go to home)
+```
+
 ### Enable SPI module
 	#Enabling the SPI kernel module#
 	#As root, edit the kernel module blacklist file:#

@@ -240,7 +240,8 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
         #enable desktop manager
 		#reboot#
 			sudo reboot
- if problems look https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
+            
+>if problems look https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
 
             
 ### enable midori on Desktop
@@ -268,13 +269,14 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	#set the redis server#
 	
 ### Installation Servos driver
-#reference http://learn.adafruit.com/downloads/pdf/adafruit-16-channel-servo-driver-with-raspberry-pi.pdf#
     git clone https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git
     #to start the example#
     #Note default address is 40, use "i2cdetect -y 1" to detect your, don't warry about the address 70#
     cd Adafruit-Raspberry-Pi-Python-Code/
     cd Adafruit_PWM_Servo_Driver/
     sudo python Servo_Example.py
+    
+> reference http://learn.adafruit.com/downloads/pdf/adafruit-16-channel-servo-driver-with-raspberry-pi.pdf
     
 ### Configure analog probe(my_room_2)
 	#add the script to crontab#
@@ -290,9 +292,10 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	#NOTE#
 	#be sure to have activate 1 wire module otherwise look #enable 1wire# #
 
-#configuration for read external temp from python
-#link http://code.google.com/p/python-weather-api/#
-#suggest to add this script in Display raspberry#
+> configuration for read external temp from python
+> link http://code.google.com/p/python-weather-api/
+> suggest to add this script in Display raspberry
+
     sudo apt-get install subversion
 	svn checkout http://python-weather-api.googlecode.com/svn/trunk/ python-weather-api-read-only
 	cd python-weather-api-read-only/
@@ -303,18 +306,18 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Software/Weather/weather.py
 
 ### Update a device
-	#in Update directory, you will find usefull script to automate this (website, ....)#
+> in Update directory, you will find usefull script to automate this (website, ....)
 	cd /home/pi/Domotics-Raspberry/Update
 	
 ###Error in editing file from windows
-	#if you need to create a  new bash script from windows , pay attention to new line characters , in Win are different than unix#
-	#so if you want to sure your file are compatible , you coud install an utility to convert file in unix style#
+	>if you need to create a  new bash script from windows , pay attention to new line characters , in Win are different than unix
+	>so if you want to sure your file are compatible , you coud install an utility to convert file in unix style
 		sudo apt-get install dos2unix
 		#how to use this utility#
 		dos2unix <file to convert>
 		
 ### Configure wireless
-# for help http://www.linux.com/learn/tutorials/374514-control-wireless-on-the-linux-desktop-with-these-tools #
+> for help http://www.linux.com/learn/tutorials/374514-control-wireless-on-the-linux-desktop-with-these-tools 
 	sudo nano /etc/network/interfaces
 	#put this line for enable wireless#
 	auto wlan0
@@ -326,7 +329,7 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
         wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 
 ### Shutdown button
-use pins 25,GND#
+> use pins 25,GND
     sudo cp /home/pi/Domotics-Raspberry/Software/utility/turnoff.py /usr/local/bin/
     sudo chmod +x /usr/local/bin/turnoff.py
     sudo nano /etc/rc.local
@@ -334,7 +337,7 @@ use pins 25,GND#
 			/usr/bin/python /usr/local/bin/turnoff.py &
             
 ### Restart button
-#use pins 24,GND#
+> use pins 24,GND
     sudo cp /home/pi/Domotics-Raspberry/Software/utility/restart.py /usr/local/bin/
     sudo chmod +x /usr/local/bin/restart.py
     sudo nano /etc/rc.local
@@ -351,9 +354,9 @@ use pins 25,GND#
 	gem 'wiringpi'
 	bundle
 	rackup
-	#write test from client#
+	>write test from client
 		 curl --data temp=2 192.168.0.202:9393/temperature/cucina
-	#read test from client#
+	>read test from client
 		curl 192.168.0.202:9292/temperature/cucina
 
 ### Install webapi for python
@@ -389,17 +392,17 @@ use pins 25,GND#
 ### Enable server and wall switch monitor for rele board control
 	sudo pip install pyserial
 	--- required this setup--> #Configure XBEE#
-	#set autostart#
+	>set autostart
 		sudo nano /etc/rc.local
-		#add this line before exit 0#
+		>add this line before exit 0
 			/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Socket_to_MCP27013_con_i2c/rele_board_control.py &
 			###OLD###/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Socket_to_MCP27013_con_i2c/read_pulse.py &
             ###/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Wall\ switch/wall_Switch.py &
-		# for schema look at #
+		> for schema look at 
             http://fritzing.org/projects/rele-board-control-with-beedback-state-and-by-pass
 			
 ### Configure ping test for probe
-	#set autostart#
+	>set autostart
 		sudo nano /etc/xdg/lxsession/LXDE/autostart
 		#add this line at the end of the file#
 			@/usr/bin/python /home/pi/Domotics-Raspberry/Software/Check_probe/check_probe.py

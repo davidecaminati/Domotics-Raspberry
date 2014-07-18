@@ -23,9 +23,9 @@ I suggest to **not start desktop mode** (you need only the console mode) for fas
 	
 >### Configure binding
 	
->	sudo nano /etc/redis/redis.conf
->		remark bind 127.0.0.1 putting a # infront of the line#
->		bind 127.0.0.1
+	sudo nano /etc/redis/redis.conf
+		remark bind 127.0.0.1 putting a # infront of the line#
+		bind 127.0.0.1
         
 ### REDIS on Python
 	sudo apt-get install python-setuptools

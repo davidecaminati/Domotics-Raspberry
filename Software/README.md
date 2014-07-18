@@ -212,7 +212,7 @@ EndSection
 ```
 
 ### Api temperature for request temperature to redis server
-```ruby
+```python
 sudo nano /etc/rc.local
 #add this line before exit 0#
 /usr/bin/python /home/pi/Domotics-Raspberry/Software/Weather/api_temperature.py &
@@ -220,7 +220,7 @@ sudo nano /etc/rc.local
 
 		
 ### Enable midori on TFT
-```ruby
+```python
 sudo nano /boot/cmdline.txt
 #at the end of line add this#
 fbcon=map:10 fbcon=font:VGA8x8
@@ -235,14 +235,14 @@ sudo nano /etc/xdg/lxsession/LXDE/autostart
 ```
     
 #Disable mouse cursor
-```ruby
+```python
 sudo nano /etc/X11/xinit/xserverrc
 #add -nocursor as parameter#
 exec /usr/bin/X -nocursor -nolisten tcp "$@"
 ```
 
 #Auto startx: modify this file
-```ruby
+```python
 sudo nano /etc/rc.local
 #after fi and before exit 0#
 #add this line#
@@ -265,7 +265,7 @@ sudo reboot
 >if problems look https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
             
 ### enable midori on Desktop
-```ruby
+```python
 #set autostart#
 sudo nano /etc/xdg/lxsession/LXDE/autostart
 #write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
@@ -273,13 +273,13 @@ sudo nano /etc/xdg/lxsession/LXDE/autostart
 ```
 
 ### Toggle light on the TFT
-```ruby
+```python
 sudo nano /sys/class/backlight/fb_ili9320/bl_power
 #toggle 1 = (on) or 0 = (off)#
 ```
 
 ### Configure web server old version PHP
-```ruby
+```python
 sudo apt-get install apache2 php5 libapache2-mod-php5
 sudo rm /var/www/index.html
 sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
@@ -288,7 +288,7 @@ sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
     
     
 ### Configure web server NEW version HTML5
-```ruby
+```python
 sudo apt-get install apache2 php5 libapache2-mod-php5
 sudo rm /var/www/index.html
 sudo cp -r /home/pi/Domotics-Raspberry/Web_site_NEW/* /var/www/
@@ -296,7 +296,7 @@ sudo cp -r /home/pi/Domotics-Raspberry/Web_site_NEW/* /var/www/
 ```
 	
 ### Installation Servos driver
-```ruby
+```python
 git clone https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git
 #to start the example#
 #Note default address is 40, use "i2cdetect -y 1" to detect your, don't warry about the address 70#
@@ -307,7 +307,7 @@ sudo python Servo_Example.py
 > reference http://learn.adafruit.com/downloads/pdf/adafruit-16-channel-servo-driver-with-raspberry-pi.pdf
     
 ### Configure analog probe(my_room_2)
-```ruby
+```python
 #add the script to crontab#
 crontab -e
 #add at the end of the file#
@@ -315,7 +315,7 @@ crontab -e
 ```
 
 ### Configure digital probe (my_room_1)
-```ruby
+```python
 #add the script to crontab#
 crontab -e
 #add at the end of the file#
@@ -326,100 +326,122 @@ crontab -e
 
 > configuration for read external temp from python
 > link http://code.google.com/p/python-weather-api/
-> suggest to add this script in Display raspberry
+> suggest to add this script in Display TFT Raspberry
 
-    sudo apt-get install subversion
-	svn checkout http://python-weather-api.googlecode.com/svn/trunk/ python-weather-api-read-only
-	cd python-weather-api-read-only/
-	python setup.py build
-	sudo python setup.py install
-	crontab -e
-	#add at the end of the file#
-	* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Software/Weather/weather.py
+```python
+sudo apt-get install subversion
+svn checkout http://python-weather-api.googlecode.com/svn/trunk/ python-weather-api-read-only
+cd python-weather-api-read-only/
+python setup.py build
+sudo python setup.py install
+crontab -e
+#add at the end of the file#
+* * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Software/Weather/weather.py
+```
 
 ### Update a device
+```python
 > in Update directory, you will find usefull script to automate this (website, ....)
-	cd /home/pi/Domotics-Raspberry/Update
-	
+cd /home/pi/Domotics-Raspberry/Update
+
 ###Error in editing file from windows
-	>if you need to create a  new bash script from windows , pay attention to new line characters , in Win are different than unix
-	>so if you want to sure your file are compatible , you coud install an utility to convert file in unix style
-		sudo apt-get install dos2unix
-		#how to use this utility#
-		dos2unix <file to convert>
-		
+>if you need to create a  new bash script from windows , pay attention to new line characters , in Win are different than unix
+>so if you want to sure your file are compatible , you coud install an utility to convert file in unix style
+sudo apt-get install dos2unix
+#how to use this utility#
+dos2unix <file to convert>
+```
+
 ### Configure wireless
+```python
 > for help http://www.linux.com/learn/tutorials/374514-control-wireless-on-the-linux-desktop-with-these-tools 
-	sudo nano /etc/network/interfaces
-	#put this line for enable wireless#
-	auto wlan0
-	iface wlan0 inet static
-        address 192.168.0.XXX   <--- your ippyth    
-        netmask 255.255.255.0   
-        gateway 192.168.0.XXX     <--- your gateway
-        wireless-essid XXXXXXX  <--- your SSID
-        wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+sudo nano /etc/network/interfaces
+#put this line for enable wireless#
+auto wlan0
+iface wlan0 inet static
+address 192.168.0.XXX   #<--- your ippyth    
+netmask 255.255.255.0   
+gateway 192.168.0.XXX     #<--- your gateway
+wireless-essid XXXXXXX  #<--- your SSID
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+```
 
 ### Shutdown button
-> use pins 25,GND
-    sudo cp /home/pi/Domotics-Raspberry/Software/utility/turnoff.py /usr/local/bin/
-    sudo chmod +x /usr/local/bin/turnoff.py
-    sudo nano /etc/rc.local
-    #add this line before exit 0#
-			/usr/bin/python /usr/local/bin/turnoff.py &
+```python
+#use pins 25,GND
+sudo cp /home/pi/Domotics-Raspberry/Software/utility/turnoff.py /usr/local/bin/
+sudo chmod +x /usr/local/bin/turnoff.py
+sudo nano /etc/rc.local
+#add this line before exit 0#
+		/usr/bin/python /usr/local/bin/turnoff.py &
+```
             
 ### Restart button
-> use pins 24,GND
-    sudo cp /home/pi/Domotics-Raspberry/Software/utility/restart.py /usr/local/bin/
-    sudo chmod +x /usr/local/bin/restart.py
-    sudo nano /etc/rc.local
-    #add this line before exit 0#
-			/usr/bin/python /usr/local/bin/restart.py &
+```python
+use pins 24,GND
+sudo cp /home/pi/Domotics-Raspberry/Software/utility/restart.py /usr/local/bin/
+sudo chmod +x /usr/local/bin/restart.py
+sudo nano /etc/rc.local
+#add this line before exit 0#
+/usr/bin/python /usr/local/bin/restart.py &
+```
 	
 ### Install RUBY
-	curl -L https://get.rvm.io | bash -s stable
-	source /home/pi/.rvm/scripts/rvm
-    rvm install ruby-2
-	sudo chmod 777 /dev/i2c-0
-	sudo chmod 777 /dev/i2c-1
-	cd /home/pi/Domotics-Raspberry/domo.rb/
-	gem 'wiringpi'
-	bundle
-	rackup
-	>write test from client
-		 curl --data temp=2 192.168.0.202:9393/temperature/cucina
-	>read test from client
-		curl 192.168.0.202:9292/temperature/cucina
+```python
+curl -L https://get.rvm.io | bash -s stable
+source /home/pi/.rvm/scripts/rvm
+rvm install ruby-2
+sudo chmod 777 /dev/i2c-0
+sudo chmod 777 /dev/i2c-1
+cd /home/pi/Domotics-Raspberry/domo.rb/
+gem 'wiringpi'
+bundle
+rackup
+#write test from client
+ curl --data temp=2 192.168.0.202:9393/temperature/cucina
+#read test from client
+curl 192.168.0.202:9292/temperature/cucina
+```
 
 ### Install webapi for python
-	#http://blog.luisrei.com/articles/flaskrest.html#
-	sudo apt-get install python-pip
-	sudo pip install flask
+```python
+#http://blog.luisrei.com/articles/flaskrest.html#
+sudo apt-get install python-pip
+sudo pip install flask
+```
 	
 ### Enable thermo control
-	/usr/bin/python /home/pi/Domotics-Raspberry/Software/thermo/thermo.py
-	#check il you want push notification in the source code#
+```python
+/usr/bin/python /home/pi/Domotics-Raspberry/Software/thermo/thermo.py
+#check il you want push notification in the source code#
+```
 	
 ### Enable COLOR LED control
-    sudo nano /etc/rc.local
-	/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Color_LED/color_led.py
+```python
+sudo nano /etc/rc.local
+/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Color_LED/color_led.py
+```
 
 ### Enabled fade color led
-    #https://github.com/metachris/RPIO/blob/master/examples/example4_pwm_lowlevel.py#
-    #http://pythonhosted.org/RPIO/pwm_py.html##
-    #http://www.rpiblog.com/2012/11/pwm-on-raspberry-pi.html#
-    sudo apt-get install git-core
-    git clone git://git.drogon.net/wiringPi
-    cd wiringPi/
-    ./build
-    # from https://github.com/metachris/RPIO#
-    sudo easy_install -U RPIO
+```python
+#https://github.com/metachris/RPIO/blob/master/examples/example4_pwm_lowlevel.py#
+#http://pythonhosted.org/RPIO/pwm_py.html##
+#http://www.rpiblog.com/2012/11/pwm-on-raspberry-pi.html#
+sudo apt-get install git-core
+git clone git://git.drogon.net/wiringPi
+cd wiringPi/
+./build
+# from https://github.com/metachris/RPIO#
+sudo easy_install -U RPIO
+```
 
 ### Enable server for push notification
-	#set autostart#
-		sudo nano /etc/rc.local
-		#add this line before exit 0#
-			/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
+```python
+#set autostart#
+sudo nano /etc/rc.local
+#add this line before exit 0#
+/usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
+```
 	
 ### Enable server and wall switch monitor for rele board control
 	sudo pip install pyserial

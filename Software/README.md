@@ -19,7 +19,7 @@ git clone https://github.com/davidecaminati/Domotics-Raspberry
 sudo apt-get update  
 
 ### Install REDIS 
-```ruby
+```python
 # install latest redis-server 
 sudo apt-get install redis-server
 	
@@ -30,13 +30,13 @@ bind 127.0.0.1
 ```
 
 ### REDIS on Python
-```ruby
+```python
 sudo apt-get install python-setuptools
 sudo easy_install redis
 ```
 	
 ### REDIS on PHP
-```ruby
+```python
 #Preparation#
 sudo apt-get install php5-dev
 #note (php5-dev provides the dev library as well as the phpize command which is required for the compiling step)#
@@ -56,7 +56,7 @@ cd .. (go to home)
 ```
 
 ### Enable SPI module
-```ruby
+```python
 #Enabling the SPI kernel module#
 #As root, edit the kernel module blacklist file:#
 sudo nano /etc/modprobe.d/raspi-blacklist.conf
@@ -80,7 +80,7 @@ sudo chmod 666 /dev/spidev0.1
 ```
 
 ### SPIDEV
-```ruby
+```python
 sudo apt-get install python-pip  
 sudo pip install spidev # error but continue  ???#
 sudo pip install python-dev
@@ -95,7 +95,7 @@ sudo pip install wiringpi
 ```
 	
 ### Enable I2C module
-```ruby
+```python
 sudo apt-get install python-smbus
 sudo apt-get install i2c-tools (usefull but not essential)
 sudo modprobe i2c-dev
@@ -118,7 +118,7 @@ i2c-dev
 ```
 
 ### Enable 1wire module
-```ruby
+```python
 sudo nano /etc/modules
 #add this lines#
 w1-gpio
@@ -126,14 +126,14 @@ w1-therm
 ```
 	
 ### Send keys
-```ruby
+```python
 #http://tjjr.fi/sw/python-uinput/#download-and-install#
 sudo pip install evdev
 sudo pip install python-uinput
 ```
     
 ### Enable TFT display
-```ruby
+```python
 #guide http://www.raspberrypi.org/phpBB3/viewtopic.php?f=64&t=48967#
 #model http://www.raspberrypi.org/phpBB3/viewtopic.php?f=59&t=48956#
 

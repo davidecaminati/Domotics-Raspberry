@@ -217,7 +217,7 @@ EndSection
 ### Api temperature for request temperature to redis server
 ```python
 sudo nano /etc/rc.local
-#add this line before exit 0#
+#add this line before exit 0
 /usr/bin/python /home/pi/Domotics-Raspberry/Software/Weather/api_temperature.py &
 ```
 
@@ -225,11 +225,11 @@ sudo nano /etc/rc.local
 ### Enable midori on TFT
 ```python
 sudo nano /boot/cmdline.txt
-#at the end of line add this#
+#at the end of line add this
 fbcon=map:10 fbcon=font:VGA8x8
 #set autostart#
 sudo nano /etc/xdg/lxsession/LXDE/autostart
-#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
+#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER	
 @xset s off
 @xset -dpms
 @xset s noblank
@@ -247,38 +247,38 @@ exec /usr/bin/X -nocursor -nolisten tcp "$@"
 ### Auto startx: modify this file
 ```python
 sudo nano /etc/rc.local
-#after fi and before exit 0#
+#after fi and before exit 0
 #add this line#
 su -l pi -c "env FRAMEBUFFER=/dev/fb1 startx &"
-#fix error calibration#
+#fix error calibration
 sudo nano /usr/share/X11/xorg.conf.d/10-evdev.conf
 #find Input Class of touchscreen and before that EndSection insert a new line:
 Option "InvertY" "true"
 
-#remove the mouse pointer#
+#remove the mouse pointer
 sudo apt-get install unclutter
 
 #enable desktop manager on raspi-config
 sudo raspi-config
 #select enable desktop manager
 
-#reboot#
+#reboot
 sudo reboot
 ```
 >if problems look https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
             
 ### Enable midori start on boot
 ```python
-#set autostart#
+#set autostart
 sudo nano /etc/xdg/lxsession/LXDE/autostart
-#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER#		
+#write at the end of the file suggest to use 127.0.0.1 as IP-OF-YOUR_SERVER		
 @midori -e Fullscreen -a http://127.0.0.1/mobile
 ```
 
 ### Toggle light on the TFT
 ```python
 sudo nano /sys/class/backlight/fb_ili9320/bl_power
-#toggle 1 = (on) or 0 = (off)#
+#toggle 1 = (on) or 0 = (off)
 ```
 
 ### Configure web server old version PHP
@@ -294,14 +294,14 @@ sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
 sudo apt-get install apache2 php5 libapache2-mod-php5
 sudo rm /var/www/index.html
 sudo cp -r /home/pi/Domotics-Raspberry/Web_site_NEW/* /var/www/
-#set the redis server#
+#set the redis server
 ```
 	
 ### Installation Servos driver
 ```python
 git clone https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git
-#to start the example#
-#Note default address is 40, use "i2cdetect -y 1" to detect your, don't warry about the address 70#
+#to start the example
+#Note default address is 40, use "i2cdetect -y 1" to detect your, don't warry about the address 70
 cd Adafruit-Raspberry-Pi-Python-Code/
 cd Adafruit_PWM_Servo_Driver/
 sudo python Servo_Example.py
@@ -310,25 +310,26 @@ sudo python Servo_Example.py
     
 ### Configure analog probe(my_room_2)
 ```python
-#add the script to crontab#
+#add the script to crontab
 crontab -e
-#add at the end of the file#
+#add at the end of the file
 * * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Analog\ Temperature\ Probe/mcp3008_lm35.py
 ```
 
 ### Configure digital probe (my_room_1)
 ```python
-#add the script to crontab#
+#add the script to crontab
 crontab -e
-#add at the end of the file#
+#add at the end of the file
 * * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Digital\ Temperature\ Probe/thermometer.py
-#NOTE#
-#be sure to have activate 1 wire module otherwise look #enable 1wire# 
+#NOTE
+#be sure to have activate 1 wire module otherwise look #enable 1wire
 ```
 
-> configuration for read external temp from python
-> link http://code.google.com/p/python-weather-api/
-> suggest to add this script in Display TFT Raspberry
+# configuration for read external temp from python
+# link http://code.google.com/p/python-weather-api/
+# suggest to add this script in Display TFT Raspberry
+
 
 ```python
 sudo apt-get install subversion
@@ -343,22 +344,22 @@ crontab -e
 
 ### Update a device
 ```python
-> in Update directory, you will find usefull script to automate this (website, ....)
+# In Update directory, you will find usefull script to automate this (website, ....)
 cd /home/pi/Domotics-Raspberry/Update
 
-###Error in editing file from windows
->if you need to create a  new bash script from windows , pay attention to new line characters , in Win are different than unix
->so if you want to sure your file are compatible , you coud install an utility to convert file in unix style
+# Error in editing file from windows
+# if you need to create a  new bash script from windows , pay attention to new line characters , in Win are different than unix
+# so if you want to sure your file are compatible , you coud install an utility to convert file in unix style
 sudo apt-get install dos2unix
-#how to use this utility#
+#how to use this utility
 dos2unix <file to convert>
 ```
 
 ### Configure wireless
 ```python
-> for help http://www.linux.com/learn/tutorials/374514-control-wireless-on-the-linux-desktop-with-these-tools 
+# For help http://www.linux.com/learn/tutorials/374514-control-wireless-on-the-linux-desktop-with-these-tools 
 sudo nano /etc/network/interfaces
-#put this line for enable wireless#
+#put this line for enable wireless
 auto wlan0
 iface wlan0 inet static
 address 192.168.0.XXX   #<--- your ippyth    
@@ -374,17 +375,17 @@ wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 sudo cp /home/pi/Domotics-Raspberry/Software/utility/turnoff.py /usr/local/bin/
 sudo chmod +x /usr/local/bin/turnoff.py
 sudo nano /etc/rc.local
-#add this line before exit 0#
-		/usr/bin/python /usr/local/bin/turnoff.py &
+#add this line before exit 0
+/usr/bin/python /usr/local/bin/turnoff.py &
 ```
             
 ### Restart button
 ```python
-use pins 24,GND
+#use pins 24,GND
 sudo cp /home/pi/Domotics-Raspberry/Software/utility/restart.py /usr/local/bin/
 sudo chmod +x /usr/local/bin/restart.py
 sudo nano /etc/rc.local
-#add this line before exit 0#
+#add this line before exit 0
 /usr/bin/python /usr/local/bin/restart.py &
 ```
 	
@@ -400,14 +401,14 @@ gem 'wiringpi'
 bundle
 rackup
 #write test from client
- curl --data temp=2 192.168.0.202:9393/temperature/cucina
+curl --data temp=2 192.168.0.202:9393/temperature/cucina
 #read test from client
 curl 192.168.0.202:9292/temperature/cucina
 ```
 
 ### Install webapi for python
 ```python
-#http://blog.luisrei.com/articles/flaskrest.html#
+#http://blog.luisrei.com/articles/flaskrest.html
 sudo apt-get install python-pip
 sudo pip install flask
 ```
@@ -415,7 +416,7 @@ sudo pip install flask
 ### Enable thermo control
 ```python
 /usr/bin/python /home/pi/Domotics-Raspberry/Software/thermo/thermo.py
-#check il you want push notification in the source code#
+#check il you want push notification in the source code
 ```
 	
 ### Enable COLOR LED control
@@ -426,9 +427,9 @@ sudo nano /etc/rc.local
 
 ### Enabled fade color led
 ```python
-#https://github.com/metachris/RPIO/blob/master/examples/example4_pwm_lowlevel.py#
-#http://pythonhosted.org/RPIO/pwm_py.html##
-#http://www.rpiblog.com/2012/11/pwm-on-raspberry-pi.html#
+#https://github.com/metachris/RPIO/blob/master/examples/example4_pwm_lowlevel.py
+#http://pythonhosted.org/RPIO/pwm_py.html#
+#http://www.rpiblog.com/2012/11/pwm-on-raspberry-pi.html
 sudo apt-get install git-core
 git clone git://git.drogon.net/wiringPi
 cd wiringPi/
@@ -441,21 +442,19 @@ sudo easy_install -U RPIO
 ```python
 #set autostart#
 sudo nano /etc/rc.local
-#add this line before exit 0#
+#add this line before exit 0
 /usr/bin/python /home/pi/Domotics-Raspberry/Software/Send_push_notification/Send_push.py
 ```
 	
 ### Enable server and wall switch monitor for rele board control
 ```python
 sudo pip install pyserial
---- required this setup--> #Configure XBEE#
->set autostart
+# required this setup--> #Configure XBEE
+#set autostart
 sudo nano /etc/rc.local
->add this line before exit 0
+#add this line before exit 0
 /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Socket_to_MCP27013_con_i2c/rele_board_control.py &
-###OLD###/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Socket_to_MCP27013_con_i2c/read_pulse.py &
-###/usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Wall\ switch/wall_Switch.py &
-> for schema look at 
+# for schema look at 
 http://fritzing.org/projects/rele-board-control-with-beedback-state-and-by-pass
 ```
 			
@@ -463,20 +462,20 @@ http://fritzing.org/projects/rele-board-control-with-beedback-state-and-by-pass
 ```python
 >set autostart
 sudo nano /etc/xdg/lxsession/LXDE/autostart
-#add this line at the end of the file#
+#add this line at the end of the file
 @/usr/bin/python /home/pi/Domotics-Raspberry/Software/Check_probe/check_probe.py
 ```
 			
 ### Configure door/windows monitor
 ```python
-#change permission permanent#
+#change permission permanent
 sudo nano /etc/rc.local
-#add this two line before exit 0#
+#add this two line before exit 0
 sudo chmod 666 /dev/i2c-0
 sudo chmod 666 /dev/i2c-1
-#add the script to crontab#
+#add the script to crontab
 crontab -e
-#add at the end of the file#
+#add at the end of the file
 * * * * * /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Windows\ Switch\ MCP23017/windows_doors_probe.py
 ```
 
@@ -493,28 +492,28 @@ sudo pip install v4l2
     
 ### Configure XBEE
 ```python
-#http://cae2100.wordpress.com/2012/12/23/raspberry-pi-and-the-serial-port/#
+#http://cae2100.wordpress.com/2012/12/23/raspberry-pi-and-the-serial-port/
 sudo nano /etc/inittab
-#remark this line putting a # in front of the line#
+#remark this line putting a # in front of the line
 #T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100 
 sudo nano  /boot/cmdline.txt
-#The contents of the file look like this#
+#The contents of the file look like this
 dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait
 #Remove all references to ttyAMA0 (which is the name of the serial port). The file will now look like this#
 dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait
 sudo reboot
-#test serial port#
+#test serial port
 sudo apt-get install minicom
-#Now run up minicom on the Raspberry Pi using#
+#Now run up minicom on the Raspberry Pi using
 minicom -b 9600 -o -D /dev/ttyAMA0 
-#for python#
+#for python
 #https://pypi.python.org/pypi/XBee#
 cd ~/Domotics-Raspberry/Hardware/XBEE/XBee-2.1.0
 sudo python setup.py install
 sudo pip install pyserial
-#http://jeffskinnerbox.wordpress.com/2013/01/30/configuration-utilities-for-xbee-radios/#
-#http://blog.james147.net/xbee-configuration/#
-#http://tutorial.cytron.com.my/2012/03/08/xbee-series-2-point-to-point-communication/#
+#http://jeffskinnerbox.wordpress.com/2013/01/30/configuration-utilities-for-xbee-radios/
+#http://blog.james147.net/xbee-configuration/
+#http://tutorial.cytron.com.my/2012/03/08/xbee-series-2-point-to-point-communication/
 ```
         
 ### VISUAL STUDIO 2010
@@ -622,7 +621,7 @@ sudo reboot
 ### Bluetooth Proximity
 ```python
 #install bluetooth software#
-#http://rasspberrypi.wordpress.com/2012/09/03/install-bluetooth-dongle-on-raspberry-pi/#
+#http://rasspberrypi.wordpress.com/2012/09/03/install-bluetooth-dongle-on-raspberry-pi/
 sudo apt-get update
 sudo apt-get install bluetooth
 1. On boot i typed the following command to see if my connected dongle was visible.
@@ -673,21 +672,21 @@ Ping: 54:9B:12:99:36:61 from 00:11:67:10:80:F0 (data size 44) ...
 Success :)
 
 
-#now#
+#now
 apt-get install bluetooth bluez-utils
 
 
-#now install the utility software#
+#now install the utility software
 sudo apt-get install blueproximity
 #For security reasons, some interactions with the mobile require that the device is `paired' with the one it is interacting with. First, store a number (4 or more digits) in the file /etc/bluetooth/pin (say 12345). Stop and restart the bluetooth service by doing:
 sh /etc/init.d/bluetooth stop
 sh /etc/init.d/bluetooth start
-#make discoverable raspberry bluetooth#
+#make discoverable raspberry bluetooth
 sudo hciconfig hci0 piscan
-#Setup bluetooth-agent to pass the expected pairing code#
-#install tools#
+#Setup bluetooth-agent to pass the expected pairing code
+#install tools
 sudo apt-get install bluez-tools
-#script#
+#script
 sudo rfcomm connect 0 B0:EC:71:72:FF:8D
 watch -n 0.5 hcitool  rssi B0:EC:71:72:FF:8D
 ```
@@ -695,73 +694,73 @@ watch -n 0.5 hcitool  rssi B0:EC:71:72:FF:8D
 ### Sound Control the volume adjuster
 ```python
 #this software permit to control the main volume of a Windows 7 64bit using a raspberry and a microphone near the loudspeackers#
-#for windows#
-#launch the exe file located in SimpleWebServer#
-#path Software\SimpleWebServer\SimpleWebServer\bin\Debug\SimpleWebServer.exe#
-#copy this file in a folder of your Windows computer#
-#download this program nircmd from this url http://www.nirsoft.net/utils/nircmd.html  (bottom of the page)#
-#put nircmd.exe in the same folder of the SimpleWebServer.exe#
-#run SimpleWebServer.exe#
+#for windows
+#launch the exe file located in SimpleWebServer
+#path Software\SimpleWebServer\SimpleWebServer\bin\Debug\SimpleWebServer.exe
+#copy this file in a folder of your Windows computer
+#download this program nircmd from this url http://www.nirsoft.net/utils/nircmd.html  (bottom of the page)
+#put nircmd.exe in the same folder of the SimpleWebServer.exe
+#run SimpleWebServer.exe
 
-#for Raspberry#
-#NOTE, i use a usb audio interface for mic input#
+#for Raspberry
+#NOTE, i use a usb audio interface for mic input
 sudo apt-get install python-pyaudio
-#execute the program#
+#execute the program
 python  /home/pi/Domotics-Raspberry/Software/VolumeControl/volumeControl.py
 ```
             
 ### Audio multiroom with graphic control
 ```python
-#download the image 2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.img # 
+#download the image 2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.img 
 #url for download http://tronnes.org/downloads/2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.zip#
-#unzip and copy the image file into SDCARD using Win32DiskImager.exe#
-#boot and wait the prompt (is normal 1 auto reboot for configuration)#
-#login with user pi password raspberry#
-#change the password# i use "1"#
+#unzip and copy the image file into SDCARD using Win32DiskImager.exe
+#boot and wait the prompt (is normal 1 auto reboot for configuration)
+#login with user pi password raspberry
+#change the password# i use "1"
 sudo passwd pi
 #update#
 sudo apt-get update
-#Install audio-related packages needed by SoundWire (Pulse Audio, Pulse Audio Volume Control, Portaudio)#
+#Install audio-related packages needed by SoundWire (Pulse Audio, Pulse Audio Volume Control, Portaudio)
 sudo apt-get install -y pulseaudio pavucontrol libportaudio2
-#Launch Pulse Audio Volume Control, needs the GUI (X Windows) running.#
+#Launch Pulse Audio Volume Control, needs the GUI (X Windows) running.
 #if you are connected througt SSH client need to export the display using this command
 export DISLPAY=:0
-#launch the graphical interface#
+#launch the graphical interface
 startx
-#aligh the touchscreen with a pencil pressing the cross on the screen#
-#start another ssh session using PUTTY#
-#download the server for Raspberry#
+#aligh the touchscreen with a pencil pressing the cross on the screen
+#start another ssh session using PUTTY
+#download the server for Raspberry
 wget http://georgielabs.99k.org/SoundWire_Server_RPi.tar.gz
-#uncompress the file#
+#uncompress the file
 tar xvzf SoundWire_Server_RPi.tar.gz
-#move to the folder#
+#move to the folder
 cd SoundWireServer/
-#make executable the program#
+#make executable the program
 sudo chmod +x SoundWireServer
-#using winscp (ssh graphical interface, copy some mp3 in the home folder of pi user (/home/pi)#
-#install mpg123 (mpeg player)#
+#using winscp (ssh graphical interface, copy some mp3 in the home folder of pi user (/home/pi)
+#install mpg123 (mpeg player)
 sudo apt-get install mpg123
-#launch SoundWireServer#
+#launch SoundWireServer
 ./SoundWireServer
-#open pavucontrol on the display of raspberry#
+#open pavucontrol on the display of raspberry
 export DISPLAY=:0
 pavucontrol
-#go in the tab [Configuration]#
-#select Profile [OFF] (this is to fix the error of mp3 session still running after close)#
+#go in the tab [Configuration]
+#select Profile [OFF] (this is to fix the error of mp3 session still running after close)
 #close the graphical interface ([ctrl]+c) in the other PUTTY session.
 #go in the folder of executable server#
 cd ~/SoundWireServer
-#restart the server#
+#restart the server
 ./SoundWireServer
-#open another ssh client PUTTY#
-#launch mp3 player with a song#
+#open another ssh client PUTTY
+#launch mp3 player with a song
 mpg123 name_of_mp3
-#Install demon for control mp3 with API#
+#Install demon for control mp3 with API
 sudo pip install flask
 ######NEED A PROCEDURE#####
 ### need to start SoundWireServer and python script  AS USER NON ROOT ####
 sudo nano /etc/rc.local
-#add this line before exit 0#
+#add this line before exit 0
 (sleep 5;su - pi -c "/usr/bin/python /home/pi/Domotics-Raspberry/Software/RadioStreaming/radioStreaming.py ")&
 
 #install SoundWire on your Android Phone from the market#
@@ -771,19 +770,19 @@ sudo nano /etc/rc.local
 ### API for redis server interface and Streaming server interface
 ```python
 sudo nano /etc/rc.local
-#write at the end of the file #		
+#write at the end of the file 	
 (sleep 5;su - pi -c "/usr/bin/python /home/pi/Domotics-Raspberry/Software/RadioStreaming/radioStreaming.py ")&
 ```
 
 ### Streaming Audio server (SoundWire)
 ```python
-#install prerequisite#
+#install prerequisite
 sudo apt-get install pavucontrol
 sudo apt-get install pulseaudio
 sudo apt-get install mpg123
 #download the server#
 wget http://georgielabs.99k.org/SoundWire_Server_RPi.tar.gz
-#extract#
+#extract
 tar -zxvf SoundWire_Server_RPi.tar.gz
 cd SoundWireServer
 
@@ -812,7 +811,7 @@ cd SoundWireServer
 ##USE OFF#
 #in case of problem read the README file inside the directory of Soundwire#
 sudo nano /etc/rc.local
-#write at the end of the file #		
+#write at the end of the file 		
 su -l pi -c " ./SoundWireServer/SoundWireServer &"
 #NOTE#
 #you need to copy some mp3 in /home/pi/mp3/ folder with name 1.mp3, 2.mp3 .....
@@ -861,49 +860,49 @@ sudo apt-get install python-psutil
     
 ### Configuration for webapi on Windows 7 64 bit computer (probably works on all windows systems
 ```python
-#install python 2.7 from this url https://www.python.org/ftp/python/2.7.6/python-2.7.6.msi#
+#install python 2.7 from this url https://www.python.org/ftp/python/2.7.6/python-2.7.6.msi
 #open prompt MSDOS#
 #copy the file [your download path]/Domotics-Raspberry/Software/Windows7/distribute_setup.py in c:/distribute_setup.py
 #go in the installation directory of python (ex. c:\python27\ )
 #launch "python.exe c:\distribute_setup.py"
-#go in the folder SCRIPTS (cd scripts)#
-#launch "easy_install.exe flask" for install flask framework#
-#close Prompt MSDOS#
-#copy [your download path]/Domotics-Raspberry/Software/Windows7/avvioWebApi.bat in C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup/avvioWebApi.bat#
-#copy [your download path]/Domotics-Raspberry/Software/Windows7/webservice.bat in c:/webservice.bat#
+#go in the folder SCRIPTS (cd scripts)
+#launch "easy_install.exe flask" for install flask framework
+#close Prompt MSDOS
+#copy [your download path]/Domotics-Raspberry/Software/Windows7/avvioWebApi.bat in C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup/avvioWebApi.bat
+#copy [your download path]/Domotics-Raspberry/Software/Windows7/webservice.bat in c:/webservice.bat
 ```
         
 ### Minix X5 mini for speek engine
 ```python
-#install on the minix this software#
+#install on the minix this software
 SSHDroid (ssh server)
 SL4A Script Launcher 
 TaskBomb task scheduler
-#run Script Launcher#
+#run Script Launcher
 #click on the link SL4A and go in the download page, in the left download the first link Python4Android_r4.apk and the link sl4a_r6.apk#
 #download and install Python4Android_r4.apk#
 #download and install sl4a_r6.apk#
-#after the installation , open Python4Android and click on the first button [INSTALL] (start the download of PythonExtra_14)#
-#select [Browse Module] then click on TWISTEDmatrix for download it (dont try to install, this is an EGG file not APK)#
-#return in [IMPORT MODULES] then select TWISTEDmatrix for import the module#
-#from a computer download and unzip lastest CherryPy from this url https://pypi.python.org/pypi/CherryPy/3.2.4#
-#copy the folder (in my case using winscp because i'm on Windows machine)  (ex /home/pi/CherryPy-3.2.4 in a Raspberry (we need linux for compile this with ARM architecture#
-#open ssh on this raspberry, go in the folder /home/pi/CherryPy-3.2.4#
-#launch this command python setup.py build#
-#now you have created lib.linux-armv6l-2.7 folder inside the build folder#
-#copy build folder in a folder of your pc (ex c:\cherrypy\build)#
-#in the android pc (MINIX) run SSHDroid to have SSH access#
-#open ssh session from yout PC to MINX pc#
-#move to folder /sdcard/sl4a/scripts for check if exist#
+#after the installation , open Python4Android and click on the first button [INSTALL] (start the download of PythonExtra_14)
+#select [Browse Module] then click on TWISTEDmatrix for download it (dont try to install, this is an EGG file not APK)
+#return in [IMPORT MODULES] then select TWISTEDmatrix for import the module
+#from a computer download and unzip lastest CherryPy from this url https://pypi.python.org/pypi/CherryPy/3.2.4
+#copy the folder (in my case using winscp because i'm on Windows machine)  (ex /home/pi/CherryPy-3.2.4 in a Raspberry (we need linux for compile this with ARM architecture
+#open ssh on this raspberry, go in the folder /home/pi/CherryPy-3.2.4
+#launch this command python setup.py build
+#now you have created lib.linux-armv6l-2.7 folder inside the build folder
+#copy build folder in a folder of your pc (ex c:\cherrypy\build)
+#in the android pc (MINIX) run SSHDroid to have SSH access
+#open ssh session from yout PC to MINX pc
+#move to folder /sdcard/sl4a/scripts for check if exist
 #now copy (with WINSCP) the folder cherrypy (c:\cherrypy\build\lib.linux-armv6l-2.7\cherrypy)  into MINIX /sdcard/sl4a/scripts
-# for more information look http://www.defuze.org/archives/228-running-cherrypy-on-android-with-sl4a.html#
-#create a new file in /sdcard/sl4a/scripts named cpdroid.py#
-#put inside the new file ([repository]/Domotics-Raspberry/trunk/Software/Android/Minix/cpdroid.py) this code#
-#open the launcher and click on the cpdroid.py file to start the server#
-#add translation module for python#
-#download Goslate from https://pypi.python.org/pypi/goslate#downloads#
-#put this file into Minix in the folder /mnt/sdcard/Download#
-#open Python for Android, press [Import Modules] then select goslate#
+# for more information look http://www.defuze.org/archives/228-running-cherrypy-on-android-with-sl4a.html
+#create a new file in /sdcard/sl4a/scripts named cpdroid.py
+#put inside the new file ([repository]/Domotics-Raspberry/trunk/Software/Android/Minix/cpdroid.py) this code
+#open the launcher and click on the cpdroid.py file to start the server
+#add translation module for python
+#download Goslate from https://pypi.python.org/pypi/goslate#downloads
+#put this file into Minix in the folder /mnt/sdcard/Download
+#open Python for Android, press [Import Modules] then select goslate
 SL4A
 QPython - Python for Android
 ```

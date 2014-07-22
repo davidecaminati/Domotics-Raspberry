@@ -286,7 +286,6 @@ sudo nano /sys/class/backlight/fb_ili9320/bl_power
 sudo apt-get install apache2 php5 libapache2-mod-php5
 sudo rm /var/www/index.html
 sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
-#set the redis server#
 ```
     
 ### Configure web server NEW version HTML5
@@ -294,14 +293,13 @@ sudo cp -r /home/pi/Domotics-Raspberry/Web_site/www/* /var/www/
 sudo apt-get install apache2 php5 libapache2-mod-php5
 sudo rm /var/www/index.html
 sudo cp -r /home/pi/Domotics-Raspberry/Web_site_NEW/* /var/www/
-#set the redis server
 ```
 	
 ### Installation Servos driver
 ```python
 git clone https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git
 #to start the example
-#Note default address is 40, use "i2cdetect -y 1" to detect your, don't warry about the address 70
+#Note default address is 40, use "i2cdetect -y 1" to detect your, don't warry about the address 70 if appears
 cd Adafruit-Raspberry-Pi-Python-Code/
 cd Adafruit_PWM_Servo_Driver/
 sudo python Servo_Example.py
@@ -326,9 +324,9 @@ crontab -e
 #be sure to have activate 1 wire module otherwise look #enable 1wire
 ```
 
-### configuration for read external temp from python
-#### link http://code.google.com/p/python-weather-api/
-#### suggest to add this script in Display TFT Raspberry
+### Configuration for read external temp from python
+##### link http://code.google.com/p/python-weather-api/
+##### suggest to add this script in Display TFT Raspberry
 
 
 ```python

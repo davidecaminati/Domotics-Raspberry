@@ -460,7 +460,7 @@ http://fritzing.org/projects/rele-board-control-with-beedback-state-and-by-pass
 			
 ### Configure ping test for probe
 ```python
->set autostart
+#set autostart
 sudo nano /etc/xdg/lxsession/LXDE/autostart
 #add this line at the end of the file
 @/usr/bin/python /home/pi/Domotics-Raspberry/Software/Check_probe/check_probe.py

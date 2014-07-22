@@ -854,7 +854,7 @@ sudo apt-get install python-psutil
 #look for example http://www.wolframalpha.com/input/?i=tomorrow+temperature+cesena+italy
 ```
     
-### Configuration for webapi on Windows 7 64 bit computer (probably works on all windows systems
+### Configuration for webapi on Windows 7 64 bit computer (probably works on all windows systems)
 ```python
 #install python 2.7 from this url https://www.python.org/ftp/python/2.7.6/python-2.7.6.msi
 #open prompt MSDOS#

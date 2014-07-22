@@ -326,9 +326,9 @@ crontab -e
 #be sure to have activate 1 wire module otherwise look #enable 1wire
 ```
 
-# configuration for read external temp from python
-# link http://code.google.com/p/python-weather-api/
-# suggest to add this script in Display TFT Raspberry
+### configuration for read external temp from python
+#### link http://code.google.com/p/python-weather-api/
+#### suggest to add this script in Display TFT Raspberry
 
 
 ```python
@@ -937,5 +937,4 @@ service ntpd restart
 date
 ```
 
-### if you want to test now the capability of your powerful Raspberry go to
 

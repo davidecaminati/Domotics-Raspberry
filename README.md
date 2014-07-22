@@ -39,5 +39,5 @@ and
 flash the SD Card, (find guide on http://elinux.org/RPi_Easy_SD_Card_Setup i suggest to use Win32DiskImager)
 
 For the first step of configuration look
-[here](Software/README.txt)
+[here](Software/README.md)
 

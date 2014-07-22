@@ -85,7 +85,7 @@ sudo chmod 666 /dev/spidev0.1
 ### SPIDEV
 ```python
 sudo apt-get install python-pip  
-sudo pip install spidev # error but continue  ???#
+sudo pip install spidev # in case of errors, continue, don't care about
 sudo pip install python-dev
 sudo apt-get install python-imaging python-imaging-tk python-pip python-dev git
 mkdir python-spi
@@ -123,14 +123,14 @@ i2c-dev
 ### Enable 1wire module
 ```python
 sudo nano /etc/modules
-#add this lines#
+#add this lines
 w1-gpio
 w1-therm
 ```
 	
 ### Send keys
 ```python
-#http://tjjr.fi/sw/python-uinput/#download-and-install#
+#find information on http://tjjr.fi/sw/python-uinput/#download-and-install
 sudo pip install evdev
 sudo pip install python-uinput
 ```
@@ -265,7 +265,7 @@ sudo raspi-config
 #reboot
 sudo reboot
 ```
->if problems look https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
+>some problems? look at https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/touchscreen-install-and-calibrate#
             
 ### Enable midori start on boot
 ```python

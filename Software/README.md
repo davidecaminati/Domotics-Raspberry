@@ -690,7 +690,7 @@ watch -n 0.5 hcitool  rssi B0:EC:71:72:FF:8D
 
 ### Sound Control the volume adjuster
 ```python
-#this software permit to control the main volume of a Windows 7 64bit using a raspberry and a microphone near the loudspeackers#
+#this software permit to control the main volume of a Windows 7 64bit using a raspberry and a microphone near the loudspeakers
 #for windows
 #launch the exe file located in SimpleWebServer
 #path Software\SimpleWebServer\SimpleWebServer\bin\Debug\SimpleWebServer.exe
@@ -709,12 +709,11 @@ python  /home/pi/Domotics-Raspberry/Software/VolumeControl/volumeControl.py
 ### Audio multiroom with graphic control
 ```python
 #download the image 2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.img 
-#url for download http://tronnes.org/downloads/2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.zip#
+#url for download http://tronnes.org/downloads/2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.zip
 #unzip and copy the image file into SDCARD using Win32DiskImager.exe
 #boot and wait the prompt (is normal 1 auto reboot for configuration)
 #login with user pi password raspberry
-#change the password# i use "1"
-sudo passwd pi
+#change the password
 #update#
 sudo apt-get update
 #Install audio-related packages needed by SoundWire (Pulse Audio, Pulse Audio Volume Control, Portaudio)
@@ -794,7 +793,7 @@ cd SoundWireServer
 #the -verbose option, this will display messages from Portaudio.
 
 #2) Launch Pulse Audio Volume Control, needs the GUI (X Windows) running.
-#pavucontrol &
+pavucontrol &
 #If it doesn't start then it may not be installed, or pavucontrol may not be in
 #your search path. You can also start it from your GUI. If you have no GUI then 
 #you should configure pulse audio as required manually if SoundWire doesn't work.
@@ -830,7 +829,7 @@ print audiofile.tag.track_num
 
 ### Read process list and CPU usage
 #### for information https://github.com/giampaolo/psutil
-```
+```python
 sudo apt-get install python-psutil
 #for documentation https://pypi.python.org/pypi/psutil# 
 # # exceptions

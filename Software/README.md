@@ -630,7 +630,7 @@ $lsusb
 # type
 $lsmod
 
-#This returned
+# This returned
 #bluetooth 166552 23 btusb,rfcomm,bnep
 
 # Now to install bluetooth package
@@ -648,23 +648,23 @@ $/etc/init.d/bluetooth status
 $hcitool dev
 
 # This returns something like this
-Devices:
-hci0 00:11:67:10:80:F0
+#Devices:
+#hci0 00:11:67:10:80:F0
 
 # Now we can scan for nearby devices using the following command
 $hcitool scan
 
 # This returns
-Scanning ...
-54:9B:12:99:36:61 YourBluetoothDevice
+#Scanning ...
+#54:9B:12:99:36:61 YourBluetoothDevice
 
 # Now we can run a small test to connect to the following device
 $sudo l2ping -c 1 54:9B:12:99:36:61
 
 #This returns
-Ping: 54:9B:12:99:36:61 from 00:11:67:10:80:F0 (data size 44) ...
-0 bytes from 54:9B:12:99:36:61 id 0 time 19.28ms
-1 sent, 1 received, 0% loss
+#Ping: 54:9B:12:99:36:61 from 00:11:67:10:80:F0 (data size 44) ...
+#0 bytes from 54:9B:12:99:36:61 id 0 time 19.28ms
+#1 sent, 1 received, 0% loss
 
 # Success :)
 

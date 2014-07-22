@@ -414,7 +414,7 @@ sudo pip install flask
 ### Enable thermo control
 ```python
 /usr/bin/python /home/pi/Domotics-Raspberry/Software/thermo/thermo.py
-#check il you want push notification in the source code
+#check the source code if you want enable push notification allert
 ```
 	
 ### Enable COLOR LED control
@@ -453,7 +453,7 @@ sudo nano /etc/rc.local
 #add this line before exit 0
 /usr/bin/python /home/pi/Domotics-Raspberry/Hardware/Socket_to_MCP27013_con_i2c/rele_board_control.py &
 # for schema look at 
-http://fritzing.org/projects/rele-board-control-with-beedback-state-and-by-pass
+# http://fritzing.org/projects/rele-board-control-with-beedback-state-and-by-pass
 ```
 			
 ### Configure ping test for probe
@@ -485,7 +485,7 @@ sudo pip install v4l2
 
 ### Configure speek recognition on raspberry
 ```python
-#http://www.aonsquared.co.uk/raspi_voice_control#
+#look at http://www.aonsquared.co.uk/raspi_voice_control#
 ```
     
 ### Configure XBEE
@@ -515,8 +515,7 @@ sudo pip install pyserial
 ```
         
 ### VISUAL STUDIO 2010
-#### Install redis client for c# 
-#### see the documentation https://github.com/ServiceStack/ServiceStack.Redis
+#### see the documentation https://github.com/ServiceStack/ServiceStack.Redis for install redis client for c#  
 =============================================================================
 
 ### Enable Nokia 5110 Display (SPI interface)
@@ -622,52 +621,52 @@ sudo reboot
 #http://rasspberrypi.wordpress.com/2012/09/03/install-bluetooth-dongle-on-raspberry-pi/
 sudo apt-get update
 sudo apt-get install bluetooth
-1. On boot i typed the following command to see if my connected dongle was visible.
+# On boot i typed the following command to see if my connected dongle was visible.
 $lsusb
 
-This returned the following line to make sure that the dongle was detected
-Bus 001 Device 004: ID 1131:1001 Integrated System Solution Corp. KY-BT100 Bluetooth Adapter
+# This returned the following line to make sure that the dongle was detected
+# Bus 001 Device 004: ID 1131:1001 Integrated System Solution Corp. KY-BT100 Bluetooth Adapter
 
-2. Then typed in
+# type
 $lsmod
 
-This returned
-bluetooth 166552 23 btusb,rfcomm,bnep
+#This returned
+#bluetooth 166552 23 btusb,rfcomm,bnep
 
-3. Now to install bluetooth package
+# Now to install bluetooth package
 $sudo apt-get install bluetooth
 
-Note: Installation takes a while relax and enjoy for the time
+# Note: Installation takes a while relax and enjoy for the time
 
-4. Now after the installation is completed, run the following to get the status.
+# Now after the installation is completed, run the following to get the status.
 $/etc/init.d/bluetooth status
 
-This is returned if all is good
-[ ok ] bluetooth is running.
+#This is returned if all is good
+#[ ok ] bluetooth is running.
 
-5. Now you can find your blueetooth address using the following command
+# Now you can find your blueetooth address using the following command
 $hcitool dev
 
-This returns something like this
+# This returns something like this
 Devices:
 hci0 00:11:67:10:80:F0
 
-6. Now we can scan for nearby devices using the following command
+# Now we can scan for nearby devices using the following command
 $hcitool scan
 
-This returns
+# This returns
 Scanning ...
 54:9B:12:99:36:61 YourBluetoothDevice
 
-7. Now we can run a small test to connect to the following device
+# Now we can run a small test to connect to the following device
 $sudo l2ping -c 1 54:9B:12:99:36:61
 
-This returns
+#This returns
 Ping: 54:9B:12:99:36:61 from 00:11:67:10:80:F0 (data size 44) ...
 0 bytes from 54:9B:12:99:36:61 id 0 time 19.28ms
 1 sent, 1 received, 0% loss
 
-Success :)
+# Success :)
 
 
 #now

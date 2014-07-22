@@ -851,7 +851,7 @@ sudo apt-get install python-psutil
 
 ### Wolframalpha integration#
 ```python
-#http://www.wolframalpha.com/input/?i=tomorrow+temperature+cesena+italy
+#look for example http://www.wolframalpha.com/input/?i=tomorrow+temperature+cesena+italy
 ```
     
 ### Configuration for webapi on Windows 7 64 bit computer (probably works on all windows systems

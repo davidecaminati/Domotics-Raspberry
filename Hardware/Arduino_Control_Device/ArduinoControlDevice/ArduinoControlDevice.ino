@@ -6,7 +6,7 @@
  */
  
 // These constants won't change. 
-const int analogInPin = A1;  // Analog input pin that the potentiometer is attached to
+const int analogInPin = A0;  // Analog input pin that the potentiometer is attached to
 const int DigitalInPin2 = 2;  // Digital input pin that the buttonGo is attached to
 const int DigitalInPin3 = 3;  // Digital input pin that the buttonStop is attached to
 const int DigitalInPin4 = 4;  // Digital input pin that the buttonBack is attached to

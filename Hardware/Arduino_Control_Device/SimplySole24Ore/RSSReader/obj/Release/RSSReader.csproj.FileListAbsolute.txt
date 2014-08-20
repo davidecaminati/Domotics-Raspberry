@@ -1,0 +1,47 @@
+C:\Documents and Settings\gjol\Documenti\Visual Studio 2008\Projects\Project1\RSSReader\RSSReader\bin\Release\RSSReader.exe
+C:\Documents and Settings\gjol\Documenti\Visual Studio 2008\Projects\Project1\RSSReader\RSSReader\bin\Release\RSSReader.pdb
+C:\Documents and Settings\gjol\Documenti\Visual Studio 2008\Projects\Project1\RSSReader\RSSReader\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\gjol\Documenti\Visual Studio 2008\Projects\Project1\RSSReader\RSSReader\obj\Release\RSSReader.Form1.resources
+C:\Documents and Settings\gjol\Documenti\Visual Studio 2008\Projects\Project1\RSSReader\RSSReader\obj\Release\RSSReader.Properties.Resources.resources
+C:\Documents and Settings\gjol\Documenti\Visual Studio 2008\Projects\Project1\RSSReader\RSSReader\obj\Release\RSSReader.csproj.GenerateResource.Cache
+C:\Documents and Settings\gjol\Documenti\Visual Studio 2008\Projects\Project1\RSSReader\RSSReader\obj\Release\RSSReader.exe
+C:\Documents and Settings\gjol\Documenti\Visual Studio 2008\Projects\Project1\RSSReader\RSSReader\obj\Release\RSSReader.pdb
+G:\Condivisa\Tommasini\sorgenti\RSSReader\bin\Release\RSSReader.pdb
+G:\Condivisa\Tommasini\sorgenti\RSSReader\obj\Release\RSSReader.Form1.resources
+G:\Condivisa\Tommasini\sorgenti\RSSReader\obj\Release\RSSReader.Properties.Resources.resources
+G:\Condivisa\Tommasini\sorgenti\RSSReader\obj\Release\RSSReader.csproj.GenerateResource.Cache
+G:\Condivisa\Tommasini\sorgenti\RSSReader\obj\Release\RSSReader.pdb
+G:\Condivisa\Tommasini\sorgenti\RSSReader\obj\Release\RSSReader.exe
+G:\Condivisa\Tommasini\sorgenti\RSSReader\bin\Release\RSSReader.exe
+G:\Condivisa\Tommasini\sorgenti\RSSReader\obj\Release\RSSReader.csprojResolveAssemblyReference.cache
+G:\Condivisa\Tommasini\sorgenti\RSSReader\obj\Release\Interop.WMPLib.dll
+G:\Condivisa\Tommasini\sorgenti\RSSReader\obj\Release\AxInterop.WMPLib.dll
+G:\Condivisa\Tommasini\sorgenti\RSSReader\obj\Release\RSSReader.csproj.ResolveComReference.cache
+G:\Condivisa\Tommasini\sorgenti\RSSReader\bin\Release\Interop.WMPLib.dll
+G:\Condivisa\Tommasini\sorgenti\RSSReader\bin\Release\AxInterop.WMPLib.dll
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\obj\Release\Interop.WMPLib.dll
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\obj\Release\AxInterop.WMPLib.dll
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\obj\Release\RSSReader.csproj.ResolveComReference.cache
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\obj\Release\RSSReader.exe
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\obj\Release\RSSReader.pdb
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\bin\Release\RSSReader.exe
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\bin\Release\RSSReader.pdb
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\bin\Release\Interop.WMPLib.dll
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\bin\Release\AxInterop.WMPLib.dll
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\obj\Release\RSSReader.csprojResolveAssemblyReference.cache
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\obj\Release\RSSReader.Form1.resources
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\obj\Release\RSSReader.Properties.Resources.resources
+G:\Condivisa\Tommasini\Software\sorgenti\RSSReader\obj\Release\RSSReader.csproj.GenerateResource.Cache
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\obj\Release\Interop.WMPLib.dll
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\obj\Release\AxInterop.WMPLib.dll
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\obj\Release\RSSReader.csproj.ResolveComReference.cache
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\obj\Release\RSSReader.exe
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\obj\Release\RSSReader.pdb
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\bin\Release\RSSReader.exe
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\bin\Release\RSSReader.pdb
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\bin\Release\Interop.WMPLib.dll
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\bin\Release\AxInterop.WMPLib.dll
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\obj\Release\RSSReader.csprojResolveAssemblyReference.cache
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\obj\Release\RSSReader.Form1.resources
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\obj\Release\RSSReader.Properties.Resources.resources
+C:\Users\davide\Documents\GitHub\SimplySole24Ore\RSSReader\obj\Release\RSSReader.csproj.GenerateResource.Cache

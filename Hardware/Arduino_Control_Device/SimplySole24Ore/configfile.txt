@@ -1,0 +1,3 @@
+@http://feeds.ilsole24ore.com/c/32276/f/438662/index.rss
+@http://feeds.ilsole24ore.com/c/32276/f/566660/index.rss
+|COM9

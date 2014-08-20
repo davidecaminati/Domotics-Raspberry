@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="RSSReader">
+</Property><Property Name="Solution File" Value="C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\RSSReader.sln">
+</Property><Property Name="User Options File" Value="C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\RSSReader.suo">
+</Property><Property Name="Date" Value="martedì 29 luglio 2014">
+</Property><Property Name="Time" Value="16:33">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="RSSReader.sln" Description="File successfully backed up as C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\Backup\RSSReader.sln">
+</Event><Event ErrorLevel="0" Project="" Source="RSSReader.suo" Description="File successfully backed up as C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\Backup\RSSReader.suo">
+</Event><Event ErrorLevel="0" Project="RSSReader" Source="RSSReader\RSSReader.csproj" Description="Project file successfully backed up as C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\Backup\RSSReader\RSSReader.csproj">
+</Event><Event ErrorLevel="0" Project="RSSReader" Source="RSSReader\Form1.cs" Description="File successfully backed up as C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\Backup\RSSReader\Form1.cs">
+</Event><Event ErrorLevel="0" Project="RSSReader" Source="RSSReader\Form1.Designer.cs" Description="File successfully backed up as C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\Backup\RSSReader\Form1.Designer.cs">
+</Event><Event ErrorLevel="0" Project="RSSReader" Source="RSSReader\Program.cs" Description="File successfully backed up as C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\Backup\RSSReader\Program.cs">
+</Event><Event ErrorLevel="0" Project="RSSReader" Source="RSSReader\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\Backup\RSSReader\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="RSSReader" Source="RSSReader\Properties\Resources.Designer.cs" Description="File successfully backed up as C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\Backup\RSSReader\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="RSSReader" Source="RSSReader\Properties\Settings.Designer.cs" Description="File successfully backed up as C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\Backup\RSSReader\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="RSSReader" Source="RSSReader\Properties\Settings.settings" Description="File successfully backed up as C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\Backup\RSSReader\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="RSSReader" Source="RSSReader\Form1.resx" Description="File successfully backed up as C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\Backup\RSSReader\Form1.resx">
+</Event><Event ErrorLevel="0" Project="RSSReader" Source="RSSReader\Properties\Resources.resx" Description="File successfully backed up as C:\Users\davide\Downloads\RSSReader\RSSReader\sorgenti\Backup\RSSReader\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="RSSReader" Source="RSSReader\RSSReader.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="RSSReader" Source="RSSReader\RSSReader.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="RSSReader.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="RSSReader.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="RSSReader" Source="RSSReader\RSSReader.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

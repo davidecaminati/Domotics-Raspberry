@@ -1,0 +1,48 @@
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\LettoreAudiolibri.exe
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\LettoreAudiolibri.pdb
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.csproj.GenerateResource.Cache
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.exe
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.pdb
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\Interop.WMPLib.dll
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\AxInterop.WMPLib.dll
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\Interop.WMPLib.dll
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\AxInterop.WMPLib.dll
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.csproj.ResolveComReference.cache
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\Interop.WMPLib.dll
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\AxInterop.WMPLib.dll
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.csproj.ResolveComReference.cache
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.exe
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.pdb
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\LettoreAudiolibri.exe
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\LettoreAudiolibri.pdb
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\Interop.WMPLib.dll
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\AxInterop.WMPLib.dll
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.csproj.GenerateResource.Cache
+C:\Users\davide\Desktop\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\Interop.WMPLib.dll
+C:\Users\davide\Desktop\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\AxInterop.WMPLib.dll
+C:\Users\davide\Desktop\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.csproj.ResolveComReference.cache
+C:\Users\davide\Desktop\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.exe
+C:\Users\davide\Desktop\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.pdb
+C:\Users\davide\Desktop\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\LettoreAudiolibri.exe
+C:\Users\davide\Desktop\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\LettoreAudiolibri.pdb
+C:\Users\davide\Desktop\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\Interop.WMPLib.dll
+C:\Users\davide\Desktop\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\AxInterop.WMPLib.dll
+C:\Users\davide\Desktop\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\davide\Desktop\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\davide\Desktop\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.csproj.GenerateResource.Cache
+C:\Users\davide\Desktop\Domotics-Raspberry\Hardware\Arduino_Control_Device\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\Interop.WMPLib.dll
+C:\Users\davide\Desktop\Domotics-Raspberry\Hardware\Arduino_Control_Device\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\AxInterop.WMPLib.dll
+C:\Users\davide\Desktop\Domotics-Raspberry\Hardware\Arduino_Control_Device\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.csproj.ResolveComReference.cache
+C:\Users\davide\Desktop\Domotics-Raspberry\Hardware\Arduino_Control_Device\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.exe
+C:\Users\davide\Desktop\Domotics-Raspberry\Hardware\Arduino_Control_Device\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.pdb
+C:\Users\davide\Desktop\Domotics-Raspberry\Hardware\Arduino_Control_Device\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\LettoreAudiolibri.exe
+C:\Users\davide\Desktop\Domotics-Raspberry\Hardware\Arduino_Control_Device\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\LettoreAudiolibri.pdb
+C:\Users\davide\Desktop\Domotics-Raspberry\Hardware\Arduino_Control_Device\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\Interop.WMPLib.dll
+C:\Users\davide\Desktop\Domotics-Raspberry\Hardware\Arduino_Control_Device\LettoreAudiolibri\LettoreAudiolibri\bin\Debug\AxInterop.WMPLib.dll
+C:\Users\davide\Desktop\Domotics-Raspberry\Hardware\Arduino_Control_Device\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\davide\Desktop\Domotics-Raspberry\Hardware\Arduino_Control_Device\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\davide\Desktop\Domotics-Raspberry\Hardware\Arduino_Control_Device\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Debug\LettoreAudiolibri.csproj.GenerateResource.Cache

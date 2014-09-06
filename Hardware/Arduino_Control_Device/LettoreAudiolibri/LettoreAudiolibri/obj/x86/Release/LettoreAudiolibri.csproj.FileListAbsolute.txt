@@ -1,0 +1,25 @@
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\Interop.WMPLib.dll
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\AxInterop.WMPLib.dll
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\LettoreAudiolibri.csproj.ResolveComReference.cache
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\bin\Release\LettoreAudiolibri.exe
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\bin\Release\LettoreAudiolibri.pdb
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\bin\Release\Interop.WMPLib.dll
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\bin\Release\AxInterop.WMPLib.dll
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\LettoreAudiolibri.csproj.GenerateResource.Cache
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\LettoreAudiolibri.exe
+C:\Users\davide\documents\visual studio 2010\Projects\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\LettoreAudiolibri.pdb
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\Interop.WMPLib.dll
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\AxInterop.WMPLib.dll
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\LettoreAudiolibri.csproj.ResolveComReference.cache
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\LettoreAudiolibri.exe
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\LettoreAudiolibri.pdb
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\bin\Release\LettoreAudiolibri.exe
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\bin\Release\LettoreAudiolibri.pdb
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\bin\Release\Interop.WMPLib.dll
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\bin\Release\AxInterop.WMPLib.dll
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\LettoreAudiolibri.csproj.GenerateResource.Cache
+G:\Condivisa\Tommasini\sorgenti\LettoreAudiolibri\LettoreAudiolibri\obj\x86\Release\LettoreAudiolibri.csprojResolveAssemblyReference.cache

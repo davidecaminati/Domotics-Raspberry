@@ -8,3 +8,5 @@ C:\Users\davide\Desktop\Domotics-Raspberry\trunk\Software\SimpleWebServer\Simple
 C:\Users\davide\Desktop\Domotics-Raspberry\trunk\Software\SimpleWebServer\SimpleWebServer\bin\Debug\SimpleWebServer.exe
 C:\Users\davide\Desktop\Domotics-Raspberry\trunk\Software\SimpleWebServer\SimpleWebServer\bin\Debug\SimpleWebServer.pdb
 C:\Users\davide\Desktop\Domotics-Raspberry\trunk\Software\SimpleWebServer\SimpleWebServer\obj\x86\Debug\SimpleWebServer.csprojResolveAssemblyReference.cache
+C:\Users\davide\Desktop\Domotics-Raspberry\Software\SimpleWebServer\SimpleWebServer\obj\x86\Debug\SimpleWebServer.exe
+C:\Users\davide\Desktop\Domotics-Raspberry\Software\SimpleWebServer\SimpleWebServer\obj\x86\Debug\SimpleWebServer.pdb

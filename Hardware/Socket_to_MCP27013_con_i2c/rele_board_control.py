@@ -53,6 +53,32 @@ app = Flask(__name__)
 
 server_redis = '192.168.0.208'
 
+#Update improve documentation with all WabApi function in home page
+#Update simplyfied Number for rele with name of function
+@app.route('/reletoggle_simply/<string:name>')
+def api_reletoggle_simply(name):
+	if name == "ingresso":
+		api_reletoggle(3)
+		return "ok"
+	if name == "sala2":
+		api_reletoggle(1)
+		return "ok"
+	if name == "sala1":
+		api_reletoggle(5)
+		return "ok"
+	if name == "cucina":
+		api_reletoggle(4)
+		return "ok"
+	if name == "sala":
+		api_reletoggle(1)
+		api_reletoggle(5)
+		return "ok"
+	else:
+		return "error"
+
+
+
+
 @app.route('/facedetected/<int:number>/<string:name>')
 def api_facedetected(number,name):
     ts = time.time()
@@ -68,7 +94,23 @@ def GetReleState():
 
 @app.route('/')
 def api_root():
-    return 'Welcome'
+    message = '''
+    /facedetected/number/name <br>
+    /shutdown <br>
+    /reboot <br>
+    /releoff/number <br>
+    /releon/number <br>
+    /reletest <br>
+    /multireleon/number1/number2/number3/number4/number5 <br>
+    /multireleoff/number1/number2/number3/number4/number5 <br>
+    /reletoggle/number <br>
+    /reledimmon/number <br>
+    /reledimmoff/number <br>
+    /reletimer/number/unlock_after_millisec <br>
+    /relestate/number <br>
+    /relestateall <br>
+    '''
+    return message
 
 
 @app.route('/shutdown')
@@ -259,6 +301,7 @@ def api_multireleoff(number1,number2,number3,number4,number5):
         else:
             return 'malfunction', 201, {'Access-Control-Allow-Origin': '*'} 
 
+			
 @app.route('/reletoggle/<int:number>')
 def api_reletoggle(number):
     if number > 8 or number < 1:

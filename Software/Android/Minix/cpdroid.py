@@ -65,7 +65,12 @@ class Root(object):
     @cherrypy.expose
     def index(self):
         self.droid.vibrate()
-        return "Hello from my Minix"
+        message = """
+            location <br>
+            speak/"what" <br>
+            getQuestion (start the voice recognition)<br> 
+        """
+        return message
  
     @cherrypy.expose
     def location(self):

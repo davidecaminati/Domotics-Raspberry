@@ -688,7 +688,7 @@ sudo rfcomm connect 0 B0:EC:71:72:FF:8D
 watch -n 0.5 hcitool  rssi B0:EC:71:72:FF:8D
 ```
 
-### Sound Control the volume adjuster
+### Sound Control the volume adjuster ( Old )
 ```python
 #this software permit to control the main volume of a Windows 7 64bit using a raspberry and a microphone near the loudspeakers
 #for windows
@@ -705,7 +705,14 @@ sudo apt-get install python-pyaudio
 #execute the program
 python  /home/pi/Domotics-Raspberry/Software/VolumeControl/volumeControl.py
 ```
-            
+
+
+### Sound Control the volume adjuster ( New )
+'''
+#Download  Sound Locker from http://www.3appes.com/index.php?action=developments&lang=en&id=4
+'''
+
+
 ### Audio multiroom with graphic control
 ```python
 #download the image 2014-01-07-wheezy-raspbian-2014-03-12-fbtft-hy28a.img 

@@ -19,18 +19,18 @@
 
 #include <SPI.h>
 #include <Ethernet.h>
-int pin_sala_1 = 22;         
-int pin_sala_2 = 24;         
-int pin_cucina = 26;          
-int pin_ingresso = 28;        
-int pin_dimmer = 30;          
-int pin_porta = 32;           
+const int pin_sala_1 = 22;   //22  
+const int pin_sala_2 = 24;   //24     
+const int pin_cucina = 26;   //26       
+const int pin_ingresso = 28; //28      
+const int pin_dimmer = 30;   //30       
+const int pin_porta = 32;    //32       
 
-int puls_sala_1 = 51; // P3
-int puls_sala_2 = 53; //P4
-int puls_cucina = 45; // P5
-int puls_ingresso = 49; //P2
-int puls_spegni_tutto = 47; // P1
+const int puls_sala_1 = 51; // P3       pin 51  
+const int puls_sala_2 = 53; // P4       pin 53  
+const int puls_cucina = 47; // P5       pin 47 
+const int puls_ingresso = 49; //P2      pin 49 
+const int puls_spegni_tutto = 45; // P1 pin 45
 
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };   
@@ -39,6 +39,7 @@ byte gateway[] = { 192, 168, 0, 1 };
 byte subnet[] = { 255, 255, 255, 0 };                 
 EthernetServer server(5000);                                
 String readString;
+String versione = "0.3";
 
 // debouncing
 bool old_puls_sala_1 = HIGH;
@@ -84,6 +85,8 @@ void setup() {
   server.begin();
   Serial.print("server is at ");
   Serial.println(Ethernet.localIP());
+  Serial.print("server version ");
+  Serial.println(versione);
 }
 
 void loop() {
@@ -150,7 +153,7 @@ void loop() {
 
          if (c == '\n') {          
            Serial.println(readString); 
-     
+     /*
            client.println("HTTP/1.1 200 OK"); //Invio nuova pagina
            client.println("Content-Type: text/html");
            client.println();     
@@ -189,7 +192,7 @@ void loop() {
            client.println("<br />"); 
            client.println("</BODY>");
            client.println("</HTML>");
-     
+     */
            delay(1);
            client.stop();
            // sala_1

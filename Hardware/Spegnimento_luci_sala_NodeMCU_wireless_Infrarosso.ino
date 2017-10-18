@@ -2,7 +2,7 @@
  *  TV mode Domotics
  *  turn off livingroom lights by IR using NodeMCU 8266 and MCE remote control 
  *  Programmed in Learn Mode to emulate a Majestic IR remote control
- *
+ *  More info on how to set MCE Remote  at https://shop.tbsdtv.com/blog/how-to-program-microsoft-mce-remote-control-learning-functionality.html
  *  Created on: 18/10/2017
  *
  */

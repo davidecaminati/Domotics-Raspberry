@@ -19,6 +19,9 @@
 
 #include <SPI.h>
 #include <Ethernet.h>
+// IR
+#include <IRremote.h>
+
 const int pin_sala_1 = 22;   //22  
 const int pin_sala_2 = 24;   //24     
 const int pin_cucina = 26;   //26       
@@ -40,6 +43,11 @@ byte subnet[] = { 255, 255, 255, 0 };
 EthernetServer server(5000);                                
 String readString;
 String versione = "0.3";
+
+// IR
+int RECV_PIN = 2;
+IRrecv irrecv(RECV_PIN);
+decode_results results;
 
 // debouncing
 bool old_puls_sala_1 = HIGH;
@@ -87,9 +95,21 @@ void setup() {
   Serial.println(Ethernet.localIP());
   Serial.print("server version ");
   Serial.println(versione);
+
+  //IR 
+  irrecv.enableIRIn(); // Start the receiver
 }
 
 void loop() {
+
+  // IR
+  if (irrecv.decode(&results)) {
+      if (results.value == 16713975){
+       ToggleSala();
+      }
+      irrecv.resume();  // Receive the next value
+    }
+    
   if ( digitalRead(puls_sala_1) == LOW && old_puls_sala_1 != LOW) {
     stato_sala_1 = !stato_sala_1;
     stato_sala_2 = !stato_sala_1;// sincronizzo gli stati
@@ -153,7 +173,7 @@ void loop() {
 
          if (c == '\n') {          
            Serial.println(readString); 
-     /*
+     
            client.println("HTTP/1.1 200 OK"); //Invio nuova pagina
            client.println("Content-Type: text/html");
            client.println();     
@@ -189,10 +209,19 @@ void loop() {
            client.println("<br />");
            client.println("<a href=\"/reletimer/8\"\">PORTA</a>");          //Modifica a tuo piacimento:"Accendi LED 6"
            client.println("<br />");
+           client.println("<br />");
+           client.println("<a href=\"/reletoggle/5\"\">toggle Sala 1</a>");          
+           client.println("<br />");
+           client.println("<br />");
+           client.println("<a href=\"/reletoggle/1\"\">toggle sala 2</a>");            
+           client.println("<br />");
+           client.println("<br />");
+           client.println("<a href=\"/reletoggle/sala\"\">toggle SALA</a>");          
+           client.println("<br />");
            client.println("<br />"); 
            client.println("</BODY>");
            client.println("</HTML>");
-     */
+     
            delay(1);
            client.stop();
            // sala_1
@@ -243,11 +272,40 @@ void loop() {
                delay(500);
                digitalWrite(pin_porta, HIGH);
            }
-
+            // toggler
+            
+           if (readString.indexOf("/reletoggle/5") >0) {
+            stato_sala_1 = !stato_sala_1;
+            digitalWrite(pin_sala_1, stato_sala_1);
+            }
+           if (readString.indexOf("/reletoggle/1") >0) {
+            stato_sala_2 = !stato_sala_2;
+            digitalWrite(pin_sala_2, stato_sala_2);
+           }
+           if (readString.indexOf("/reletoggle/sala") >0) {
+              ToggleSala();
+           }
             readString="";  
-           
+          }
          }
        }
     }
 }
-}
+
+void ToggleSala(){
+        // case provious ON
+      if ((stato_sala_1 == LOW ) || ( (stato_sala_2 == LOW ))){
+        stato_sala_1 = HIGH;
+        stato_sala_2 = HIGH;
+      digitalWrite(pin_sala_1, stato_sala_1);
+      digitalWrite(pin_sala_2, stato_sala_2);
+     }
+     else{
+        //stato_sala_1 = LOW;
+        stato_sala_2 = LOW;
+      //digitalWrite(pin_sala_1, stato_sala_1);
+      digitalWrite(pin_sala_2, stato_sala_2);
+      
+     }
+  }
+

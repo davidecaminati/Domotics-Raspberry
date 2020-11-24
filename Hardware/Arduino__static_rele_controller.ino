@@ -35,14 +35,17 @@ const int puls_cucina = 47; // P5       pin 47
 const int puls_ingresso = 49; //P2      pin 49 
 const int puls_spegni_tutto = 45; // P1 pin 45
 
+const int SHORT_PRESS_TIME = 1000; // 500 milliseconds
+unsigned long pressedTime  = 0;
+unsigned long releasedTime = 0;
 
-byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };   
-byte ip[] = { 192, 168, 0, 202 };                      
-byte gateway[] = { 192, 168, 0, 1 };                   
+byte mac[] = { 0xBE, 0xAD, 0x0E, 0xEF, 0xFE, 0xEA };   
+byte ip[] = { 192, 168, 10, 202 };                      
+byte gateway[] = { 192, 168, 10, 1 };                   
 byte subnet[] = { 255, 255, 255, 0 };                 
 EthernetServer server(5000);                                
 String readString;
-String versione = "0.3";
+String versione = "0.4";
 
 // IR
 int RECV_PIN = 2;
@@ -104,13 +107,47 @@ void loop() {
 
   // IR
   if (irrecv.decode(&results)) {
-      if (results.value == 16713975){
+      Serial.println(results.value);
+      if ((results.value == 16713975) || (results.value == 2148500503)){
        ToggleSala();
+       delay(500);
+      }      
+      if ((results.value == 2148467803) || (results.value == 2148500571)) {   // RED
+       ToggleIngresso();
+       delay(500);
       }
+      
+      if ((results.value == 2148467804) || (results.value == 2148500572)){   // GREEN
+       ToggleCucina();
+       delay(500);
+      }
+      
+      if ((results.value == 2148467805) || (results.value == 2148500573)){   // Yellow
+       ToggleSalaFull();
+       delay(500);
+      }
+      
       irrecv.resume();  // Receive the next value
     }
+
+// END IR
+
+    
+  if ((digitalRead(puls_sala_1) == LOW) && (old_puls_sala_1 == LOW)){
+    long pressDuration = millis() - pressedTime;
+    if( pressDuration > SHORT_PRESS_TIME ){
+      Serial.println("A short press is detected");
+      stato_sala_1 = HIGH;
+      stato_sala_2 = LOW;
+      digitalWrite(pin_sala_1, stato_sala_1);
+      digitalWrite(pin_sala_2, stato_sala_2);
+    }
+    
+  }
     
   if ( digitalRead(puls_sala_1) == LOW && old_puls_sala_1 != LOW) {
+    pressedTime = millis();
+    Serial.println("puls_sala_1");
     stato_sala_1 = !stato_sala_1;
     stato_sala_2 = !stato_sala_1;// sincronizzo gli stati
     digitalWrite(pin_sala_1, stato_sala_1);
@@ -119,8 +156,10 @@ void loop() {
     old_puls_sala_1 = LOW;
   }
   if ( digitalRead(puls_sala_1) == HIGH) old_puls_sala_1 = HIGH;
+
   
   if ( digitalRead(puls_sala_2) == LOW && old_puls_sala_2 != LOW) {
+    Serial.println("puls_sala_2");
     stato_ingresso = !stato_ingresso;
     digitalWrite(pin_ingresso, stato_ingresso);
     delay(200);
@@ -290,6 +329,7 @@ void loop() {
          }
        }
     }
+    
 }
 
 void ToggleSala(){
@@ -308,4 +348,45 @@ void ToggleSala(){
       
      }
   }
+  
+void ToggleSalaFull(){
+        // case provious ON
+      if ((stato_sala_1 == LOW ) || ( (stato_sala_2 == LOW ))){
+        stato_sala_1 = HIGH;
+        stato_sala_2 = HIGH;
+      digitalWrite(pin_sala_1, stato_sala_1);
+      digitalWrite(pin_sala_2, stato_sala_2);
+     }
+     else{
+        stato_sala_1 = LOW;
+        stato_sala_2 = LOW;
+      digitalWrite(pin_sala_1, stato_sala_1);
+      digitalWrite(pin_sala_2, stato_sala_2);
+      
+     }
+  }
 
+void ToggleIngresso(){
+        // case provious ON
+      if (stato_ingresso == LOW ){
+        stato_ingresso = HIGH;
+      digitalWrite(pin_ingresso, stato_ingresso);
+     }
+     else{
+        stato_ingresso = LOW;
+      digitalWrite(pin_ingresso, stato_ingresso);
+      
+     }
+  }
+void ToggleCucina(){
+        // case provious ON
+      if (stato_cucina == LOW ){
+        stato_cucina = HIGH;
+      digitalWrite(pin_cucina, stato_cucina);
+     }
+     else{
+        stato_cucina = LOW;
+      digitalWrite(pin_cucina, stato_cucina);
+      
+     }
+  }

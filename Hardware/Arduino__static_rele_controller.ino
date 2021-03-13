@@ -108,22 +108,26 @@ void loop() {
   // IR
   if (irrecv.decode(&results)) {
       Serial.println(results.value);
-      if ((results.value == 16713975) || (results.value == 2148500503)){
+      if ((results.value == 16713975) || (results.value == 2148500503) || results.value == 2148467735 || results.value == 3772809343){
        ToggleSala();
+       Serial.print("ToggleSala");
        delay(500);
       }      
       if ((results.value == 2148467803) || (results.value == 2148500571)) {   // RED
        ToggleIngresso();
+       Serial.print("ToggleIngresso");
        delay(500);
       }
       
       if ((results.value == 2148467804) || (results.value == 2148500572)){   // GREEN
        ToggleCucina();
+       Serial.print("ToggleCucina");
        delay(500);
       }
       
       if ((results.value == 2148467805) || (results.value == 2148500573)){   // Yellow
        ToggleSalaFull();
+       Serial.print("ToggleSalaFull");
        delay(500);
       }
       

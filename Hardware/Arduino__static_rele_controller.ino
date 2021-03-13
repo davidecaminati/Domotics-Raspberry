@@ -45,7 +45,7 @@ byte gateway[] = { 192, 168, 10, 1 };
 byte subnet[] = { 255, 255, 255, 0 };                 
 EthernetServer server(5000);                                
 String readString;
-String versione = "0.4";
+String versione = "0.5";
 
 // IR
 int RECV_PIN = 2;

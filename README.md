@@ -1,3 +1,7 @@
+Please note:
+This code is not mantained anymore, some part are vulnerable, please don't use
+in productrion, use only for reference.
+
 Domotics
 ========
 

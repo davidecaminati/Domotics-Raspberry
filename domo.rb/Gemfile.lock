@@ -1,7 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    activesupport (7.0.4.1)
+    activesupport (7.0.4.3)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -13,7 +13,7 @@ GEM
     builder (3.2.4)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    concurrent-ruby (1.1.10)
+    concurrent-ruby (1.2.2)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     equalizer (0.0.11)
@@ -28,7 +28,7 @@ GEM
       concurrent-ruby (~> 1.0)
     i2c (0.2.22)
     ice_nine (0.11.2)
-    minitest (5.17.0)
+    minitest (5.18.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     mustermann-grape (1.0.1)
@@ -39,7 +39,7 @@ GEM
     redis (3.0.6)
     ruby2_keywords (0.0.2)
     thread_safe (0.3.6)
-    tzinfo (2.0.5)
+    tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     virtus (1.0.5)
       axiom-types (~> 0.1)
